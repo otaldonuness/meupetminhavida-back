@@ -1,6 +1,7 @@
 # compiled output
 /dist
 /node_modules
+build/Release
 
 # Logs
 logs
@@ -10,6 +11,10 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+*.tsbuildinfo
+
+# Linters
+.eslintcache
 
 # OS
 .DS_Store
@@ -26,13 +31,6 @@ lerna-debug.log*
 *.launch
 .settings/
 *.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 
 # Environment variables
 .env
