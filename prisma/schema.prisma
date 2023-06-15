@@ -9,20 +9,22 @@ datasource db {
 }
 
 model Users {
-    id         Int     @id @default(autoincrement())
-    firstName  String  @db.VarChar(25)
-    lastName   String  @db.VarChar(100)
-    email      String  @db.VarChar(50)
-    password   String  @db.VarChar(512)
-    whatsapp   String  @db.VarChar(11)
-    isOng      Boolean
-    ongWebsite String? @db.VarChar(100)
-    Cases      Cases[]
+    id          Int     @id @default(autoincrement())
+    firstName   String  @db.VarChar(25)
+    lastName    String  @db.VarChar(100)
+    email       String  @db.VarChar(50)
+    password    String  @db.VarChar(512)
+    whatsapp    String  @db.VarChar(11)
+    description String  @db.VarChar(100)
+    isOng       Boolean
+    ongWebsite  String? @db.VarChar(100)
+    Cases       Cases[]
 }
 
 model Cases {
     id            Int         @id @default(autoincrement())
-    owner         Users       @relation(fields: [id], references: [id])
+    userRelation  Users       @relation(fields: [owner_id], references: [id])
+    owner_id      Int
     contactMethod String      @db.VarChar(5)
     contactMail   String      @db.VarChar(50)
     contactPhone  String      @db.VarChar(11)
@@ -53,6 +55,7 @@ model Pets {
     isCastrated      Boolean
     type             String             @db.Char(1)
     age              Int
+    description      String             @db.VarChar(100)
     Treatments       Treatments?
     Applied_vaccines Applied_vaccines[]
 }
