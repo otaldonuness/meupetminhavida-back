@@ -5,7 +5,7 @@ generator client {
 datasource db {
     provider     = "mysql"
     url          = env("DATABASE_URL")
-    relationMode = "prisma"
+    relationMode = "foreignKeys"
 }
 
 model Users {
@@ -16,58 +16,69 @@ model Users {
     password   String  @db.VarChar(512)
     whatsapp   String  @db.VarChar(11)
     isOng      Boolean
-    ongWebsite String  @db.VarChar(100)
+    ongWebsite String? @db.VarChar(100)
+    Cases      Cases[]
 }
 
 model Cases {
-    id            Int     @id @default(autoincrement())
-    // foreign key here
-    contactMethod String  @db.VarChar(5)
-    contactMail   String  @db.VarChar(50)
-    contactPhone  String  @db.VarChar(11)
-    description   String  @db.VarChar(500)
+    id            Int         @id @default(autoincrement())
+    owner         Users       @relation(fields: [id], references: [id])
+    contactMethod String      @db.VarChar(5)
+    contactMail   String      @db.VarChar(50)
+    contactPhone  String      @db.VarChar(11)
+    description   String      @db.VarChar(500)
     isAdopted     Boolean
     isPaused      Boolean
-    city          String  @db.VarChar(40)
-    state         String  @db.VarChar(2)
+    city          String      @db.VarChar(40)
+    state         String      @db.VarChar(2)
+    CasePhotos    CasePhotos?
+    Pets          Pets?
 }
 
 model CasePhotos {
     id            Int     @id @default(autoincrement())
-    // foreign key here
+    case          Cases   @relation(fields: [caseId], references: [id])
+    caseId        Int     @unique
     photoURL      String  @db.VarChar(300)
     isMainPicture Boolean
 }
 
 model Pets {
-    id          Int     @id @default(autoincrement())
-    // foreign key here
-    name        String  @db.VarChar(40)
-    gender      String  @db.Char(1)
-    breed       String  @db.VarChar(50)
-    isCastrated Boolean
-    type        String  @db.Char(1)
-    age         Int
+    id               Int                @id @default(autoincrement())
+    case             Cases              @relation(fields: [caseId], references: [id])
+    caseId           Int                @unique
+    name             String             @db.VarChar(40)
+    gender           String             @db.Char(1)
+    breed            String             @db.VarChar(50)
+    isCastrated      Boolean
+    type             String             @db.Char(1)
+    age              Int
+    Treatments       Treatments?
+    Applied_vaccines Applied_vaccines[]
 }
 
 model Treatments {
-    id          Int    @id @default(autoincrement())
-    // foreign key here
-    name        String @db.VarChar(40)
-    medication  String @db.VarChar(80)
-    description String @db.VarChar(500)
-    date        String @db.Char(10)
+    id          Int     @id @default(autoincrement())
+    petRelation Pets    @relation(fields: [pet_id], references: [id])
+    pet_id      Int     @unique
+    name        String  @db.VarChar(40)
+    medication  String? @db.VarChar(80)
+    description String  @db.VarChar(500)
+    date        String  @db.Char(10)
 }
 
 model Vaccines {
-    id         Int    @id @default(autoincrement())
-    name       String @db.VarChar(50)
-    whenToTake String @db.VarChar(30)
+    id               Int               @id @default(autoincrement())
+    name             String            @db.VarChar(50)
+    whenToTake       String            @db.VarChar(30)
+    Applied_vaccines Applied_vaccines?
 }
 
 model Applied_vaccines {
-    id   Int    @id @default(autoincrement())
-    date String @db.Char(10)
-    // foreign key here
-    // foreign key here
+    id              Int      @id @default(autoincrement())
+    date            String   @db.Char(10)
+    petRelation     Pets     @relation(fields: [pet_id], references: [id])
+    vaccineRelation Vaccines @relation(fields: [vaccine_id], references: [id])
+    pet_id          Int      @unique
+    vaccine_id      Int      @unique
 }
