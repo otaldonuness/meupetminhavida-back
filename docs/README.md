@@ -9,4 +9,8 @@ O projeto é desenvolvido com a seguinte stack:
 - Planetscale para o armazenamento do banco de dados
 - NestJS para o servidor
 
+# Modelo do banco de dados
+
+<img align="center" src="./ModeloInicialBancoDeDados.png">
+
 Quer contribuir? Nosso [servidor do discord](https://discord.com/invite/vwZWd2ev) está de portas abertas. 
