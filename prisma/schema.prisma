@@ -9,15 +9,17 @@ datasource db {
 }
 
 model Users {
-    id          Int     @id @default(autoincrement())
-    firstName   String  @db.VarChar(25)
-    lastName    String  @db.VarChar(100)
-    email       String  @db.VarChar(50)
-    password    String  @db.VarChar(512)
-    whatsapp    String  @db.VarChar(11)
-    description String  @db.VarChar(100)
+    id          Int      @id @default(autoincrement())
+    firstName   String   @db.VarChar(25)
+    lastName    String   @db.VarChar(100)
+    email       String   @unique @db.VarChar(50)
+    password    String   @db.VarChar(512)
+    whatsapp    String   @db.VarChar(11)
+    description String   @db.VarChar(100)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
     isOng       Boolean
-    ongWebsite  String? @db.VarChar(100)
+    ongWebsite  String?  @db.VarChar(100)
     Cases       Cases[]
 }
 
@@ -33,16 +35,20 @@ model Cases {
     isPaused      Boolean
     city          String      @db.VarChar(40)
     state         String      @db.VarChar(2)
+    createdAt     DateTime    @default(now())
+    updatedAt     DateTime    @updatedAt
     CasePhotos    CasePhotos?
     Pets          Pets?
 }
 
 model CasePhotos {
-    id            Int     @id @default(autoincrement())
-    case          Cases   @relation(fields: [caseId], references: [id])
-    caseId        Int     @unique
-    photoURL      String  @db.VarChar(300)
+    id            Int      @id @default(autoincrement())
+    case          Cases    @relation(fields: [caseId], references: [id])
+    caseId        Int      @unique
+    photoURL      String   @db.VarChar(300)
     isMainPicture Boolean
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt
 }
 
 model Pets {
@@ -56,32 +62,40 @@ model Pets {
     type             String             @db.Char(1)
     age              Int
     description      String             @db.VarChar(100)
+    createdAt        DateTime           @default(now())
+    updatedAt        DateTime           @updatedAt
     Treatments       Treatments?
     Applied_vaccines Applied_vaccines[]
 }
 
 model Treatments {
-    id          Int     @id @default(autoincrement())
-    petRelation Pets    @relation(fields: [pet_id], references: [id])
-    pet_id      Int     @unique
-    name        String  @db.VarChar(40)
-    medication  String? @db.VarChar(80)
-    description String  @db.VarChar(500)
-    date        String  @db.Char(10)
+    id          Int      @id @default(autoincrement())
+    petRelation Pets     @relation(fields: [pet_id], references: [id])
+    pet_id      Int      @unique
+    name        String   @db.VarChar(40)
+    medication  String?  @db.VarChar(80)
+    description String   @db.VarChar(500)
+    date        DateTime
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 }
 
 model Vaccines {
     id               Int               @id @default(autoincrement())
     name             String            @db.VarChar(50)
     whenToTake       String            @db.VarChar(30)
+    createdAt        DateTime          @default(now())
+    updatedAt        DateTime          @updatedAt
     Applied_vaccines Applied_vaccines?
 }
 
 model Applied_vaccines {
     id              Int      @id @default(autoincrement())
-    date            String   @db.Char(10)
+    date            DateTime
     petRelation     Pets     @relation(fields: [pet_id], references: [id])
     vaccineRelation Vaccines @relation(fields: [vaccine_id], references: [id])
     pet_id          Int      @unique
     vaccine_id      Int      @unique
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
 }
