@@ -20,13 +20,13 @@ model Users {
     updatedAt   DateTime @updatedAt
     isOng       Boolean
     ongWebsite  String?  @db.VarChar(100)
-    Cases       Cases[]
+    cases       Cases[]
 }
 
 model Cases {
     id            Int         @id @default(autoincrement())
-    userRelation  Users       @relation(fields: [owner_id], references: [id])
-    owner_id      Int
+    usersRelation Users       @relation(fields: [ownerId], references: [id])
+    ownerId       Int
     contactMethod String      @db.VarChar(5)
     contactMail   String      @db.VarChar(50)
     contactPhone  String      @db.VarChar(11)
@@ -37,8 +37,8 @@ model Cases {
     state         String      @db.VarChar(2)
     createdAt     DateTime    @default(now())
     updatedAt     DateTime    @updatedAt
-    CasePhotos    CasePhotos?
-    Pets          Pets?
+    casePhotos    CasePhotos?
+    pets          Pets?
 }
 
 model CasePhotos {
@@ -64,8 +64,8 @@ model Pets {
     description      String             @db.VarChar(100)
     createdAt        DateTime           @default(now())
     updatedAt        DateTime           @updatedAt
-    Treatments       Treatments?
-    Applied_vaccines Applied_vaccines[]
+    treatments       Treatments?
+    applied_vaccines Applied_vaccines[]
 }
 
 model Treatments {
@@ -86,7 +86,7 @@ model Vaccines {
     whenToTake       String            @db.VarChar(30)
     createdAt        DateTime          @default(now())
     updatedAt        DateTime          @updatedAt
-    Applied_vaccines Applied_vaccines?
+    applied_vaccines Applied_vaccines?
 }
 
 model Applied_vaccines {
