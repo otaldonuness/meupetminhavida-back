@@ -14,7 +14,7 @@ model Users {
     lastName     String  @db.VarChar(100)
     email        String  @unique @db.VarChar(50)
     password     String  @db.VarChar(512)
-    mobileNumber String  @db.VarChar(11)
+    mobileNumber String? @db.VarChar(11)
     description  String? @db.VarChar(100)
     isOng        Boolean
     ongWebsite   String? @db.VarChar(100)

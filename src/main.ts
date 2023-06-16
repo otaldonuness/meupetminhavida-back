@@ -7,6 +7,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const PORT = parseInt(process.env.APP_PORT) || 3000;
 
+  app.enableCors({
+    origin: process.env.ALLOWED_ORIGINS.split(';'),
+  });
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // Only DTO fields are allowed.

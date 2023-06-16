@@ -1,4 +1,4 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsNumberString, IsOptional, IsPhoneNumber, IsString, IsStrongPassword, IsUrl, Length } from "class-validator";
+import { IsBoolean, IsEmail, IsNotEmpty, IsNumberString, IsOptional, IsString, IsUrl, Length } from "class-validator";
 
 export class SignUpAuthDto {
     @IsEmail()
@@ -21,8 +21,8 @@ export class SignUpAuthDto {
     @Length(11, 11, {
         message: 'Phone number must have length $constraint2, but actual is $value',
     })
-    @IsNotEmpty()
-    mobileNumber: string;
+    @IsOptional()
+    mobileNumber?: string;
 
     @IsOptional()
     @IsString()
