@@ -1,11 +1,16 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/config/prisma/prisma.service';
 import { SignInAuthDto, SignUpAuthDto } from './dto';
 import * as argon from 'argon2';
+import { JwtService } from '@nestjs/jwt';
+import { TokenInfo, TokenPayload } from './types';
+import { PrismaService } from 'src/config/prisma/prisma.service';
 
 @Injectable()
 export class AuthService {
-    constructor(private prisma: PrismaService) {}
+    constructor(
+        private prisma: PrismaService,
+        private jwt: JwtService,
+    ) {}
 
     async signIn(dto: SignInAuthDto) {
         // Find the user by email.
@@ -26,8 +31,7 @@ export class AuthService {
         if (!passwordMatches) {
             throw new ForbiddenException("Credentials incorrect, please try again");
         }
-        delete user.password;
-        return user;
+        return await this.signToken({ userId: user.id, email: user.email });
     }
 
     async signUp(dto: SignUpAuthDto) {
@@ -38,14 +42,28 @@ export class AuthService {
                 password: hashPassword,
             }
             const user = await this.prisma.users.create({data});
-            delete user.password;
-            return user;   
+            return await this.signToken({ userId: user.id, email: user.email });
         } catch (err) {
             // Treats unique constraint from Prisma.
             if (err.code === 'P2002') {
                 throw new ForbiddenException('Credentials already taken, please use other credentials');
             }
             throw err;
+        }
+    }
+
+    async signToken(tokenPayload: TokenPayload): Promise<TokenInfo> {
+        const payload = {
+            sub: tokenPayload.userId,
+            email: tokenPayload.email,
+        }
+        const token = await this.jwt.signAsync(payload, {
+            expiresIn: process.env.TOKEN_EXPIRES,
+            secret: process.env.JWT_SECRET,
+        });
+        return {
+            accessToken: token,
+            accessType: 'Bearer',
         }
     }
 }

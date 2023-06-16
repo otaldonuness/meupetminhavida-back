@@ -11,13 +11,10 @@ import { AuthModule } from './modules/auth/auth.module';
   imports: [
     ConfigModule.forRoot({
       cache: true,
-      isGlobal: true,
     }),
+    AuthModule,
     UsersModule,
     PrismaModule,
-    AuthModule,
   ],
-  controllers: [AuthController],
-  providers: [PrismaService, AuthService],
 })
 export class AppModule {}
