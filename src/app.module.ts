@@ -11,6 +11,7 @@ import { AuthModule } from './modules/auth/auth.module';
   imports: [
     ConfigModule.forRoot({
       cache: true,
+      isGlobal: true,
     }),
     UsersModule,
     PrismaModule,
