@@ -5,5 +5,4 @@ WORKDIR /home/node/app
 
 COPY . .
 
-
 CMD [ "tail", "-f", "/dev/null" ]
