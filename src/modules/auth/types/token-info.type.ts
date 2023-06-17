@@ -1,4 +1,4 @@
 export type TokenInfo = {
-    accessToken: string;
-    accessType: string;
-}
+  accessToken: string;
+  accessType: string;
+};

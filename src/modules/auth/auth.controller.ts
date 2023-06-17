@@ -6,16 +6,16 @@ import { SignInAuthDto, SignUpAuthDto } from './dto';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
-    @Post('signin')
-    @HttpCode(HttpStatus.OK)
-    async signIn(@Body() dto: SignInAuthDto) {
-        return await this.authService.signIn(dto);
-    }
+  @Post('signin')
+  @HttpCode(HttpStatus.OK)
+  async signIn(@Body() dto: SignInAuthDto) {
+    return await this.authService.signIn(dto);
+  }
 
-    @Post('signup')
-    async signUp(@Body() dto: SignUpAuthDto) {
-        return await this.authService.signUp(dto);
-    }
+  @Post('signup')
+  async signUp(@Body() dto: SignUpAuthDto) {
+    return await this.authService.signUp(dto);
+  }
 }
