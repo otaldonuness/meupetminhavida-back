@@ -28,8 +28,8 @@ describe('app e2e', () => {
     await app.init();
     await app.listen(PORT);
 
-    usersService = app.get(UsersService);
-    prisma = app.get(PrismaService);
+    usersService = app.get<UsersService>(UsersService);
+    prisma = app.get<PrismaService>(PrismaService);
     await prisma.cleanDbInOrder();
 
     pactum.request.setBaseUrl(`http://localhost:${PORT}`);
@@ -41,6 +41,11 @@ describe('app e2e', () => {
 
   afterAll(async () => {
     await app.close();
+  });
+
+  it('should be defined', () => {
+    expect(usersService).toBeDefined();
+    expect(prisma).toBeDefined();
   });
 
   describe('auth', () => {
