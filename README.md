@@ -52,6 +52,9 @@ $ npm run start:prod
 $ npm run test
 
 # e2e tests
+# running first time after this you can use only npm run test:e2e
+$ npm run db:test:restart
+$ npm run prisma:test:deploy
 $ npm run test:e2e
 
 # test coverage

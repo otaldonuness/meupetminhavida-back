@@ -1,5 +1,5 @@
 {
-  "name": "getpet-back",
+  "name": "meupetminhavida-back",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -7,20 +7,29 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db:dev:deploy": "npx prisma migrate deploy",
-    "db:dev:up": "docker compose -f ./docker/docker-compose.dev.yaml up -d db-mysql",
-    "db:dev:rm": "docker compose -f ./docker/docker-compose.dev.yaml rm -s -f -v db-mysql"
+    "test:e2e": "dotenv -e .env.test -- jest --config ./tests/e2e/jest-e2e.json",
+    
+    "prisma:dev:deploy": "prisma migrate deploy",
+    "db:dev:up": "docker compose -f ./docker/docker-compose.dev.yaml up -d dev-db-mysql",
+    "db:dev:rm": "docker compose -f ./docker/docker-compose.dev.yaml rm -s -f -v dev-db-mysql",
+    "db:dev:restart": "npm run db:dev:rm && npm run db:dev:up",
+    
+    "prisma:test:deploy": "dotenv -e .env.test -- prisma migrate deploy",
+    "db:test:up": "docker compose -f ./docker/docker-compose.test.yaml up -d test-db-mysql",
+    "db:test:rm": "docker compose -f ./docker/docker-compose.test.yaml rm -s -f -v test-db-mysql",
+    "db:test:restart": "npm run db:test:rm && npm run db:test:up",
+    
+    "lint": "eslint \"{src,apps,libs,tests}/**/*.ts\" --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\""
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -51,6 +60,7 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "dotenv-cli": "^7.2.1",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",

@@ -12,9 +12,9 @@ services:
     networks:
       - inner-network
     depends_on:
-      - db-mysql
+      - dev-db-mysql
   
-  db-mysql:
+  dev-db-mysql:
     image: mysql:8.0.30-debian
     restart: always
     ports:

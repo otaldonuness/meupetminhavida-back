@@ -15,7 +15,7 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Credentials incorrect, please try again');
     }
-
+    console.log({ dto, user });
     const passwordMatches = await argon.verify(user.password, dto.password);
     if (!passwordMatches) {
       throw new UnauthorizedException('Credentials incorrect, please try again');
@@ -24,21 +24,8 @@ export class AuthService {
   }
 
   async signUp(dto: CreateUserDto) {
-    const hashPassword = await argon.hash(dto.password);
-    try {
-      const data = {
-        ...dto,
-        password: hashPassword,
-      };
-      const user = await this.usersService.create(data);
-      return await this.signToken({ sub: user.id, email: user.email });
-    } catch (err) {
-      // Treats unique constraint from Prisma.
-      if (err.code === 'P2002') {
-        throw new UnauthorizedException('Credentials already taken, please use other credentials');
-      }
-      throw err;
-    }
+    const user = await this.usersService.create(dto);
+    return await this.signToken({ sub: user.id, email: user.email });
   }
 
   async signToken(tokenPayload: TokenPayload): Promise<TokenInfo> {
