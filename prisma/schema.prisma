@@ -9,16 +9,16 @@ datasource db {
 }
 
 model Users {
-    id          Int     @id @default(autoincrement())
-    firstName   String  @db.VarChar(25)
-    lastName    String  @db.VarChar(100)
-    email       String  @unique @db.VarChar(50)
-    password    String  @db.VarChar(512)
-    whatsapp    String  @db.VarChar(11)
-    description String  @db.VarChar(100)
-    isOng       Boolean
-    ongWebsite  String? @db.VarChar(100)
-    cases       Cases[]
+    id           Int     @id @default(autoincrement())
+    firstName    String  @db.VarChar(25)
+    lastName     String  @db.VarChar(100)
+    email        String  @unique @db.VarChar(50)
+    password     String  @db.VarChar(512)
+    mobileNumber String? @db.VarChar(11)
+    description  String? @db.VarChar(100)
+    isOng        Boolean
+    ongWebsite   String? @db.VarChar(100)
+    cases        Cases[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
