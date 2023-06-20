@@ -1,16 +1,16 @@
-# GetPet - backend
+# MeuPetMinhaVida - backend
 
-Esse repositório possui o código do backend do projeto GetPet, um projeto open source de adoção de animais. Para ver o frontend,link [clique aqui](https://github.com/otaldonuness/getpet-front).
+This repo contains the code for the backend of the project MeuPetMinhaVida (MyPetMyLife in portuguese), an open source system that makes it easy to find the ideal pet for you to adopt. To check out the front-end code [click here](https://github.com/otaldonuness/meupetminhavida-front).
 
 #
 
-O projeto é desenvolvido com a seguinte stack:
-- Prisma para o banco de dados
-- Planetscale para o armazenamento do banco de dados
-- NestJS para o servidor
+This project is powered by:
+- Prisma, for the database
+- Planetscale, for hosting the database on the cloud
+- NestJS, for dealing with incoming requests effectively 
 
-# Modelo do banco de dados
+# Current model for the database (soon to be changed)
 
 <img align="center" src="./ModeloInicialBancoDeDados.png">
 
-Quer contribuir? Nosso [servidor do discord](https://discord.com/invite/vwZWd2ev) está de portas abertas. 
+Want to contribute? All helping hands are welcome at our [discord server](https://discord.com/invite/vwZWd2ev).
