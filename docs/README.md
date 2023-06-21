@@ -9,8 +9,8 @@ This project is powered by:
 - Planetscale, for hosting the database on the cloud
 - NestJS, for dealing with incoming requests effectively 
 
-# Current model for the database (soon to be changed)
+# Current model for the database (liable to changes)
 
-<img align="center" src="./ModeloInicialBancoDeDados.png">
+<img align="center" src="./database_version_1.0.png">
 
 Want to contribute? All helping hands are welcome at our [discord server](https://discord.com/invite/vwZWd2ev).
