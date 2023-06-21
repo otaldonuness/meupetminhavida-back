@@ -1,12 +1,10 @@
 import {
-  IsBoolean,
   IsEmail,
   IsNotEmpty,
   IsNumber,
   IsNumberString,
   IsOptional,
   IsString,
-  IsUrl,
   Length,
 } from 'class-validator';
 
@@ -44,6 +42,7 @@ export class CreateUserDto {
 
   @IsOptional()
   @IsString()
+  @Length(0, 200)
   description?: string;
 
   @IsOptional()

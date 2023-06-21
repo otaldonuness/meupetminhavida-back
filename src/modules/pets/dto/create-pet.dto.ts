@@ -1,49 +1,50 @@
 import {
-    IsArray,
-    IsBoolean,
-    IsNotEmpty,
-    IsNumber,
-    IsString,
+  IsArray,
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
 } from 'class-validator'
 
 export class CreatePetDto {
-    @IsString()
-    @IsNotEmpty()
-    name: string
+  @IsString()
+  @IsNotEmpty()
+  name: string
 
-    @IsNumber()
-    @IsNotEmpty()
-    caseID: number
+  @IsNumber()
+  @IsNotEmpty()
+  speciesId: number
 
-    @IsString()
-    @IsNotEmpty()
-    gender: string
+  @IsNumber()
+  @IsNotEmpty()
+  locationId: number
 
-    @IsString()
-    @IsNotEmpty()
-    breed: string
+  @IsString()
+  @IsNotEmpty()
+  gender: string
 
-    @IsArray()
-    @IsNotEmpty()
-    treatments: Array<Object>
+  @IsString()
+  @IsNotEmpty()
+  breed: string
 
-    @IsNumber()
-    @IsNotEmpty()
-    age: number
+  @IsNumber()
+  @IsNotEmpty()
+  age: number
 
-    @IsString()
-    @IsNotEmpty()
-    description: string
+  @IsBoolean()
+  @IsNotEmpty()
+  isCastrated: boolean
 
-    @IsString()
-    @IsNotEmpty()
-    type: string
+  @IsString()
+  @IsNotEmpty()
+  description: string
 
-    @IsArray()
-    @IsNotEmpty()
-    appliedVaccines: Array<Object>
+  @IsArray()
+  @IsNotEmpty()
+  appliedVaccines: Array<Object>
 
-    @IsBoolean()
-    @IsNotEmpty()
-    isCastrated: boolean
+  @IsArray()
+  @IsNotEmpty()
+  treatments: Array<Object>
+
 }
