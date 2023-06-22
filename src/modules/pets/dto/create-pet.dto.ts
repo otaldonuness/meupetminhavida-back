@@ -3,6 +3,7 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
 } from 'class-validator'
 
@@ -40,11 +41,14 @@ export class CreatePetDto {
   description: string
 
   @IsArray()
-  @IsNotEmpty()
-  appliedVaccines: Array<Object>
+  @IsOptional()
+  petPhotos?: Array<Object>
 
   @IsArray()
-  @IsNotEmpty()
-  treatments: Array<Object>
+  @IsOptional()
+  appliedVaccines?: Array<Object>
 
+  @IsArray()
+  @IsOptional()
+  treatments?: Array<Object>
 }
