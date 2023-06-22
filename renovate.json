@@ -1,6 +1,39 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base"
+  "extends": ["config:base"],
+  "enabled": true,
+  "enabledManagers": ["npm", "github-actions"],
+  "postUpdateOptions": ["yarnDedupeHighest"],
+  "rangeStrategy": "update-lockfile",
+  "prHourlyLimit": 10,
+  "labels": ["Dependacy"],
+  "assigneesFromCodeOwners": true,
+  "dependencyDashboardHeader": "",
+  "osvVulnerabilityAlerts": true,
+  "timezone": "America/Sao_Paulo",
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "groupName": "vitest monorepo",
+      "groupSlug": "vitest",
+      "matchPackageNames": ["vitest"],
+      "matchPackagePrefixes": ["@vitest/"]
+    },
+    {
+      "matchPaths": ["package.json"],
+      "matchDepTypes": ["dependencies"],
+      "rangeStrategy": "pin"
+    },
+    {
+      "matchPaths": ["packages/**"],
+      "matchDepTypes": ["dependencies"],
+      "rangeStrategy": "replace"
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "rangeStrategy": "auto"
+    }
   ]
 }
