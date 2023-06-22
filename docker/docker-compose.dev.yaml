@@ -15,7 +15,7 @@ services:
       - dev-db-mysql
   
   dev-db-mysql:
-    image: mysql:8.0.30-debian
+    image: mysql:8.0.33-debian
     restart: always
     ports:
       - 3306:3306
