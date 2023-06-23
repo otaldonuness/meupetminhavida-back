@@ -1,13 +1,12 @@
 import {
-  IsBoolean,
   IsEmail,
   IsNotEmpty,
+  IsNumber,
   IsNumberString,
   IsOptional,
   IsString,
-  IsUrl,
   Length,
-} from 'class-validator';
+} from "class-validator";
 
 export class CreateUserDto {
   @IsEmail()
@@ -26,22 +25,28 @@ export class CreateUserDto {
   @IsNotEmpty()
   lastName: string;
 
+  @IsString()
+  @IsNotEmpty()
+  role: string;
+
+  @IsString()
+  @IsNotEmpty()
+  locationId: string;
+
   @IsNumberString()
   @Length(11, 11, {
-    message: 'Phone number must have length $constraint2, but actual is $value',
+    message: "Phone number must have length $constraint2, but actual is $value",
   })
   @IsOptional()
   mobileNumber?: string;
 
   @IsOptional()
   @IsString()
+  @Length(0, 200)
   description?: string;
 
-  @IsBoolean()
-  @IsNotEmpty()
-  isOng = false;
-
-  @IsUrl()
   @IsOptional()
-  ongWebsite?: string;
+  @IsString()
+  @Length(255)
+  hashRT?: string;
 }

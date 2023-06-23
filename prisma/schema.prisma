@@ -9,77 +9,86 @@ datasource db {
 }
 
 model Users {
-    id           Int     @id @default(autoincrement())
-    firstName    String  @db.VarChar(25)
-    lastName     String  @db.VarChar(100)
-    email        String  @unique @db.VarChar(50)
-    password     String  @db.VarChar(512)
-    mobileNumber String? @db.VarChar(11)
-    description  String? @db.VarChar(100)
-    isOng        Boolean
-    ongWebsite   String? @db.VarChar(100)
-    cases        Cases[]
+    id           String    @id @default(uuid())
+    role         String    @db.VarChar(10)
+    location     Locations @relation(fields: [locationId], references: [id])
+    locationId   String
+    firstName    String    @db.VarChar(25)
+    lastName     String    @db.VarChar(100)
+    email        String    @unique @db.VarChar(50)
+    password     String    @db.VarChar(512)
+    mobileNumber String?   @db.VarChar(11)
+    description  String?   @db.VarChar(200)
+    hashRT       String?   @db.VarChar(255)
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-}
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    bannedAt  DateTime?
 
-model Cases {
-    id            Int          @id @default(autoincrement())
-    user          Users        @relation(fields: [ownerId], references: [id])
-    ownerId       Int
-    contactMethod String       @db.VarChar(5)
-    contactMail   String       @db.VarChar(50)
-    contactPhone  String       @db.VarChar(11)
-    description   String       @db.VarChar(500)
-    isAdopted     Boolean
-    isPaused      Boolean
-    city          String       @db.VarChar(40)
-    state         String       @db.VarChar(2)
-    casePhotos    CasePhotos[]
-    pets          Pets?
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    @@index([ownerId])
-}
-
-model CasePhotos {
-    id            Int     @id @default(autoincrement())
-    case          Cases   @relation(fields: [caseId], references: [id])
-    caseId        Int     @unique
-    photoURL      String  @db.VarChar(300)
-    isMainPicture Boolean
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    @@index([caseId])
+    @@index([locationId])
 }
 
 model Pets {
-    id              Int               @id @default(autoincrement())
-    case            Cases             @relation(fields: [caseId], references: [id])
-    caseId          Int               @unique
+    id              String            @id @default(uuid())
+    location        Locations         @relation(fields: [locationId], references: [id])
+    locationId      String
+    species         Species           @relation(fields: [speciesId], references: [id])
+    speciesId       String
     name            String            @db.VarChar(40)
     gender          String            @db.Char(1)
     breed           String            @db.VarChar(50)
     isCastrated     Boolean
-    type            String            @db.Char(1)
     age             Int
     description     String            @db.VarChar(100)
     treatments      Treatments[]
     appliedVaccines AppliedVaccines[]
+    petPhotos       PetPhotos[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    @@index([locationId])
+    @@index([speciesId])
+}
+
+model Locations {
+    id    String @id @default(uuid())
+    city  String @db.VarChar(50)
+    state String @db.VarChar(2)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    Users Users[]
+    Pets  Pets[]
+}
+
+model Species {
+    id   String @id @default(uuid())
+    name String @db.VarChar(40)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    Pets      Pets[]
+}
+
+model PetPhotos {
+    id            String  @id @default(uuid())
+    photoURL      String  @db.VarChar(300)
+    isMainPicture Boolean
+    pet           Pets    @relation(fields: [petId], references: [id])
+    petId         String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([petId])
 }
 
 model Treatments {
-    id          Int      @id @default(autoincrement())
+    id          String   @id @default(uuid())
     pet         Pets     @relation(fields: [petId], references: [id])
-    petId       Int      @unique
+    petId       String   @unique
     name        String   @db.VarChar(40)
     medication  String?  @db.VarChar(80)
     description String   @db.VarChar(500)
@@ -92,7 +101,7 @@ model Treatments {
 }
 
 model Vaccines {
-    id              Int               @id @default(autoincrement())
+    id              String            @id @default(uuid())
     name            String            @db.VarChar(50)
     whenToTake      String            @db.VarChar(30)
     appliedVaccines AppliedVaccines[]
@@ -102,12 +111,12 @@ model Vaccines {
 }
 
 model AppliedVaccines {
-    id        Int      @id @default(autoincrement())
+    id        String   @id @default(uuid())
     date      DateTime
     pet       Pets     @relation(fields: [petId], references: [id])
     vaccine   Vaccines @relation(fields: [vaccineId], references: [id])
-    petId     Int      @unique
-    vaccineId Int      @unique
+    petId     String   @unique
+    vaccineId String   @unique
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

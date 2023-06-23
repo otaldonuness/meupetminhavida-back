@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './modules/users/users.module';
-import { PrismaModule } from './config/prisma/prisma.module';
-import { AuthModule } from './modules/auth/auth.module';
-import { validate } from './config/environment/env.validation';
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { UsersModule } from "./modules/users/users.module";
+import { PrismaModule } from "./config/prisma/prisma.module";
+import { AuthModule } from "./modules/auth/auth.module";
+import { PetsModule } from "./modules/pets/pets.module";
+import { validate } from "./config/environment/env.validation";
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { validate } from './config/environment/env.validation';
     }),
     AuthModule,
     UsersModule,
+    PetsModule,
     PrismaModule,
   ],
 })

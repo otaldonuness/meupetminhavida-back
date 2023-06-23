@@ -31,6 +31,9 @@
     "commit": "git-cz",
     "release": "semantic-release"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:otaldonuness/meupetminhavida-back.git"
