@@ -9,15 +9,15 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: CreateUserDto) {
-    const hashPassword = await argon.hash(dto.password);
-    const location = dto.location;
+    const hashedPassword = await argon.hash(dto.password);
+    delete dto.password;
     try {
       return await this.prisma.users.create({
         data: {
           ...dto,
-          password: hashPassword,
+          hashedPassword,
           location: {
-            create: location,
+            create: dto.location,
           },
         },
         include: {
@@ -43,9 +43,22 @@ export class UsersService {
     return await this.prisma.users.findUnique({ where: { email } });
   }
 
-  removeHashPassword(data: Users) {
+  async updateHashRT(userId: string, refreshToken: string) {
+    const hashedRefreshToken = await argon.hash(refreshToken);
+    await this.prisma.users.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        hashedRefreshToken,
+      },
+    });
+  }
+
+  removeSecrets(data: Users) {
     data = { ...data };
-    delete data.password;
+    delete data.hashedPassword;
+    delete data.hashedRefreshToken;
     return data;
   }
 }

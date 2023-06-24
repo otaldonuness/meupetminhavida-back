@@ -9,8 +9,8 @@ import {
   Length,
   NotEquals,
 } from "class-validator";
-import { UserRole } from "../enums";
 import { CreateLocationDto } from "../../../modules/locations/dto";
+import { UsersRole } from "@prisma/client";
 
 export class CreateUserDto {
   @IsEmail()
@@ -29,14 +29,15 @@ export class CreateUserDto {
   @IsNotEmpty()
   lastName: string;
 
-  @IsEnum(UserRole)
-  @NotEquals(UserRole.ADMIN)
+  @IsEnum(UsersRole)
+  @NotEquals(UsersRole.ADMIN)
   @IsNotEmpty()
-  role: string = UserRole.REGULAR;
+  role: UsersRole = UsersRole.REGULAR;
 
   @IsNumberString()
   @Length(11, 11, {
-    message: "Phone number must have length $constraint2, but actual is $value",
+    message:
+      "Mobile number must have length $constraint2, but actual is $value",
   })
   @IsOptional()
   mobileNumber?: string;
@@ -45,11 +46,6 @@ export class CreateUserDto {
   @IsString()
   @Length(200)
   description?: string;
-
-  @IsOptional()
-  @IsString()
-  @Length(255)
-  hashRT?: string;
 
   @IsNotEmptyObject()
   location: CreateLocationDto;

@@ -19,7 +19,7 @@ export class AuthService {
       );
     }
 
-    const passwordMatches = await argon.verify(user.password, password);
+    const passwordMatches = await argon.verify(user.hashedPassword, password);
 
     if (!passwordMatches) {
       throw new UnauthorizedException(
@@ -27,23 +27,36 @@ export class AuthService {
       );
     }
 
-    return await this.signToken({ sub: user.id, email: user.email });
+    return await this.signTokens({ sub: user.id, email: user.email });
   }
 
-  async signUp(dto: CreateUserDto) {
+  async signUp(dto: CreateUserDto): Promise<TokenInfo> {
     const user = await this.usersService.create(dto);
-
-    return await this.signToken({ sub: user.id, email: user.email });
+    const tokens = await this.signTokens({
+      sub: user.id,
+      email: user.email,
+    });
+    await this.usersService.updateHashRT(user.id, tokens.refreshToken);
+    return tokens;
   }
 
-  async signToken(tokenPayload: TokenPayload): Promise<TokenInfo> {
-    const payload = {
-      sub: tokenPayload.sub,
-      email: tokenPayload.email,
+  async signTokens(tokenPayload: TokenPayload): Promise<TokenInfo> {
+    const accessTokenOptions = {
+      secret: process.env.ACCESS_TOKEN_SECRET,
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRES,
     };
+    const refreshTokenOptions = {
+      secret: process.env.REFRESH_TOKEN_SECRET,
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRES,
+    };
+    const [accessToken, refreshToken] = await Promise.all([
+      this.jwt.signAsync(tokenPayload, accessTokenOptions),
+      this.jwt.signAsync(tokenPayload, refreshTokenOptions),
+    ]);
 
     return {
-      accessToken: await this.jwt.signAsync(payload),
+      accessToken,
+      refreshToken,
       accessType: "Bearer",
     };
   }

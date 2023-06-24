@@ -35,7 +35,10 @@ class EnvironmentVariables {
   REFRESH_TOKEN_SECRET: string;
 
   @IsNotEmpty()
-  TOKEN_EXPIRES: string;
+  ACCESS_TOKEN_EXPIRES: string;
+
+  @IsNotEmpty()
+  REFRESH_TOKEN_EXPIRES: string;
 }
 
 export function validate(config: Record<string, unknown>) {

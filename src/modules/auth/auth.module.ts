@@ -6,15 +6,7 @@ import { AccessTokenStrategy, RefreshTokenStrategy } from "./strategies";
 import { UsersService } from "../users/users.service";
 
 @Module({
-  imports: [
-    JwtModule.register({
-      global: true,
-      secret: process.env.ACCESS_TOKEN_SECRET,
-      signOptions: {
-        expiresIn: process.env.TOKEN_EXPIRES,
-      },
-    }),
-  ],
+  imports: [JwtModule.register({})],
   controllers: [AuthController],
   providers: [
     AuthService,
