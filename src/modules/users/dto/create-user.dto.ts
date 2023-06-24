@@ -1,12 +1,16 @@
 import {
   IsEmail,
+  IsEnum,
   IsNotEmpty,
-  IsNumber,
+  IsNotEmptyObject,
   IsNumberString,
   IsOptional,
   IsString,
   Length,
+  NotEquals,
 } from "class-validator";
+import { UserRole } from "../enums";
+import { CreateLocationDto } from "../../../modules/locations/dto";
 
 export class CreateUserDto {
   @IsEmail()
@@ -25,13 +29,10 @@ export class CreateUserDto {
   @IsNotEmpty()
   lastName: string;
 
-  @IsString()
+  @IsEnum(UserRole)
+  @NotEquals(UserRole.ADMIN)
   @IsNotEmpty()
-  role: string;
-
-  @IsString()
-  @IsNotEmpty()
-  locationId: string;
+  role: string = UserRole.REGULAR;
 
   @IsNumberString()
   @Length(11, 11, {
@@ -42,11 +43,14 @@ export class CreateUserDto {
 
   @IsOptional()
   @IsString()
-  @Length(0, 200)
+  @Length(200)
   description?: string;
 
   @IsOptional()
   @IsString()
   @Length(255)
   hashRT?: string;
+
+  @IsNotEmptyObject()
+  location: CreateLocationDto;
 }

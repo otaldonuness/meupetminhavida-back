@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "src/config/prisma/prisma.service";
+import { PrismaService } from "../../config/prisma/prisma.service";
 import { CreatePetDto } from "./dto";
 
 @Injectable()
@@ -31,11 +31,11 @@ export class PetsService {
     }
   }
 
-  async findPetById(id: number) {
+  async findPetById(id: string) {
     return await this.prisma.pets.findUnique({ where: { id } });
   }
 
-  async findPetsByCityId(locationId: number) {
+  async findPetsByCityId(locationId: string) {
     return await this.prisma.pets.findMany({ where: { locationId } });
   }
 }
