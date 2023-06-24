@@ -10,7 +10,7 @@ import { CreateUserDto } from "../users/dto";
 export class AuthService {
   constructor(private usersService: UsersService, private jwt: JwtService) {}
 
-  async signIn({ email, password }: SignInAuthDto) {
+  async signIn({ email, password }: SignInAuthDto): Promise<TokenInfo> {
     const user = await this.usersService.findOneByEmail(email);
 
     if (!user) {
@@ -27,7 +27,13 @@ export class AuthService {
       );
     }
 
-    return await this.signTokens({ sub: user.id, email: user.email });
+    const tokens = await this.signTokens({
+      sub: user.id,
+      email: user.email,
+    });
+    await this.usersService.updateHashRT(user.id, tokens.refreshToken);
+
+    return tokens;
   }
 
   async signUp(dto: CreateUserDto): Promise<TokenInfo> {

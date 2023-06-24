@@ -22,7 +22,7 @@ module.exports = {
       {
         printWidth: 80,
         tabWidth: 2,
-        trailingComma: "all",
+        // trailingComma: "all",
         // 'singleQuote': true,
         arrowParens: "always",
         endOfLine: "auto",
