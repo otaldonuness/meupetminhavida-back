@@ -12,8 +12,6 @@ import { UsersService } from "../users/users.service";
       secret: process.env.TOKEN_SECRET,
       signOptions: {
         expiresIn: process.env.TOKEN_EXPIRES,
-        issuer: process.env.TOKEN_ISSUER,
-        audience: process.env.TOKEN_AUDIENCE,
       },
     }),
   ],
