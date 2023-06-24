@@ -29,7 +29,10 @@ class EnvironmentVariables {
   ALLOWED_ORIGINS: string;
 
   @IsNotEmpty()
-  TOKEN_SECRET: string;
+  ACCESS_TOKEN_SECRET: string;
+
+  @IsNotEmpty()
+  REFRESH_TOKEN_SECRET: string;
 
   @IsNotEmpty()
   TOKEN_EXPIRES: string;
