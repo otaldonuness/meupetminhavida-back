@@ -12,7 +12,6 @@ export class AuthService {
 
   async signIn({ email, password }: SignInAuthDto): Promise<TokenInfo> {
     const user = await this.usersService.findOneByEmail(email);
-
     if (!user) {
       throw new UnauthorizedException(
         "Credentials incorrect, please try again"
@@ -20,7 +19,6 @@ export class AuthService {
     }
 
     const passwordMatches = await argon.verify(user.hashedPassword, password);
-
     if (!passwordMatches) {
       throw new UnauthorizedException(
         "Credentials incorrect, please try again"
@@ -31,7 +29,10 @@ export class AuthService {
       sub: user.id,
       email: user.email,
     });
-    await this.usersService.updateHashRT(user.id, tokens.refreshToken);
+    await this.usersService.updateHashedRefreshToken(
+      user.id,
+      tokens.refreshToken
+    );
 
     return tokens;
   }
@@ -42,8 +43,16 @@ export class AuthService {
       sub: user.id,
       email: user.email,
     });
-    await this.usersService.updateHashRT(user.id, tokens.refreshToken);
+    await this.usersService.updateHashedRefreshToken(
+      user.id,
+      tokens.refreshToken
+    );
+
     return tokens;
+  }
+
+  async signOut(userId: string): Promise<void> {
+    await this.usersService.removeHashedRefreshToken(userId);
   }
 
   async signTokens(tokenPayload: TokenPayload): Promise<TokenInfo> {
@@ -65,5 +74,34 @@ export class AuthService {
       refreshToken,
       accessType: "Bearer",
     };
+  }
+
+  async refreshTokens(
+    userId: string,
+    refreshToken: string
+  ): Promise<TokenInfo> {
+    const user = await this.usersService.findOneById(userId);
+    if (!user) {
+      throw new UnauthorizedException("Access Denied");
+    }
+
+    const refreshTokenMatches = await argon.verify(
+      user.hashedRefreshToken,
+      refreshToken
+    );
+    if (!refreshTokenMatches) {
+      throw new UnauthorizedException("Access Denied");
+    }
+
+    const tokens = await this.signTokens({
+      sub: user.id,
+      email: user.email,
+    });
+    await this.usersService.updateHashedRefreshToken(
+      user.id,
+      tokens.refreshToken
+    );
+
+    return tokens;
   }
 }

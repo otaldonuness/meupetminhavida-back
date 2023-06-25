@@ -9,6 +9,7 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: CreateUserDto) {
+    dto = { ...dto };
     const hashedPassword = await argon.hash(dto.password);
     delete dto.password;
     try {
@@ -43,7 +44,7 @@ export class UsersService {
     return await this.prisma.users.findUnique({ where: { email } });
   }
 
-  async updateHashRT(userId: string, refreshToken: string) {
+  async updateHashedRefreshToken(userId: string, refreshToken: string) {
     const hashedRefreshToken = await argon.hash(refreshToken);
     await this.prisma.users.update({
       where: {
@@ -51,6 +52,20 @@ export class UsersService {
       },
       data: {
         hashedRefreshToken,
+      },
+    });
+  }
+
+  async removeHashedRefreshToken(userId: string) {
+    return await this.prisma.users.updateMany({
+      where: {
+        id: userId,
+        hashedRefreshToken: {
+          not: null,
+        },
+      },
+      data: {
+        hashedRefreshToken: null,
       },
     });
   }

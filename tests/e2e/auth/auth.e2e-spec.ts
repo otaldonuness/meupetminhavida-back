@@ -7,7 +7,7 @@ import { SignInAuthDto } from "../../../src/modules/auth/dto";
 import { CreateUserDto } from "../../../src/modules/users/dto";
 import { HttpStatus } from "@nestjs/common";
 import { UsersService } from "../../../src/modules/users/users.service";
-import { UserRole } from "../../../src/modules/users/enums/user-role.enum";
+import { UsersRole } from "@prisma/client";
 
 describe("app e2e", () => {
   let app: INestApplication;
@@ -60,7 +60,7 @@ describe("app e2e", () => {
           firstName: "Test",
           lastName: "Test",
           mobileNumber: "12345678901",
-          role: UserRole.REGULAR,
+          role: UsersRole.REGULAR,
           location: {
             city: "Test of December",
             state: "TD",
@@ -81,7 +81,7 @@ describe("app e2e", () => {
           firstName: "Test",
           lastName: "Test",
           mobileNumber: "12345678901",
-          role: UserRole.REGULAR,
+          role: UsersRole.REGULAR,
           location: {
             city: "Test of December",
             state: "TD",
@@ -101,7 +101,7 @@ describe("app e2e", () => {
           password: "test123",
           firstName: "Test",
           lastName: "Test",
-          role: UserRole.REGULAR,
+          role: UsersRole.REGULAR,
           location: {
             city: "Test of December",
             state: "TD",
@@ -126,7 +126,7 @@ describe("app e2e", () => {
           firstName: "Test",
           lastName: "Test",
           mobileNumber: "12345678901",
-          role: UserRole.REGULAR,
+          role: UsersRole.REGULAR,
           location: {
             city: "Test of December",
             state: "TD",
@@ -164,7 +164,7 @@ describe("app e2e", () => {
           firstName: "Test",
           lastName: "Test",
           mobileNumber: "12345678901",
-          role: UserRole.REGULAR,
+          role: UsersRole.REGULAR,
           location: {
             city: "Test of December",
             state: "TD",
@@ -190,7 +190,7 @@ describe("app e2e", () => {
           firstName: "Test",
           lastName: "Test",
           mobileNumber: "12345678901",
-          role: UserRole.REGULAR,
+          role: UsersRole.REGULAR,
           location: {
             city: "Test of December",
             state: "TD",

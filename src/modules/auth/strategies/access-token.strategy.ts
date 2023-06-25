@@ -15,8 +15,6 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, "jwt") {
   }
 
   async validate(payload: TokenPayload) {
-    // If user is not found an 401 will be throw, otherwise return user info.
-    const user = await this.usersService.findOneById(payload.sub);
-    return this.usersService.removeSecrets(user);
+    return payload;
   }
 }
