@@ -81,7 +81,7 @@ export class AuthService {
     refreshToken: string
   ): Promise<TokenInfo> {
     const user = await this.usersService.findOneById(userId);
-    if (!user) {
+    if (!user || !user.hashedRefreshToken) {
       throw new UnauthorizedException("Access Denied");
     }
 

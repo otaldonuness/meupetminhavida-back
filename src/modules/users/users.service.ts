@@ -36,7 +36,7 @@ export class UsersService {
     }
   }
 
-  async findOneById(id: string) {
+  async findOneById(id: string): Promise<Users> {
     return await this.prisma.users.findUnique({ where: { id } });
   }
 
@@ -70,7 +70,7 @@ export class UsersService {
     });
   }
 
-  removeSecrets(data: Users) {
+  removeSecrets(data: Users): Users {
     data = { ...data };
     delete data.hashedPassword;
     delete data.hashedRefreshToken;
