@@ -15,6 +15,7 @@ jobs:
       
       - name: Recreate Dev branch
         run: |
-          git branch -D dev
+          git pull
+          git checkout main
           git checkout -b dev
           git push origin dev -f
