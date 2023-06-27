@@ -1,12 +1,17 @@
 import {
   IsEmail,
+  IsEnum,
   IsNotEmpty,
-  IsNumber,
+  IsNotEmptyObject,
   IsNumberString,
   IsOptional,
   IsString,
   Length,
+  NotEquals,
+  Matches,
 } from "class-validator";
+import { CreateLocationDto } from "../../../modules/locations/dto";
+import { UsersRole } from "@prisma/client";
 
 export class CreateUserDto {
   @IsEmail()
@@ -15,6 +20,11 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
+  @Length(8, 100)
+  @Matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*$/, {
+    message:
+      "Password must contain at least 1 lowercase letter, 1 uppercase letter, 1 numeric digit, 1 special character, and be at least 8 characters long.",
+  })
   password: string;
 
   @IsString()
@@ -25,28 +35,24 @@ export class CreateUserDto {
   @IsNotEmpty()
   lastName: string;
 
-  @IsString()
+  @IsEnum(UsersRole)
+  @NotEquals(UsersRole.ADMIN)
   @IsNotEmpty()
-  role: string;
-
-  @IsString()
-  @IsNotEmpty()
-  locationId: string;
+  role: UsersRole = UsersRole.REGULAR;
 
   @IsNumberString()
   @Length(11, 11, {
-    message: "Phone number must have length $constraint2, but actual is $value",
+    message:
+      "Mobile number must have length $constraint2, but actual is $value",
   })
   @IsOptional()
   mobileNumber?: string;
 
   @IsOptional()
   @IsString()
-  @Length(0, 200)
+  @Length(200)
   description?: string;
 
-  @IsOptional()
-  @IsString()
-  @Length(255)
-  hashRT?: string;
+  @IsNotEmptyObject()
+  location: CreateLocationDto;
 }

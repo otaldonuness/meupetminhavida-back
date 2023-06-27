@@ -1,8 +1,8 @@
-version: '3'
+version: "3"
 
 services:
   test-db-mysql:
-    image: mysql:8.0.33-debian
+    image: mysql:8.0.33
     restart: always
     ports:
       - 3307:3306
