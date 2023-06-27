@@ -1,2 +1,2 @@
-export * from "./auth/jwt.guard";
-export * from "./auth/jwt-refresh.guard";
+export * from "./jwt.guard";
+export * from "./jwt-refresh.guard";

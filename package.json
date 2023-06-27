@@ -15,7 +15,6 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "pretest:e2e": "yarn db:test:restart && sleep 12 && yarn prisma:test:deploy",
     "test:e2e": "dotenv -e .env.test -- jest --config ./tests/e2e/jest-e2e.json",
     "prisma:dev:deploy": "prisma migrate deploy",
     "db:dev:up": "docker compose -f ./docker/docker-compose.dev.yaml up -d dev-db-mysql",

@@ -13,7 +13,7 @@ import { SignInAuthDto } from "./dto";
 import { CreateUserDto } from "../users/dto";
 import { TokenInfo } from "./types";
 import { GetCurrentUser, PublicRoute } from "../../shared/decorators";
-import { JwtRefreshGuard } from "src/shared/guards";
+import { JwtRefreshGuard } from "../../shared/guards";
 
 @ApiTags("auth")
 @Controller("auth")
