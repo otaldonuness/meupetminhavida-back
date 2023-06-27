@@ -14,7 +14,8 @@ export class AuthService {
     const user = await this.usersService.findOneByEmail(email);
 
     const passwordMatches = await argon.verify(
-      user?.hashedPassword || "meupetminhavida-dummy",
+      user?.hashedPassword ||
+        "$argon2id$v=19$m=65536,t=3,p=4$9rAOfe38IHziEcJZNTzqww$RNIaQPxnfna8VcnyW+GnnG0rKs45fUch7t+A1B24mTo",
       password,
       {
         timeCost: 3,
@@ -38,6 +39,7 @@ export class AuthService {
       user.id,
       tokens.refreshToken
     );
+    console.log({ tokens });
 
     return tokens;
   }

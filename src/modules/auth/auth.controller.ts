@@ -22,6 +22,7 @@ export class AuthController {
 
   @PublicRoute()
   @Post("signin")
+  @HttpCode(HttpStatus.OK)
   async signIn(@Body() signInAuthDto: SignInAuthDto): Promise<TokenInfo> {
     return await this.authService.signIn(signInAuthDto);
   }

@@ -54,7 +54,7 @@ describe("/auth", () => {
     it("given valid input when signup then status 201", () => {
       const signUpDto: CreateUserDto = {
         email: "test@test.com",
-        password: "test123",
+        password: "P@sswordTest123!",
         firstName: "Test",
         lastName: "Test",
         mobileNumber: "12345678901",
@@ -81,7 +81,7 @@ describe("/auth", () => {
     it("given valid input with already created user when signup then status 401", async () => {
       const signUpDto: CreateUserDto = {
         email: "test@test.com",
-        password: "test123",
+        password: "P@sswordTest123!",
         firstName: "Test",
         lastName: "Test",
         mobileNumber: "12345678901",
@@ -103,7 +103,7 @@ describe("/auth", () => {
 
     it("given invalid input when signup then status 400", () => {
       const invalidSignUpDto = {
-        password: "test123",
+        password: "P@sswordTest123!",
         firstName: "Test",
         lastName: "Test",
         role: UsersRole.REGULAR,
@@ -128,7 +128,7 @@ describe("/auth", () => {
     it("given valid input with already created user when signin then status 200", async () => {
       const signUpDto: CreateUserDto = {
         email: "test@test.com",
-        password: "test123",
+        password: "P@sswordTest123!",
         firstName: "Test",
         lastName: "Test",
         mobileNumber: "12345678901",
@@ -172,7 +172,7 @@ describe("/auth", () => {
     it("given invalid password when signin then status 401", async () => {
       const signUpDto: CreateUserDto = {
         email: "test@test.com",
-        password: "test123",
+        password: "P@sswordTest123!",
         firstName: "Test",
         lastName: "Test",
         mobileNumber: "12345678901",
@@ -199,7 +199,7 @@ describe("/auth", () => {
     it("given invalid email when signin then status 401", async () => {
       const signUpDto: CreateUserDto = {
         email: "test@test.com",
-        password: "test123",
+        password: "P@sswordTest123!",
         firstName: "Test",
         lastName: "Test",
         mobileNumber: "12345678901",
@@ -231,7 +231,7 @@ describe("/auth", () => {
     it("given authenticated user when signout then status 204", async () => {
       const signUpDto: CreateUserDto = {
         email: "test@test.com",
-        password: "test123",
+        password: "P@sswordTest123!",
         firstName: "Test",
         lastName: "Test",
         mobileNumber: "12345678901",
@@ -280,7 +280,7 @@ describe("/auth", () => {
     it("given authenticated user when refresh token then status 200", async () => {
       const signUpDto: CreateUserDto = {
         email: "test@test.com",
-        password: "test123",
+        password: "P@sswordTest123!",
         firstName: "Test",
         lastName: "Test",
         mobileNumber: "12345678901",
@@ -324,7 +324,7 @@ describe("/auth", () => {
     it("given signout user when refresh token after signout then status 401", async () => {
       const signUpDto: CreateUserDto = {
         email: "test@test.com",
-        password: "test123",
+        password: "P@sswordTest123!",
         firstName: "Test",
         lastName: "Test",
         mobileNumber: "12345678901",
