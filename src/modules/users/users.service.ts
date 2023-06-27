@@ -9,15 +9,16 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: CreateUserDto) {
-    const hashPassword = await argon.hash(dto.password);
-    const location = dto.location;
+    dto = { ...dto };
+    const hashedPassword = await argon.hash(dto.password);
+    delete dto.password;
     try {
       return await this.prisma.users.create({
         data: {
           ...dto,
-          password: hashPassword,
+          hashedPassword,
           location: {
-            create: location,
+            create: dto.location,
           },
         },
         include: {
@@ -35,7 +36,7 @@ export class UsersService {
     }
   }
 
-  async findOneById(id: string) {
+  async findOneById(id: string): Promise<Users> {
     return await this.prisma.users.findUnique({ where: { id } });
   }
 
@@ -43,9 +44,36 @@ export class UsersService {
     return await this.prisma.users.findUnique({ where: { email } });
   }
 
-  removeHashPassword(data: Users) {
+  async updateHashedRefreshToken(userId: string, refreshToken: string) {
+    const hashedRefreshToken = await argon.hash(refreshToken);
+    await this.prisma.users.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        hashedRefreshToken,
+      },
+    });
+  }
+
+  async removeHashedRefreshToken(userId: string) {
+    return await this.prisma.users.updateMany({
+      where: {
+        id: userId,
+        hashedRefreshToken: {
+          not: null,
+        },
+      },
+      data: {
+        hashedRefreshToken: null,
+      },
+    });
+  }
+
+  removeSecrets(data: Users): Users {
     data = { ...data };
-    delete data.password;
+    delete data.hashedPassword;
+    delete data.hashedRefreshToken;
     return data;
   }
 }

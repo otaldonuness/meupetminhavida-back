@@ -29,10 +29,16 @@ class EnvironmentVariables {
   ALLOWED_ORIGINS: string;
 
   @IsNotEmpty()
-  TOKEN_SECRET: string;
+  ACCESS_TOKEN_SECRET: string;
 
   @IsNotEmpty()
-  TOKEN_EXPIRES: string;
+  REFRESH_TOKEN_SECRET: string;
+
+  @IsNotEmpty()
+  ACCESS_TOKEN_EXPIRES: string;
+
+  @IsNotEmpty()
+  REFRESH_TOKEN_EXPIRES: string;
 }
 
 export function validate(config: Record<string, unknown>) {
