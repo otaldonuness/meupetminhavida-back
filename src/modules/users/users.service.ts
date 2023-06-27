@@ -1,8 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import * as argon from 'argon2';
-import { PrismaService } from '../../config/prisma/prisma.service';
-import { CreateUserDto } from './dto';
-import { Users } from '@prisma/client';
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import * as argon from "argon2";
+import { PrismaService } from "../../config/prisma/prisma.service";
+import { CreateUserDto } from "./dto";
+import { Users } from "@prisma/client";
 
 @Injectable()
 export class UsersService {
@@ -18,14 +18,16 @@ export class UsersService {
       return await this.prisma.users.create({ data });
     } catch (err) {
       // Treats unique constraint from Prisma.
-      if (err.code === 'P2002') {
-        throw new UnauthorizedException('Credentials already taken, please use other credentials');
+      if (err.code === "P2002") {
+        throw new UnauthorizedException(
+          "Credentials already taken, please use other credentials"
+        );
       }
       throw err;
     }
   }
 
-  async findOneById(id: number) {
+  async findOneById(id: string) {
     return await this.prisma.users.findUnique({ where: { id } });
   }
 

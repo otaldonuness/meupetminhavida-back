@@ -1,11 +1,11 @@
-import { plainToInstance } from 'class-transformer';
-import { IsEnum, IsNotEmpty, IsNumber, IsString, validateSync } from 'class-validator';
+import { plainToInstance } from "class-transformer";
+import { IsEnum, IsNotEmpty, IsNumber, validateSync } from "class-validator";
 
 enum Environment {
-  Development = 'development',
-  Test = 'test',
-  Stagging = 'stagging',
-  Production = 'prod',
+  Development = "development",
+  Test = "test",
+  Stagging = "stagging",
+  Production = "prod",
 }
 
 class EnvironmentVariables {
@@ -40,11 +40,13 @@ export function validate(config: Record<string, unknown>) {
     enableImplicitConversion: true,
   });
 
-  const errors = validateSync(validatedConfig, { skipMissingProperties: false });
+  const errors = validateSync(validatedConfig, {
+    skipMissingProperties: false,
+  });
 
   if (errors.length > 0) {
     throw new Error(
-      `some expected environment variable could not be fould. checkit it and try again: ${errors.toString()}`,
+      `some expected environment variable could not be fould. checkit it and try again: ${errors.toString()}`
     );
   }
   return validatedConfig;

@@ -1,4 +1,4 @@
 export type TokenPayload = {
-  sub: number;
+  sub: string;
   email: string;
 };
