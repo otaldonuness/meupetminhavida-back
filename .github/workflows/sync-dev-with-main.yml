@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - main
+      
+permissions:
+  actions: write
+  contents: write
+  deployments: write
+  packages: write
 
 jobs:
   sync-dev-with-main:
