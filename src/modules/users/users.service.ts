@@ -8,14 +8,32 @@ import { Users } from "@prisma/client";
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async create(dto: CreateUserDto) {
-    const hashPassword = await argon.hash(dto.password);
+  async create(createUserDto: CreateUserDto) {
+    const hashPassword = await argon.hash(createUserDto.password);
     const data = {
-      ...dto,
+      ...createUserDto,
       password: hashPassword,
     };
+
     try {
-      return await this.prisma.users.create({ data });
+      return await this.prisma.users.create({
+        data,
+        select: {
+          id: true,
+          role: true,
+          locationId: false,
+          firstName: true,
+          lastName: true,
+          email: true,
+          password: false,
+          mobileNumber: false,
+          description: true,
+          hashRT: false,
+          createdAt: true,
+          updatedAt: true,
+          bannedAt: true,
+        },
+      });
     } catch (err) {
       // Treats unique constraint from Prisma.
       if (err.code === "P2002") {
