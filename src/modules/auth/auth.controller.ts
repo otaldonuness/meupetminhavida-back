@@ -22,32 +22,31 @@ export class AuthController {
 
   @PublicRoute()
   @Post("signin")
-  @HttpCode(HttpStatus.OK)
-  signIn(@Body() dto: SignInAuthDto): Promise<TokenInfo> {
-    return this.authService.signIn(dto);
+  async signIn(@Body() signInAuthDto: SignInAuthDto): Promise<TokenInfo> {
+    return await this.authService.signIn(signInAuthDto);
   }
 
   @PublicRoute()
   @Post("signup")
-  signUp(@Body() dto: CreateUserDto): Promise<TokenInfo> {
-    return this.authService.signUp(dto);
+  async signUp(@Body() createUserDto: CreateUserDto): Promise<TokenInfo> {
+    return await this.authService.signUp(createUserDto);
   }
 
   @ApiBearerAuth()
   @Get("signout")
   @HttpCode(HttpStatus.NO_CONTENT)
-  signOut(@GetCurrentUser("sub") userId: string): void {
-    this.authService.signOut(userId);
+  async signOut(@GetCurrentUser("sub") userId: string): Promise<void> {
+    return await this.authService.signOut(userId);
   }
 
   @PublicRoute()
   @UseGuards(JwtRefreshGuard)
   @ApiBearerAuth()
   @Get("refresh")
-  refreshTokens(
+  async refreshTokens(
     @GetCurrentUser("sub") userId: string,
     @GetCurrentUser("refreshToken") refreshToken: string
   ): Promise<TokenInfo> {
-    return this.authService.refreshTokens(userId, refreshToken);
+    return await this.authService.refreshTokens(userId, refreshToken);
   }
 }

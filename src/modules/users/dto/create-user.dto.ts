@@ -8,6 +8,7 @@ import {
   IsString,
   Length,
   NotEquals,
+  Matches,
 } from "class-validator";
 import { CreateLocationDto } from "../../../modules/locations/dto";
 import { UsersRole } from "@prisma/client";
@@ -19,6 +20,11 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
+  @Length(8, 100)
+  @Matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*$/, {
+    message:
+      "Password must contain at least 1 lowercase letter, 1 uppercase letter, 1 numeric digit, 1 special character, and be at least 8 characters long.",
+  })
   password: string;
 
   @IsString()

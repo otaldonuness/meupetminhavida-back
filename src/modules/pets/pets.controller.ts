@@ -10,7 +10,7 @@ export class PetsController {
   constructor(private readonly petsService: PetsService) {}
 
   @Post()
-  create(@Body() input: CreatePetDto) {
-    return this.petsService.create(input);
+  create(@Body() createPetDto: CreatePetDto) {
+    return this.petsService.create(createPetDto);
   }
 }

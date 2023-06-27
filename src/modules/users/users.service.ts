@@ -8,20 +8,35 @@ import { Users } from "@prisma/client";
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async create(dto: CreateUserDto) {
-    dto = { ...dto };
-    const hashedPassword = await argon.hash(dto.password);
-    delete dto.password;
+  async create(createUserDto: CreateUserDto): Promise<Partial<Users>> {
+    const { location, ...userRest } = createUserDto;
+    const { password, ...userData } = userRest;
+
+    const hashedPassword = await argon.hash(password);
+
     try {
       return await this.prisma.users.create({
         data: {
-          ...dto,
-          hashedPassword,
+          ...userData,
+          hashedPassword: hashedPassword,
           location: {
-            create: dto.location,
+            create: location,
           },
         },
-        include: {
+        select: {
+          id: true,
+          role: true,
+          locationId: false,
+          firstName: true,
+          lastName: true,
+          email: true,
+          hashedPassword: false,
+          hashedRefreshToken: false,
+          mobileNumber: false,
+          description: true,
+          createdAt: true,
+          updatedAt: true,
+          bannedAt: true,
           location: true,
         },
       });
@@ -40,11 +55,14 @@ export class UsersService {
     return await this.prisma.users.findUnique({ where: { id } });
   }
 
-  async findOneByEmail(email: string) {
+  async findOneByEmail(email: string): Promise<Users> {
     return await this.prisma.users.findUnique({ where: { email } });
   }
 
-  async updateHashedRefreshToken(userId: string, refreshToken: string) {
+  async updateHashedRefreshToken(
+    userId: string,
+    refreshToken: string
+  ): Promise<void> {
     const hashedRefreshToken = await argon.hash(refreshToken);
     await this.prisma.users.update({
       where: {

@@ -18,8 +18,8 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle("GetPet API")
-    .setDescription(`Main GetPet API`)
+    .setTitle("Meu pet minha vida API")
+    .setDescription(`Main Meu pet minha vida API`)
     .setVersion("1.0.0")
     .addBearerAuth()
     .build();

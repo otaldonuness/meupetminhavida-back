@@ -12,6 +12,7 @@ export class UsersController {
   @Get("me")
   async getMe(@GetCurrentUser("sub") userId: string) {
     const user = await this.usersService.findOneById(userId);
+
     return this.usersService.removeSecrets(user);
   }
 }

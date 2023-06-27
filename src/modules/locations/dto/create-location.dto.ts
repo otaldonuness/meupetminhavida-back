@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, Length } from "class-validator";
+import { IsNotEmpty, IsString, Length, Matches } from "class-validator";
 
 export class CreateLocationDto {
   @IsString()
@@ -10,4 +10,12 @@ export class CreateLocationDto {
   @Length(2)
   @IsNotEmpty()
   state: string;
+
+  @IsString()
+  @Length(8)
+  @IsNotEmpty()
+  @Matches(/^[0-9]{8}$/, {
+    message: "Zip code must be in the format XXXXXXXX",
+  })
+  zip: string;
 }

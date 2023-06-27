@@ -62,6 +62,7 @@ describe("/auth", () => {
         location: {
           city: "Test of December",
           state: "TD",
+          zip: "12345678",
         },
       };
 
@@ -88,6 +89,7 @@ describe("/auth", () => {
         location: {
           city: "Test of December",
           state: "TD",
+          zip: "12345678",
         },
       };
       await usersService.create(signUpDto);
@@ -108,6 +110,7 @@ describe("/auth", () => {
         location: {
           city: "Test of December",
           state: "TD",
+          zip: "12345678",
         },
       };
 
@@ -133,6 +136,7 @@ describe("/auth", () => {
         location: {
           city: "Test of December",
           state: "TD",
+          zip: "12345678",
         },
       };
       await usersService.create(signUpDto);
@@ -176,6 +180,7 @@ describe("/auth", () => {
         location: {
           city: "Test of December",
           state: "TD",
+          zip: "12345678",
         },
       };
       await usersService.create(signUpDto);
@@ -202,6 +207,7 @@ describe("/auth", () => {
         location: {
           city: "Test of December",
           state: "TD",
+          zip: "12345678",
         },
       };
       await usersService.create(signUpDto);
@@ -233,6 +239,7 @@ describe("/auth", () => {
         location: {
           city: "Test of December",
           state: "TD",
+          zip: "12345678",
         },
       };
       await usersService.create(signUpDto);
@@ -281,6 +288,7 @@ describe("/auth", () => {
         location: {
           city: "Test of December",
           state: "TD",
+          zip: "12345678",
         },
       };
       await usersService.create(signUpDto);
@@ -324,6 +332,7 @@ describe("/auth", () => {
         location: {
           city: "Test of December",
           state: "TD",
+          zip: "12345678",
         },
       };
       await usersService.create(signUpDto);

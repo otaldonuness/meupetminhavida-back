@@ -5,7 +5,6 @@ import { JwtService } from "@nestjs/jwt";
 import { TokenInfo, TokenPayload } from "./types";
 import { UsersService } from "../users/users.service";
 import { CreateUserDto } from "../users/dto";
-import { sleep } from "../../utils";
 
 @Injectable()
 export class AuthService {
@@ -14,21 +13,27 @@ export class AuthService {
   async signIn({ email, password }: SignInAuthDto): Promise<TokenInfo> {
     const user = await this.usersService.findOneByEmail(email);
 
-    if (!user) {
-      // User enumeration protection.
-      await sleep(100);
-      throw new UnauthorizedException("Credentials Incorrect");
-    }
+    const passwordMatches = await argon.verify(
+      user?.hashedPassword || "meupetminhavida-dummy",
+      password,
+      {
+        timeCost: 3,
+        memoryCost: 2 ** 16,
+        parallelism: 2,
+        type: argon.argon2id,
+        hashLength: 32,
+      }
+    );
 
-    const passwordMacthes = await argon.verify(user.hashedPassword, password);
-    if (!passwordMacthes) {
-      throw new UnauthorizedException("Credentials Incorrect");
+    if (!passwordMatches || !user) {
+      throw new UnauthorizedException("Credentials incorrect");
     }
 
     const tokens = await this.signTokens({
       sub: user.id,
       email: user.email,
     });
+
     await this.usersService.updateHashedRefreshToken(
       user.id,
       tokens.refreshToken
@@ -37,12 +42,13 @@ export class AuthService {
     return tokens;
   }
 
-  async signUp(dto: CreateUserDto): Promise<TokenInfo> {
-    const user = await this.usersService.create(dto);
+  async signUp(createUserDto: CreateUserDto): Promise<TokenInfo> {
+    const user = await this.usersService.create(createUserDto);
     const tokens = await this.signTokens({
       sub: user.id,
       email: user.email,
     });
+
     await this.usersService.updateHashedRefreshToken(
       user.id,
       tokens.refreshToken
@@ -74,6 +80,7 @@ export class AuthService {
       sub: user.id,
       email: user.email,
     });
+
     await this.usersService.updateHashedRefreshToken(
       user.id,
       tokens.refreshToken
