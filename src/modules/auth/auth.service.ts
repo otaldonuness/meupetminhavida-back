@@ -5,45 +5,100 @@ import { JwtService } from "@nestjs/jwt";
 import { TokenInfo, TokenPayload } from "./types";
 import { UsersService } from "../users/users.service";
 import { CreateUserDto } from "../users/dto";
+import { sleep } from "../../utils";
 
 @Injectable()
 export class AuthService {
   constructor(private usersService: UsersService, private jwt: JwtService) {}
 
-  async signIn({ email, password }: SignInAuthDto) {
+  async signIn({ email, password }: SignInAuthDto): Promise<TokenInfo> {
     const user = await this.usersService.findOneByEmail(email);
 
     if (!user) {
-      throw new UnauthorizedException(
-        "Credentials incorrect, please try again"
-      );
+      // User enumeration protection.
+      await sleep(100);
+      throw new UnauthorizedException("Credentials Incorrect");
     }
 
-    const passwordMatches = await argon.verify(user.password, password);
-
-    if (!passwordMatches) {
-      throw new UnauthorizedException(
-        "Credentials incorrect, please try again"
-      );
+    const passwordMacthes = await argon.verify(user.hashedPassword, password);
+    if (!passwordMacthes) {
+      throw new UnauthorizedException("Credentials Incorrect");
     }
 
-    return await this.signToken({ sub: user.id, email: user.email });
+    const tokens = await this.signTokens({
+      sub: user.id,
+      email: user.email,
+    });
+    await this.usersService.updateHashedRefreshToken(
+      user.id,
+      tokens.refreshToken
+    );
+
+    return tokens;
   }
 
-  async signUp(dto: CreateUserDto) {
+  async signUp(dto: CreateUserDto): Promise<TokenInfo> {
     const user = await this.usersService.create(dto);
+    const tokens = await this.signTokens({
+      sub: user.id,
+      email: user.email,
+    });
+    await this.usersService.updateHashedRefreshToken(
+      user.id,
+      tokens.refreshToken
+    );
 
-    return await this.signToken({ sub: user.id, email: user.email });
+    return tokens;
   }
 
-  async signToken(tokenPayload: TokenPayload): Promise<TokenInfo> {
-    const payload = {
-      sub: tokenPayload.sub,
-      email: tokenPayload.email,
+  async signOut(userId: string): Promise<void> {
+    await this.usersService.removeHashedRefreshToken(userId);
+  }
+
+  async refreshTokens(
+    userId: string,
+    refreshToken: string
+  ): Promise<TokenInfo> {
+    const user = await this.usersService.findOneById(userId);
+    const isUserValid = user !== null && user.hashedRefreshToken !== null;
+
+    const refreshTokenMatches = isUserValid
+      ? await argon.verify(user.hashedRefreshToken, refreshToken)
+      : false;
+
+    if (!isUserValid || !refreshTokenMatches) {
+      throw new UnauthorizedException("Access Denied");
+    }
+
+    const tokens = await this.signTokens({
+      sub: user.id,
+      email: user.email,
+    });
+    await this.usersService.updateHashedRefreshToken(
+      user.id,
+      tokens.refreshToken
+    );
+
+    return tokens;
+  }
+
+  async signTokens(tokenPayload: TokenPayload): Promise<TokenInfo> {
+    const accessTokenOptions = {
+      secret: process.env.ACCESS_TOKEN_SECRET,
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRES,
     };
+    const refreshTokenOptions = {
+      secret: process.env.REFRESH_TOKEN_SECRET,
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRES,
+    };
+    const [accessToken, refreshToken] = await Promise.all([
+      this.jwt.signAsync(tokenPayload, accessTokenOptions),
+      this.jwt.signAsync(tokenPayload, refreshTokenOptions),
+    ]);
 
     return {
-      accessToken: await this.jwt.signAsync(payload),
+      accessToken,
+      refreshToken,
       accessType: "Bearer",
     };
   }
