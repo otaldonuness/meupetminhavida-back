@@ -56,7 +56,7 @@
     "@nestjs/jwt": "10.1.0",
     "@nestjs/passport": "10.0.0",
     "@nestjs/platform-express": "9.4.3",
-    "@nestjs/swagger": "7.0.10",
+    "@nestjs/swagger": "7.0.11",
     "@prisma/client": "4.16.1",
     "argon2": "0.30.3",
     "class-transformer": "0.5.1",
