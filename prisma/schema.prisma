@@ -55,8 +55,6 @@ model Locations {
   id    String @id @default(uuid())
   city  String @db.VarChar(50)
   state String @db.VarChar(2)
-  zip   String @db.VarChar(8)
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
