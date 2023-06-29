@@ -17,6 +17,8 @@ describe("AuthController Unit", () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule],
+      controllers: [AuthController],
+      providers: [AuthService],
     }).compile();
 
     authController = moduleRef.get<AuthController>(AuthController);

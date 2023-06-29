@@ -5,10 +5,15 @@ import { JwtService } from "@nestjs/jwt";
 import { TokenInfo, TokenPayload } from "./types";
 import { UsersService } from "../users/users.service";
 import { CreateUserDto } from "../users/dto";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService, private jwt: JwtService) {}
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+    private configService: ConfigService
+  ) {}
 
   async signIn({ email, password }: SignInAuthDto): Promise<TokenInfo> {
     const user = await this.usersService.findOneByEmail(email);
@@ -92,16 +97,16 @@ export class AuthService {
 
   async signTokens(tokenPayload: TokenPayload): Promise<TokenInfo> {
     const accessTokenOptions = {
-      secret: process.env.ACCESS_TOKEN_SECRET,
-      expiresIn: process.env.ACCESS_TOKEN_EXPIRES,
+      secret: this.configService.get("ACCESS_TOKEN_SECRET"),
+      expiresIn: this.configService.get("ACCESS_TOKEN_EXPIRES"),
     };
     const refreshTokenOptions = {
-      secret: process.env.REFRESH_TOKEN_SECRET,
-      expiresIn: process.env.REFRESH_TOKEN_EXPIRES,
+      secret: this.configService.get("REFRESH_TOKEN_SECRET"),
+      expiresIn: this.configService.get("REFRESH_TOKEN_EXPIRES"),
     };
     const [accessToken, refreshToken] = await Promise.all([
-      this.jwt.signAsync(tokenPayload, accessTokenOptions),
-      this.jwt.signAsync(tokenPayload, refreshTokenOptions),
+      this.jwtService.signAsync(tokenPayload, accessTokenOptions),
+      this.jwtService.signAsync(tokenPayload, refreshTokenOptions),
     ]);
 
     return {
