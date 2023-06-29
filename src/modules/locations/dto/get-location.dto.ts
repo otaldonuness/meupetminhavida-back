@@ -1,4 +1,13 @@
-import { PartialType } from "@nestjs/swagger";
-import { CreateLocationDto } from "./get-locations-by-state.dto";
+import { IsNotEmpty, IsNumber } from "class-validator";
 
-export class UpdateLocationDto extends PartialType(CreateLocationDto) {}
+export class GetLocationInputDto {
+  @IsNumber()
+  @IsNotEmpty()
+  id: number;
+}
+
+export class GetLocationOutputDto {
+  id: number;
+  city: string;
+  state: string;
+}
