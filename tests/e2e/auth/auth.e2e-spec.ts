@@ -36,16 +36,11 @@ describe("/auth", () => {
   });
 
   afterEach(async () => {
-    await prisma.cleanDbInOrder();
+    await prisma.cleanDatabase();
   });
 
   afterAll(async () => {
     await app.close();
-  });
-
-  it("should be defined", () => {
-    expect(usersService).toBeDefined();
-    expect(prisma).toBeDefined();
   });
 
   describe("POST /signup", () => {

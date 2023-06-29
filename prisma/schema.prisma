@@ -18,7 +18,7 @@ model Users {
   hashedPassword     String
   mobileNumber       String?   @db.VarChar(11)
   description        String?   @db.VarChar(200)
-  location           Locations @relation(fields: [locationId], references: [id])
+  location           Locations @relation(fields: [locationId], references: [id], onDelete: Cascade)
   locationId         String
 
   createdAt DateTime  @default(now())

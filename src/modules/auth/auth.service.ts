@@ -27,7 +27,7 @@ export class AuthService {
     );
 
     if (!passwordMatches || !user) {
-      throw new UnauthorizedException("Credentials incorrect");
+      throw new UnauthorizedException("Credentials Incorrect");
     }
 
     const tokens = await this.signTokens({
@@ -39,7 +39,6 @@ export class AuthService {
       user.id,
       tokens.refreshToken
     );
-    console.log({ tokens });
 
     return tokens;
   }

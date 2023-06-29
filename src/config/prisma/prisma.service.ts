@@ -13,10 +13,13 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     });
   }
 
-  cleanDbInOrder() {
-    return this.$transaction([
-      this.users.deleteMany(),
-      this.locations.deleteMany(),
-    ]);
+  async cleanDatabase() {
+    if (process.env.NODE_ENV === "prod") {
+      return;
+    }
+    const models = Reflect.ownKeys(this).filter(
+      (key) => typeof key === "string" && /^[a-z]+$/.test(key)
+    );
+    return Promise.all(models.map((modelKey) => this[modelKey].deleteMany()));
   }
 }
