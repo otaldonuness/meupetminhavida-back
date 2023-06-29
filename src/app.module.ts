@@ -7,6 +7,7 @@ import { PetsModule } from "./modules/pets/pets.module";
 import { validate } from "./config/environment/env.validation";
 import { APP_GUARD } from "@nestjs/core";
 import { JwtGuard } from "./shared/guards";
+import { LocationsModule } from "./modules/locations/locations.module";
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { JwtGuard } from "./shared/guards";
     UsersModule,
     PetsModule,
     PrismaModule,
+    LocationsModule,
   ],
   providers: [
     {
