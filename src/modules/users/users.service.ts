@@ -74,8 +74,8 @@ export class UsersService {
     });
   }
 
-  async removeHashedRefreshToken(userId: string) {
-    return await this.prisma.users.updateMany({
+  async removeHashedRefreshToken(userId: string): Promise<void> {
+    await this.prisma.users.updateMany({
       where: {
         id: userId,
         hashedRefreshToken: {

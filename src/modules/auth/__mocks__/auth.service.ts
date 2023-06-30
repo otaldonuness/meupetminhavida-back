@@ -1,4 +1,4 @@
-import { tokensStub } from "../../../../tests/unit/auth/stubs";
+import { tokensStub } from "../stubs";
 
 export const AuthService = jest.fn().mockReturnValue({
   signIn: jest.fn().mockResolvedValue(tokensStub()),
