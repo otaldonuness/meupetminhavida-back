@@ -59,11 +59,7 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: 170,
       };
 
       return pactum
@@ -86,11 +82,7 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: 170,
       };
       await usersService.create(signUpDto);
 
@@ -133,11 +125,7 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: 170,
       };
       await usersService.create(signUpDto);
       const signInDto: SignInAuthDto = {
@@ -177,11 +165,7 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: 170,
       };
       await usersService.create(signUpDto);
       const signInDto: SignInAuthDto = {
@@ -204,11 +188,7 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: 170,
       };
       await usersService.create(signUpDto);
       const signInDto: SignInAuthDto = {
@@ -236,11 +216,7 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: 170,
       };
       await usersService.create(signUpDto);
       const signInDto: SignInAuthDto = {
@@ -285,11 +261,7 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: 170,
       };
       await usersService.create(signUpDto);
       const signInDto: SignInAuthDto = {
@@ -329,11 +301,7 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: 170,
       };
       await usersService.create(signUpDto);
       const signInDto: SignInAuthDto = {

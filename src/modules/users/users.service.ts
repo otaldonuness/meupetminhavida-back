@@ -9,7 +9,7 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto): Promise<Partial<Users>> {
-    const { location, ...userRest } = createUserDto;
+    const { ...userRest } = createUserDto;
     const { password, ...userData } = userRest;
 
     const hashedPassword = await argon.hash(password);
@@ -19,9 +19,6 @@ export class UsersService {
         data: {
           ...userData,
           hashedPassword: hashedPassword,
-          location: {
-            create: location,
-          },
         },
         select: {
           id: true,
@@ -37,7 +34,6 @@ export class UsersService {
           createdAt: true,
           updatedAt: true,
           bannedAt: true,
-          location: true,
         },
       });
     } catch (err) {

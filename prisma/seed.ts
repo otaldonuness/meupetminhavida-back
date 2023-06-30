@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import locations = require('./seeds/location');
+import { PrismaClient } from "@prisma/client";
+import locations = require("./seeds/location");
 
 const prisma = new PrismaClient();
 async function main() {
