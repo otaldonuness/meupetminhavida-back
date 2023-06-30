@@ -3,11 +3,11 @@ import { IsNotEmpty, IsNumber } from "class-validator";
 export class GetLocationInputDto {
   @IsNumber()
   @IsNotEmpty()
-  id: number;
+  id: string;
 }
 
 export class GetLocationOutputDto {
-  id: number;
+  id: string;
   city: string;
   state: string;
 }

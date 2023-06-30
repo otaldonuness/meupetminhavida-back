@@ -8,8 +8,8 @@ import {
   Delete,
 } from "@nestjs/common";
 import { LocationsService } from "./locations.service";
-import { CreateLocationDto } from "./dto/get-locations-by-state.dto";
-import { UpdateLocationDto } from "./dto/get-location.dto";
+import { CreateLocationDto } from "./dto/get.locations.by.state.dto";
+import { UpdateLocationDto } from "./dto/get.location.dto";
 
 @Controller("locations")
 export class LocationsController {
