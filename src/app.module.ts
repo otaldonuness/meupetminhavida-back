@@ -8,6 +8,8 @@ import { validate } from "./config/environment/env.validation";
 import { APP_GUARD } from "@nestjs/core";
 import { JwtGuard } from "./shared/guards";
 import { LocationsModule } from "./modules/locations/locations.module";
+import { LocationsController } from "./modules/locations/locations.controller";
+import { LocationsService } from "./modules/locations/locations.service";
 
 @Module({
   imports: [
@@ -22,11 +24,13 @@ import { LocationsModule } from "./modules/locations/locations.module";
     LocationsModule,
     PrismaModule,
   ],
+  controllers: [LocationsController],
   providers: [
     {
       provide: APP_GUARD,
       useClass: JwtGuard,
     },
+    LocationsService,
   ],
 })
 export class AppModule {}
