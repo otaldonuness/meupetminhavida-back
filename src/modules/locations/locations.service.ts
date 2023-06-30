@@ -1,26 +1,29 @@
 import { Injectable } from "@nestjs/common";
-import { CreateLocationDto } from "./dto/get-locations-by-state.dto";
-import { UpdateLocationDto } from "./dto/get-location.dto";
+import {
+  GetLocationInputDto,
+  GetLocationOutputDto,
+} from "./dto/get.location.dto";
+import { PrismaService } from "src/config/prisma/prisma.service";
+import { GetLocationByStateInputDto } from "./dto/get.locations.by.state.dto";
 
 @Injectable()
 export class LocationsService {
-  create(createLocationDto: CreateLocationDto) {
-    return "This action adds a new location";
+  constructor(private prisma: PrismaService) {}
+
+  async findByID(input: GetLocationInputDto): Promise<GetLocationOutputDto> {
+    const location = await this.prisma.locations.findFirstOrThrow({
+      where: { id: input.id },
+    });
+
+    const output = new GetLocationOutputDto();
+    output.id = location.id;
+    output.city = location.city;
+    output.state = location.state;
+
+    return output;
   }
 
-  findAll() {
-    return `This action returns all locations`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} location`;
-  }
-
-  update(id: number, updateLocationDto: UpdateLocationDto) {
-    return `This action updates a #${id} location`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} location`;
+  findByState(input: GetLocationByStateInputDto) {
+    return "todo";
   }
 }

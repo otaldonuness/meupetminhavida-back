@@ -1,45 +1,25 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from "@nestjs/common";
+import { Controller, Get, Param } from "@nestjs/common";
 import { LocationsService } from "./locations.service";
-import { CreateLocationDto } from "./dto/get-locations-by-state.dto";
-import { UpdateLocationDto } from "./dto/get-location.dto";
+import {
+  GetLocationInputDto,
+  GetLocationOutputDto,
+} from "./dto/get.location.dto";
+import { PublicRoute } from "src/shared/decorators";
 
+@PublicRoute()
 @Controller("locations")
 export class LocationsController {
   constructor(private readonly locationsService: LocationsService) {}
 
-  @Post()
-  create(@Body() createLocationDto: CreateLocationDto) {
-    return this.locationsService.create(createLocationDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.locationsService.findAll();
-  }
-
   @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.locationsService.findOne(+id);
+  async findByState(@Param("id") id: string): Promise<GetLocationOutputDto> {
+    const input = new GetLocationInputDto();
+    input.id = id;
+    return await this.locationsService.findByID(input);
   }
 
-  @Patch(":id")
-  update(
-    @Param("id") id: string,
-    @Body() updateLocationDto: UpdateLocationDto
-  ) {
-    return this.locationsService.update(+id, updateLocationDto);
-  }
-
-  @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.locationsService.remove(+id);
-  }
+  // @Get(":id")
+  // findOne(@Param("id") id: string) {
+  //   return this.locationsService.findOne(+id);
+  // }
 }

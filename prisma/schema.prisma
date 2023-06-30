@@ -19,7 +19,7 @@ model Users {
   mobileNumber       String?   @db.VarChar(11)
   description        String?   @db.VarChar(200)
   //location           Locations @relation(fields: [locationId], references: [id])
-  locationId         Int
+  locationId         String
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
