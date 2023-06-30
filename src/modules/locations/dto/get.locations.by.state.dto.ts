@@ -7,9 +7,8 @@ export class GetLocationByStateInputDto {
 }
 
 type city = {
-  id: number;
+  id: string;
   city: string;
-  state: string;
 };
 
 export class GetLocationByStateOutputDto {

@@ -5,7 +5,7 @@ import {
 } from "./dto/get.location.dto";
 import { PrismaService } from "src/config/prisma/prisma.service";
 import { GetLocationByStateInputDto } from "./dto/get.locations.by.state.dto";
-import { NotFoundError } from "rxjs";
+import { Location } from "./entities/location.entity";
 
 @Injectable()
 export class LocationsService {
@@ -31,7 +31,26 @@ export class LocationsService {
     }
   }
 
-  findByState(input: GetLocationByStateInputDto) {
-    return "todo";
+  async findByState(input: GetLocationByStateInputDto): Promise<Location[]> {
+    try {
+      const cities = await this.prisma.locations.findMany({
+        where: { state: input.state },
+      });
+      if (cities === undefined) {
+        throw new NotFoundException("cities not found or state doesnt exist");
+      }
+      return cities.map((city) => new Location(city.id, city.city, city.state));
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        console.log(
+          "locations:get:: cities of state " +
+            input.state +
+            "were not found: " +
+            error
+        );
+      }
+      console.log("locations:get:: unexpected error:" + error);
+      throw new Error("unexpected error");
+    }
   }
 }
