@@ -18,7 +18,12 @@ export class LocationsController {
     const input = new GetLocationInputDto();
     input.id = id;
     try {
-      return await this.locationsService.findByID(input);      
+      const output = await this.locationsService.findByID(input);
+      return {
+        id: output.id,
+        city: output.city,
+        state: output.state
+      }       
     } catch(error) {
       if(error instanceof NotFoundException) {
         throw new HttpException(error.message, HttpStatus.NOT_FOUND, { cause: new Error(error.message)});        
