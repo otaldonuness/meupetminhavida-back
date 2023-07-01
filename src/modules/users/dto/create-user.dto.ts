@@ -8,6 +8,7 @@ import {
   Length,
   NotEquals,
   Matches,
+  IsUUID,
 } from "class-validator";
 import { UsersRole } from "@prisma/client";
 
@@ -51,7 +52,7 @@ export class CreateUserDto {
   @Length(200)
   description?: string;
 
-  @IsString()
+  @IsUUID()
   @IsNotEmpty()
   locationId: string;
 }

@@ -4,7 +4,7 @@ import {
   GetLocationInputDto,
   GetLocationOutputDto,
 } from "./dto/get.location.dto";
-import { PublicRoute } from "src/shared/decorators";
+import { PublicRoute } from "../../../src/shared/decorators";
 
 @PublicRoute()
 @Controller("locations")

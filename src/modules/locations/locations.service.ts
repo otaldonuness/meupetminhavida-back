@@ -3,7 +3,7 @@ import {
   GetLocationInputDto,
   GetLocationOutputDto,
 } from "./dto/get.location.dto";
-import { PrismaService } from "src/config/prisma/prisma.service";
+import { PrismaService } from "../../../src/config/prisma/prisma.service";
 import { GetLocationByStateInputDto } from "./dto/get.locations.by.state.dto";
 
 @Injectable()

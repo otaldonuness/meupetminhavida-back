@@ -14,6 +14,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
         },
       },
     });
+    this.configService = configService;
   }
 
   async onModuleInit() {

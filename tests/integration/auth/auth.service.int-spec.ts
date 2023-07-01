@@ -37,11 +37,7 @@ describe("AuthService Integration", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
       };
       await usersService.create(signUpDto);
 
@@ -77,11 +73,7 @@ describe("AuthService Integration", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
       };
       await usersService.create(signUpDto);
 
@@ -108,11 +100,7 @@ describe("AuthService Integration", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
       };
       const signUptTokens = await authService.signUp(signUpDto);
       expect(signUptTokens.accessType).toBe("Bearer");
@@ -128,11 +116,7 @@ describe("AuthService Integration", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
       };
       await usersService.create(signUpDto);
 
@@ -155,11 +139,7 @@ describe("AuthService Integration", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
       };
       await authService.signUp(signUpDto);
       const user = await usersService.findOneByEmail(signUpDto.email);
@@ -179,11 +159,7 @@ describe("AuthService Integration", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
       };
       await usersService.create(signUpDto);
 
@@ -206,11 +182,7 @@ describe("AuthService Integration", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
       };
       const signUpTokens = await authService.signUp(signUpDto);
 
@@ -233,11 +205,7 @@ describe("AuthService Integration", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
       };
       await authService.signUp(signUpDto);
 

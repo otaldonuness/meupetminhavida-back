@@ -49,11 +49,7 @@ describe("AuthController Unit", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
       };
       const tokens = await authController.signUp(signUpDto);
       expect(authService.signUp).toHaveBeenCalledWith(signUpDto);

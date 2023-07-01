@@ -10,7 +10,7 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<Partial<Users>> {
     const { ...userRest } = createUserDto;
-    const { password, ...userData } = userRest;
+    const { password, locationId, ...userData } = userRest;
 
     const hashedPassword = await argon.hash(password);
 
@@ -18,7 +18,8 @@ export class UsersService {
       return await this.prisma.users.create({
         data: {
           ...userData,
-          hashedPassword: hashedPassword,
+          locationId, // TODO: need to verify if location exists before adding it to user.
+          hashedPassword,
         },
         select: {
           id: true,
