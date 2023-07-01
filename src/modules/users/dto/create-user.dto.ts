@@ -2,7 +2,6 @@ import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
-  IsNotEmptyObject,
   IsNumberString,
   IsOptional,
   IsString,
@@ -10,7 +9,6 @@ import {
   NotEquals,
   Matches,
 } from "class-validator";
-import { CreateLocationDto } from "../../../modules/locations/dto";
 import { UsersRole } from "@prisma/client";
 
 export class CreateUserDto {
@@ -53,6 +51,7 @@ export class CreateUserDto {
   @Length(200)
   description?: string;
 
-  @IsNotEmptyObject()
-  location: CreateLocationDto;
+  @IsString()
+  @IsNotEmpty()
+  locationId: string;
 }

@@ -18,7 +18,7 @@ model Users {
   hashedPassword     String
   mobileNumber       String?   @db.VarChar(11)
   description        String?   @db.VarChar(200)
-  location           Locations @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  //location           Locations @relation(fields: [locationId], references: [id])
   locationId         String
 
   createdAt DateTime  @default(now())
@@ -55,12 +55,11 @@ model Locations {
   id    String @id @default(uuid())
   city  String @db.VarChar(50)
   state String @db.VarChar(2)
-  zip   String @db.VarChar(8)
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Users Users[]
+  //FIXME: checkout this entity-relation later
+  //Users Users[]
   Pets  Pets[]
 }
 
