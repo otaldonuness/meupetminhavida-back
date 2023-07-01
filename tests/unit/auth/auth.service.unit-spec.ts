@@ -20,7 +20,6 @@ describe("AuthService Unit", () => {
   let authService: AuthService;
   let usersService: UsersService;
   let jwtService: JwtService;
-  let configService: ConfigService;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -42,7 +41,6 @@ describe("AuthService Unit", () => {
     usersService = moduleRef.get<UsersService>(UsersService);
     authService = moduleRef.get<AuthService>(AuthService);
     jwtService = moduleRef.get<JwtService>(JwtService);
-    configService = moduleRef.get<ConfigService>(ConfigService);
   });
 
   afterEach(() => {
