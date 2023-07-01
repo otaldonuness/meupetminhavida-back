@@ -17,12 +17,6 @@ class EnvironmentVariables {
   APP_PORT: number;
 
   @IsNotEmpty()
-  DATABASE_USERNAME: string;
-
-  @IsNotEmpty()
-  DATABASE_PASSWORD: string;
-
-  @IsNotEmpty()
   DATABASE_URL: string;
 
   @IsNotEmpty()

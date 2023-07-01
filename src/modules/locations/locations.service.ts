@@ -1,50 +1,58 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { GetLocationInputDto } from "./dto/get.location.dto";
+import { Locations } from "@prisma/client";
 import { PrismaService } from "src/config/prisma/prisma.service";
-import { GetLocationByStateInputDto } from "./dto/get.locations.by.state.dto";
-import { Location } from "./entities/location.entity";
+import { LocationsQueryDto } from "./dto";
 
 @Injectable()
 export class LocationsService {
   constructor(private prisma: PrismaService) {}
 
-  async findByID(input: GetLocationInputDto): Promise<Location> {
-    try {
-      const location = await this.prisma.locations.findFirstOrThrow({
-        where: { id: input.id },
-      });
-      const output = new Location(location.id, location.city, location.state);
-      return output;
-    } catch (error) {
-      if (error.constructor.name === "NotFoundError") {
-        console.log("locations:get:: city not found");
-        throw new NotFoundException("city not found");
-      }
-      console.log("locations:get:: unexpected error:" + error);
-      throw new Error("unexpected error");
+  async findAll(query: LocationsQueryDto): Promise<Locations[]> {
+    console.log({ query });
+
+    const { state, city } = query;
+
+    // TODO: refactor logic.
+    // Rule 1: If no query is passed, return all locations
+    // Rule 2: If state is passed but city is not, filter locations only by state
+    // Rule 3: If city is passed but state is not, filter locations only by city
+    // Rule 4: If both state and city are passed, filter using both values
+
+    if (!Object.keys(query).length) {
+      return this.prisma.locations.findMany();
     }
+
+    return await this.prisma.locations.findMany({
+      where: {
+        OR: [
+          state && !city
+            ? { state: { equals: state.toLocaleLowerCase() } }
+            : null,
+          city && !state
+            ? { city: { equals: city.toLocaleLowerCase() } }
+            : null,
+          state && city
+            ? {
+                state: { equals: state.toLocaleLowerCase() },
+                city: { equals: city.toLocaleLowerCase() },
+              }
+            : null,
+        ].filter(Boolean),
+      },
+    });
   }
 
-  async findByState(input: GetLocationByStateInputDto): Promise<Location[]> {
+  async findById(id: string): Promise<Locations> {
     try {
-      const cities = await this.prisma.locations.findMany({
-        where: { state: input.state },
+      return await this.prisma.locations.findUniqueOrThrow({
+        where: { id },
       });
-      if (cities === undefined) {
-        throw new NotFoundException("cities not found or state doesnt exist");
+    } catch (err) {
+      // Treats not found entity by Prisma.
+      if (err.code === "P2025") {
+        throw new NotFoundException(`Location ${id} was not found`);
       }
-      return cities.map((city) => new Location(city.id, city.city, city.state));
-    } catch (error) {
-      if (error instanceof NotFoundException) {
-        console.log(
-          "locations:get:: cities of state " +
-            input.state +
-            "were not found: " +
-            error
-        );
-      }
-      console.log("locations:get:: unexpected error:" + error);
-      throw new Error("unexpected error");
+      throw err;
     }
   }
 }
