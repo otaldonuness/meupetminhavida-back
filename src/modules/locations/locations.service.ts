@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
 import { Locations } from "@prisma/client";
-import { PrismaService } from "src/config/prisma/prisma.service";
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { PrismaService } from "../../../src/config/prisma/prisma.service";
 import { LocationsQueryDto } from "./dto";
 
 @Injectable()
@@ -8,8 +8,6 @@ export class LocationsService {
   constructor(private prisma: PrismaService) {}
 
   async findAll(query: LocationsQueryDto): Promise<Locations[]> {
-    console.log({ query });
-
     const { state, city } = query;
 
     // TODO: refactor logic.

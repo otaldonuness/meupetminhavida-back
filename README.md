@@ -188,3 +188,35 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
+
+## 🧪 Testing
+
+> ⚠️ It's necessary to run every test after some code alteration or feature added, specially if the altered code depends on other modules or libs.
+
+### e2e
+
+> To run **e2e tests** it's necessary to have **Docker** installed on your machine, with **docker compose V2** plugin.
+
+Run tests with the following command:
+
+```bash
+yarn test:e2e
+```
+
+### Integration
+
+> To run **integration tests** it's necessary to have **Docker** installed on your machine, with **docker compose V2** plugin.
+
+Run tests with the following command:
+
+```bash
+yarn test:int
+```
+
+### Unit
+
+Run **unit tests** with the following command:
+
+```bash
+yarn test:unit
+```

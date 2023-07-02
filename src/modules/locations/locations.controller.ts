@@ -1,8 +1,8 @@
 import { Controller, Get, Param, Query } from "@nestjs/common";
-import { LocationsService } from "./locations.service";
-import { PublicRoute } from "src/shared/decorators";
 import { ApiTags } from "@nestjs/swagger";
 import { Locations } from "@prisma/client";
+import { LocationsService } from "./locations.service";
+import { PublicRoute } from "../../../src/shared/decorators";
 import { LocationsQueryDto } from "./dto";
 
 @PublicRoute()

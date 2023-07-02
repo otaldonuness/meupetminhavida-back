@@ -1,14 +1,16 @@
-import { NestFactory, Reflector } from "@nestjs/core";
+import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
-import { ClassSerializerInterceptor, ValidationPipe } from "@nestjs/common";
+import { ValidationPipe } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 
 async function bootstrap() {
+  const configService = new ConfigService();
   const app = await NestFactory.create(AppModule);
-  const PORT = parseInt(process.env.APP_PORT) || 3000;
+  const PORT = parseInt(configService.get("APP_PORT")) || 3000;
 
   app.enableCors({
-    origin: process.env.ALLOWED_ORIGINS.split(";"),
+    origin: configService.get("ALLOWED_ORIGINS").split(";"),
   });
 
   app.useGlobalPipes(
@@ -16,11 +18,14 @@ async function bootstrap() {
       whitelist: true, // Only DTO fields are allowed.
     })
   );
-  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   const config = new DocumentBuilder()
-    .setTitle("Meu pet minha vida API")
-    .setDescription(`Main Meu pet minha vida API`)
+    .setTitle("Meu Pet Minha Vida API")
+    .setDescription(
+      `**Meu Pet Minha Vida API**  
+      You can check our repository [*here*](https://github.com/otaldonuness/meupetminhavida-back), it's an open-source project!
+      `
+    )
     .setVersion("1.0.0")
     .addBearerAuth()
     .build();

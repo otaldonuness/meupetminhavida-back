@@ -46,7 +46,7 @@ export function validate(config: Record<string, unknown>) {
 
   if (errors.length > 0) {
     throw new Error(
-      `some expected environment variable could not be fould. checkit it and try again: ${errors.toString()}`
+      `Some expected environment variable(s) could not be fould. Check it and try again: ${errors.toString()}`
     );
   }
   return validatedConfig;

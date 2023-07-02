@@ -1,13 +1,13 @@
 import { INestApplication, ValidationPipe } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
+import { UsersRole } from "@prisma/client";
+import { HttpStatus } from "@nestjs/common";
 import * as pactum from "pactum";
 import { PrismaService } from "../../../src/config/prisma/prisma.service";
 import { AppModule } from "../../../src/app.module";
 import { SignInAuthDto } from "../../../src/modules/auth/dto";
 import { CreateUserDto } from "../../../src/modules/users/dto";
-import { HttpStatus } from "@nestjs/common";
 import { UsersService } from "../../../src/modules/users/users.service";
-import { UsersRole } from "@prisma/client";
 
 describe("/auth", () => {
   let app: INestApplication;
@@ -36,16 +36,11 @@ describe("/auth", () => {
   });
 
   afterEach(async () => {
-    await prisma.cleanDbInOrder();
+    await prisma.cleanDatabase();
   });
 
   afterAll(async () => {
     await app.close();
-  });
-
-  it("should be defined", () => {
-    expect(usersService).toBeDefined();
-    expect(prisma).toBeDefined();
   });
 
   describe("POST /signup", () => {
@@ -99,11 +94,7 @@ describe("/auth", () => {
         firstName: "Test",
         lastName: "Test",
         role: UsersRole.REGULAR,
-        location: {
-          city: "Test of December",
-          state: "TD",
-          zip: "12345678",
-        },
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
       };
 
       return pactum
