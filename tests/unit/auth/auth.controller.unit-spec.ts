@@ -1,11 +1,11 @@
+import { randomUUID } from "crypto";
 import { Test } from "@nestjs/testing";
+import { UsersRole } from "@prisma/client";
 import { AuthController } from "../../../src/modules/auth/auth.controller";
 import { AuthService } from "../../../src/modules/auth/auth.service";
 import { SignInAuthDto } from "../../../src/modules/auth/dto";
 import { tokensStub } from "../../../src/modules/auth/stubs";
-import { UsersRole } from "@prisma/client";
 import { CreateUserDto } from "../../../src/modules/users/dto";
-import { randomUUID } from "crypto";
 
 jest.mock("../../../src/modules/auth/auth.service");
 
@@ -15,7 +15,6 @@ describe("AuthController Unit", () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [],
       controllers: [AuthController],
       providers: [AuthService],
     }).compile();

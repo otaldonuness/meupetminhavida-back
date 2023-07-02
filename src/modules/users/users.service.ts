@@ -24,17 +24,12 @@ export class UsersService {
         select: {
           id: true,
           role: true,
-          locationId: false,
           firstName: true,
           lastName: true,
           email: true,
-          hashedPassword: false,
-          hashedRefreshToken: false,
-          mobileNumber: false,
           description: true,
           createdAt: true,
           updatedAt: true,
-          bannedAt: true,
         },
       });
     } catch (err) {

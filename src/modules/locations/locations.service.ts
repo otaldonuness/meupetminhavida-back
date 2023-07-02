@@ -8,8 +8,6 @@ export class LocationsService {
   constructor(private prisma: PrismaService) {}
 
   async findAll(query: LocationsQueryDto): Promise<Locations[]> {
-    console.log({ query });
-
     const { state, city } = query;
 
     // TODO: refactor logic.

@@ -23,7 +23,6 @@ describe("AuthService Unit", () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [],
       providers: [
         AuthService,
         UsersService,

@@ -18,7 +18,7 @@ import { JwtRefreshGuard } from "../../shared/guards";
 @ApiTags("auth")
 @Controller("auth")
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
   @PublicRoute()
   @Post("signin")
