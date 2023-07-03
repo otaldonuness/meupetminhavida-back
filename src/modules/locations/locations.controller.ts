@@ -17,7 +17,7 @@ export class LocationsController {
   }
 
   @Get(":id")
-  async findById(@Param() id: string): Promise<Locations> {
+  async findById(@Param("id") id: string): Promise<Locations> {
     return await this.locationsService.findById(id);
   }
 }

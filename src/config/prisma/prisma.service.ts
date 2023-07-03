@@ -1,6 +1,7 @@
 import { INestApplication, Injectable, OnModuleInit } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { PrismaClient } from "@prisma/client";
+import { Environment } from "../environment/enums";
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
@@ -28,7 +29,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   }
 
   async cleanDatabase() {
-    if (this.configService.get("NODE_ENV") === "prod") {
+    if (this.configService.get("NODE_ENV") === Environment.Production) {
       return;
     }
     const models = Reflect.ownKeys(this).filter(
