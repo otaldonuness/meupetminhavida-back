@@ -10,9 +10,9 @@ import { ConfigService } from "@nestjs/config";
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService,
-    private configService: ConfigService
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService
   ) {}
 
   async signIn({ email, password }: SignInAuthDto): Promise<TokenInfo> {
@@ -50,6 +50,7 @@ export class AuthService {
 
   async signUp(createUserDto: CreateUserDto): Promise<TokenInfo> {
     const user = await this.usersService.create(createUserDto);
+
     const tokens = await this.signTokens({
       sub: user.id,
       email: user.email,

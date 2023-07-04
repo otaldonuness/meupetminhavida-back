@@ -5,171 +5,185 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-<!-- [![LinkedIn][linkedin-shield]][linkedin-url] -->
 
 <br />
+
 <div align="center">
   <a href="https://github.com/otaldonuness/meupetminhavida-back">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="./assets/images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Meu Pet Minha Vida</h3>
+<h1 align="center">Meu Pet Minha Vida</h1>
 
   <p align="center">
-    descricao do projeto aqui
+    Esse é um projeto open source e tem como propósito aprimorar o processo de adoção de animais de estimação. A ideia é desenvolver um site que auxilie os bichinhos a encontrarem um dono(a) com a "combinação perfeita".
     <br />
-    <a href="https://github.com/otaldonuness/meupetminhavida-back"><strong>Explore the docs »</strong></a>
+    <a href="https://www.notion.so/meupet-minhavida/43afad71051c45f489007db1b2ed3549?v=60a7d4e130eb4bcd84210db7ec3ff109&pvs=4"><strong>Mais sobre o projeto »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/otaldonuness/meupetminhavida-back">View Demo</a>
-    ·
+    <!-- <a href="https://github.com/otaldonuness/meupetminhavida-back">View Demo</a>
+    · -->
     <a href="https://github.com/otaldonuness/meupetminhavida-back/issues">Report Bug</a>
     ·
     <a href="https://github.com/otaldonuness/meupetminhavida-back/issues">Request Feature</a>
   </p>
 </div>
 
+---
+
 <!-- TABLE OF CONTENTS -->
 <details>
-  <summary>Table of Contents</summary>
+  <summary><b>Conteúdo</b1></summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#🎯-sobre-o-projeto">🎯 Sobre o projeto</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#🔨-feito-com">🔨 Feito com</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
+      <a href="#🚀-comece-por-aqui">🚀 Comece por aqui</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#🔍-pré-requisitos">🔍 Pré requisitos</a></li>
+        <li><a href="#🔧-instalação">🔧 Instalação</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li>
+      <a href="#💻-desenvolvendo">💻 Desenvolvendo</a>
+      <ul>
+        <li><a href="#🧪-testando">🧪 Testando</a></li>
+      </ul>
+    </li>
+    <li><a href="#🤝-contribuindo">🤝 Contribuindo</a></li>
+    <li><a href="#📜-licença">📜 Licença</a></li>
+    <li><a href="#📧-contato">📧 Contato</a></li>
   </ol>
 </details>
 
-## About The Project
+---
 
-<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
+## 🎯 Sobre o projeto
 
-Sobre o projeto aqui
+<div align="center">
+  <a href="https://github.com/otaldonuness/meupetminhavida-back">
+    <img src="./assets/images/caramelo.png" alt="Logo" width="80" height="80">
+  </a>
+</div>
+
+Back-end do projeto **Meu Pet Minha Vida**, que é open source e tem como propósito aprimorar o processo de adoção de animais de estimação. A ideia é desenvolver um site que auxilie os bichinhos a encontrarem um dono(a) com a "combinação perfeita"
+
+### 🔨 Feito com
+
+[![Typescript][Typescript]][Typescript-url]
+[![Nest.js][Nest.js]][Nest-url]
+[![MySQL][MySQL]][MySQL-url]
+[![Prisma][Prisma]][Prisma-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## 🚀 Comece por aqui
+
+TODO
+
+### 🔍 Pré requisitos
+
+TODO
+
+### 🔧 Instalação
+
+TODO
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Built With
-
-- [![Next][Next.js]][Next-url]
-- [![React][React.js]][React-url]
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Getting Started
-
-Instrucoes aqui
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
-   ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+---
 
 <!-- USAGE EXAMPLES -->
 
-## Usage
+## 💻 Desenvolvendo
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+TODO
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+### 🧪 Testando
+
+> ⚠️ É necessário rodar todos os testes após alguma alteração no código ou adição de alguma feature, especialmente se o código alterado depende de outro módulo. Sempre rode pelo menos os **testes unitários**.
+
+#### Testes e2e
+
+> ⚠️ Para rodar os **testes e2e (end-to-end)** é necessário ter o [**Docker**](https://www.docker.com/) instalado na sua máquina.
+
+Rode os testes com o seguinte comando:
+
+```bash
+yarn test:e2e
+```
+
+#### Testes de Integração
+
+⚠️ Para rodar os **testes de integração** é necessário ter o [**Docker**](https://www.docker.com/) instalado na sua máquina.
+
+Rode os testes com o seguinte comando:
+
+```bash
+yarn test:int
+```
+
+#### Testes Unitários
+
+Rode os testes com o seguinte comando:
+
+```bash
+yarn test:unit
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ROADMAP -->
-
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-  - [ ] Nested Feature
-
-See the [open issues](https://github.com/otaldonuness/meupetminhavida-back/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+---
 
 <!-- CONTRIBUTING -->
 
-## Contributing
+## 🤝 Contribuindo
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contribuições são o que tornam a comunidade de código aberto um lugar incrível para aprender, se inspirar e criar. Todas as contribuições que você fizer são muito apreciadas.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+Se você tiver uma sugestão que possa melhorar isso, por favor, faça um fork do repositório e crie uma solicitação de pull. Você também pode simplesmente abrir uma issue com a tag "melhoria".
+Não se esqueça de dar uma estrela ao projeto! Obrigado novamente!
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Faça um fork do projeto.
+2. Crie sua branch (`git checkout -b feat/awsome-feature`).
+3. Faça commit das suas alterações (`git commit`).
+   > Você será perguntado sobre algumas coisas em relação ao que você desenvolveu, responda de acordo com o que você fez.
+4. Faça o push para a branch (`git push origin feat/awsome-feature`).
+5. Abra uma PR.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
 
 <!-- LICENSE -->
 
-## License
+## 📜 Licença
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distribuído sob a Licença GNU. Veja [**LICENSE**](./LICENSE) para mais informações.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
 
 <!-- CONTACT -->
 
-## Contact
+## 📧 Contato
 
 Meu Pet Minha Vida - [@meupetminhavida](https://twitter.com/meupetminhavida) - contato@meupetminhavida.org
 
-Project Link: [https://github.com/otaldonuness/meupetminhavida-back](https://github.com/otaldonuness/meupetminhavida-back)
+Link do projeto: [https://github.com/otaldonuness/meupetminhavida-back](https://github.com/otaldonuness/meupetminhavida-back)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Acknowledgments
+---
 
-- []()
-- []()
-- []()
-
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- Useful links -->
 
 [contributors-shield]: https://img.shields.io/github/contributors/otaldonuness/meupetminhavida-back.svg?style=for-the-badge
 [contributors-url]: https://github.com/otaldonuness/meupetminhavida-back/graphs/contributors
@@ -180,43 +194,12 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 [issues-shield]: https://img.shields.io/github/issues/otaldonuness/meupetminhavida-back.svg?style=for-the-badge
 [issues-url]: https://github.com/otaldonuness/meupetminhavida-back/issues
 [license-shield]: https://img.shields.io/github/license/otaldonuness/meupetminhavida-back.svg?style=for-the-badge
-[license-url]: https://github.com/otaldonuness/meupetminhavida-back/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-
-## 🧪 Testing
-
-> ⚠️ It's necessary to run every test after some code alteration or feature added, specially if the altered code depends on other modules or libs.
-
-### e2e
-
-> To run **e2e tests** it's necessary to have **Docker** installed on your machine, with **docker compose V2** plugin.
-
-Run tests with the following command:
-
-```bash
-yarn test:e2e
-```
-
-### Integration
-
-> To run **integration tests** it's necessary to have **Docker** installed on your machine, with **docker compose V2** plugin.
-
-Run tests with the following command:
-
-```bash
-yarn test:int
-```
-
-### Unit
-
-Run **unit tests** with the following command:
-
-```bash
-yarn test:unit
-```
+[license-url]: https://github.com/otaldonuness/meupetminhavida-back/blob/main/LICENSE
+[Typescript-url]: https://www.typescriptlang.org/
+[Typescript]: https://img.shields.io/badge/TypeScript-3178C6.svg?style=for-the-badge&logo=TypeScript&logoColor=white
+[Nest.js]: https://img.shields.io/badge/NestJS-E0234E.svg?style=for-the-badge&logo=NestJS&logoColor=white
+[Nest-url]: https://nestjs.com/
+[MySQL]: https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=MySQL&logoColor=white
+[MySQL-url]: https://www.mysql.com/
+[Prisma]: https://img.shields.io/badge/Prisma-2D3748.svg?style=for-the-badge&logo=Prisma&logoColor=white
+[Prisma-url]: https://www.prisma.io/
