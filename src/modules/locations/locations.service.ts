@@ -5,7 +5,7 @@ import { LocationsQueryDto } from "./dto";
 
 @Injectable()
 export class LocationsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async findAll(query: LocationsQueryDto): Promise<Locations[]> {
     const { state, city } = query;

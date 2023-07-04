@@ -1,4 +1,5 @@
-version: "3"
+version: "3.9"
+name: meupetminhavida
 
 services:
   back-end:
@@ -11,8 +12,11 @@ services:
       - ../.:/home/node/app
     networks:
       - inner-network
+    env_file:
+      - ../.env
     depends_on:
-      - dev-db-mysql
+      dev-db-mysql:
+        condition: service_healthy
 
   dev-db-mysql:
     image: mysql:8.0.33
@@ -22,8 +26,18 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: meupetminhavidadb
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - db-data:/var/lib/mysql
     networks:
       - inner-network
 
 networks:
   inner-network:
+
+volumes:
+  db-data:
