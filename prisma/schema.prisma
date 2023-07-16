@@ -65,7 +65,7 @@ model Locations {
 
 model Species {
   id   String @id @default(uuid())
-  name String @db.VarChar(40)
+  name String @unique @db.VarChar(40)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
