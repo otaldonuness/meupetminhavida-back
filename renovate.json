@@ -5,17 +5,18 @@
   "enabledManagers": ["npm", "github-actions"],
   "postUpdateOptions": ["yarnDedupeHighest"],
   "rangeStrategy": "update-lockfile",
-  "prHourlyLimit": 10,
   "labels": ["Dependacy"],
   "assigneesFromCodeOwners": true,
   "dependencyDashboardHeader": "",
-  "rebaseWhen": "auto",
   "osvVulnerabilityAlerts": true,
   "timezone": "America/Sao_Paulo",
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true
   },
+  "schedule": [
+    "before 10am on the first day of the month"
+  ],
   "packageRules": [
     {
       "groupName": "vitest monorepo",
@@ -43,9 +44,9 @@
       "automerge": true
     },
     {
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
       "matchCurrentVersion": "!/^0/",
       "automerge": true
-    }
+    }        
   ]
 }
