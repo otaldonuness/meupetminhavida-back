@@ -16,11 +16,11 @@ export class AuthService {
   ) {}
 
   async signIn({ email, password }: SignInAuthDto): Promise<TokenInfo> {
+    const DEFAULT_HASHED_PASSWORD = process.env.DEFAULT_HASHED_PASSWORD;
     const user = await this.usersService.findOneByEmail(email);
 
     const passwordMatches = await argon.verify(
-      user?.hashedPassword ||
-        "$argon2id$v=19$m=65536,t=3,p=4$9rAOfe38IHziEcJZNTzqww$RNIaQPxnfna8VcnyW+GnnG0rKs45fUch7t+A1B24mTo",
+      user?.hashedPassword || DEFAULT_HASHED_PASSWORD,
       password,
       {
         timeCost: 3,
