@@ -4,6 +4,6 @@ import { SpeciesService } from "./species.service";
 
 @Module({
   controllers: [SpeciesController],
-  providers: [SpeciesService]
+  providers: [SpeciesService],
 })
-export class SpeciesModule { }
+export class SpeciesModule {}
