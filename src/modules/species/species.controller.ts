@@ -9,7 +9,7 @@ import {
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { SpeciesService } from "./species.service";
-import { CreateSpeciesDto } from "./dto";
+import { CreateSpeciesDto, UpdateSpeciesDto } from "./dto";
 
 @ApiBearerAuth()
 @ApiTags("species")
@@ -28,7 +28,7 @@ export class SpeciesController {
   }
 
   @Patch(":id")
-  update(@Body() species: CreateSpeciesDto, @Param("id") id: string) {
+  update(@Body() species: UpdateSpeciesDto, @Param("id") id: string) {
     return this.speciesService.update(species, id);
   }
 
