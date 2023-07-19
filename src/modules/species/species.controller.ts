@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Post } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { SpeciesService } from "./species.service";
 import { CreateSpeciesDto } from "./dto";
@@ -10,27 +18,27 @@ export class SpeciesController {
   constructor(private readonly speciesService: SpeciesService) {}
 
   @Post()
-  create(@Param("name") name: CreateSpeciesDto) {
-    return this.speciesService.create(name);
+  create(@Body() species: CreateSpeciesDto) {
+    return this.speciesService.create(species);
   }
 
-  @Post("delete")
+  @Delete(":id")
   delete(@Param("id") id: string) {
     return this.speciesService.delete(id);
   }
 
-  @Post("update")
-  update(@Param("species") species: CreateSpeciesDto, @Param("id") id: string) {
+  @Patch(":id")
+  update(@Body() species: CreateSpeciesDto, @Param("id") id: string) {
     return this.speciesService.update(species, id);
+  }
+
+  @Get(":id")
+  getByID(@Param("id") id: string) {
+    return this.speciesService.getById(id);
   }
 
   @Get()
   getAll() {
     return this.speciesService.getAll();
-  }
-
-  @Get(":id")
-  getByID(@Param("id") id: string) {
-    this.speciesService.getById(id);
   }
 }
