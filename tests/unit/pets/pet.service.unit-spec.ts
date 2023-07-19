@@ -3,7 +3,7 @@ import { Test } from "@nestjs/testing";
 import { PetsServiceMock } from "src/modules/pets/__mocks__";
 import { CreatePetDto } from "src/modules/pets/dto";
 import { PetsService } from "src/modules/pets/pets.service";
-import { petStub } from "src/modules/pets/stubs/pets.stub";
+import { petStub } from "src/modules/pets/stubs/";
 
 jest.mock("../../../src/modules/pets/pets.service.ts");
 
