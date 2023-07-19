@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  NotAcceptableException,
   NotFoundException,
 } from "@nestjs/common";
 import { PrismaService } from "src/config/prisma/prisma.service";
@@ -16,6 +17,9 @@ export class SpeciesService {
     } catch (err) {
       if (err?.code === "P2002") {
         throw new ConflictException("That species is already registered.");
+      }
+      if (err?.code === "P2019") {
+        throw new NotAcceptableException("Invalid input");
       }
       throw err;
     }
@@ -33,16 +37,35 @@ export class SpeciesService {
           "Unable to update. That species is already registered.",
         );
       }
+      if (err?.code === "P2019") {
+        throw new NotAcceptableException("Invalid input");
+      }
+      if (err?.code === "P2025") {
+        throw new NotFoundException(
+          "Unable to find a registered species that matches the provided ID.",
+        );
+      }
       throw err;
     }
   }
 
   async delete(id: string) {
-    return await this.prisma.species.delete({ where: { id } });
+    try {
+      return await this.prisma.species.delete({ where: { id } });
+    } catch (err) {
+      throw err;
+    }
   }
 
   async getAll() {
-    return await this.prisma.species.findMany();
+    try {
+      return await this.prisma.species.findMany();
+    } catch (err) {
+      if (err?.code === "P2025") {
+        throw new NotFoundException("Unable to find registered species.");
+      }
+      throw err;
+    }
   }
 
   async getById(id: string) {
@@ -51,7 +74,7 @@ export class SpeciesService {
     } catch (err) {
       if (err?.code === "P2025") {
         throw new NotFoundException(
-          "There is no registered species that matches the provided ID",
+          "There is no registered species that matches the provided ID.",
         );
       }
       throw err;

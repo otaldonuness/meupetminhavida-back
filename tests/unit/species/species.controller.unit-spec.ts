@@ -67,7 +67,7 @@ describe("SpeciesController Unit", () => {
   describe("getById()", () => {
     it("when getById is called, it should call SpeciesService", async () => {
       const id = "40022892-2a3a-5bd9-9371-0423c1e2abee";
-      const foundSpecies = await speciesController.getByID(id);
+      const foundSpecies = await speciesController.getById(id);
 
       expect(speciesService.getById).toHaveBeenCalledWith(id);
       expect(foundSpecies).toEqual(speciesStub());

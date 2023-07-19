@@ -33,7 +33,7 @@ export class SpeciesController {
   }
 
   @Get(":id")
-  getByID(@Param("id") id: string) {
+  getById(@Param("id") id: string) {
     return this.speciesService.getById(id);
   }
 
