@@ -1,4 +1,8 @@
-import { Injectable } from "@nestjs/common";
+import {
+  Injectable,
+  NotAcceptableException,
+  NotFoundException,
+} from "@nestjs/common";
 import { PrismaService } from "../../config/prisma/prisma.service";
 import { CreatePetDto } from "./dto";
 
@@ -24,16 +28,37 @@ export class PetsService {
           petPhotos: true,
         },
       });
-    } catch (error) {
-      throw error;
+    } catch (err) {
+      if (err?.code === "P2019") {
+        throw new NotAcceptableException("Invalid Input.");
+      }
+      throw err;
     }
   }
 
   async findPetById(id: string) {
-    return await this.prisma.pets.findUnique({ where: { id } });
+    try {
+      return await this.prisma.pets.findUnique({ where: { id } });
+    } catch (err) {
+      if (err?.code === "P2025") {
+        throw new NotFoundException(
+          "Unable to find a pet with the provided ID.",
+        );
+      }
+      throw err;
+    }
   }
 
   async findPetsByCityId(locationId: string) {
-    return await this.prisma.pets.findMany({ where: { locationId } });
+    try {
+      return await this.prisma.pets.findMany({ where: { locationId } });
+    } catch (err) {
+      if (err?.code === "P2025") {
+        throw new NotFoundException(
+          "Unable to find pets with the provideda cityID",
+        );
+      }
+      throw err;
+    }
   }
 }
