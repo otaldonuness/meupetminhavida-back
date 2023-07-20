@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { SignInAuthDto } from "./dto";
 import * as argon from "argon2";
 import { JwtService } from "@nestjs/jwt";
-import { TokenInfo, TokenPayload } from "./types";
+import { TokenInfo, JwtPayload } from "./types";
 import { UsersService } from "../users/users.service";
 import { CreateUserDto } from "../users/dto";
 import { ConfigService } from "@nestjs/config";
@@ -16,11 +16,10 @@ export class AuthService {
   ) {}
 
   async signIn({ email, password }: SignInAuthDto): Promise<TokenInfo> {
-    const DEFAULT_HASHED_PASSWORD = process.env.DEFAULT_HASHED_PASSWORD;
     const user = await this.usersService.findOneByEmail(email);
 
     const passwordMatches = await argon.verify(
-      user?.hashedPassword || DEFAULT_HASHED_PASSWORD,
+      user?.hashedPassword || (await argon.hash("dummy-password")),
       password,
       {
         timeCost: 3,
@@ -38,6 +37,7 @@ export class AuthService {
     const tokens = await this.signTokens({
       sub: user.id,
       email: user.email,
+      role: user.role,
     });
 
     await this.usersService.updateHashedRefreshToken(
@@ -54,6 +54,7 @@ export class AuthService {
     const tokens = await this.signTokens({
       sub: user.id,
       email: user.email,
+      role: user.role,
     });
 
     await this.usersService.updateHashedRefreshToken(
@@ -86,6 +87,7 @@ export class AuthService {
     const tokens = await this.signTokens({
       sub: user.id,
       email: user.email,
+      role: user.role,
     });
 
     await this.usersService.updateHashedRefreshToken(
@@ -96,7 +98,7 @@ export class AuthService {
     return tokens;
   }
 
-  async signTokens(tokenPayload: TokenPayload): Promise<TokenInfo> {
+  async signTokens(jwtPayload: JwtPayload): Promise<TokenInfo> {
     const accessTokenOptions = {
       secret: this.configService.get("ACCESS_TOKEN_SECRET"),
       expiresIn: this.configService.get("ACCESS_TOKEN_EXPIRES"),
@@ -108,8 +110,8 @@ export class AuthService {
     };
 
     const [accessToken, refreshToken] = await Promise.all([
-      this.jwtService.signAsync(tokenPayload, accessTokenOptions),
-      this.jwtService.signAsync(tokenPayload, refreshTokenOptions),
+      this.jwtService.signAsync(jwtPayload, accessTokenOptions),
+      this.jwtService.signAsync(jwtPayload, refreshTokenOptions),
     ]);
 
     return {
