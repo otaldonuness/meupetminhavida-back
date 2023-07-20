@@ -1,7 +1,9 @@
 import { Controller, Get } from "@nestjs/common";
-import { UsersService } from "./users.service";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { plainToInstance } from "class-transformer";
+import { UsersService } from "./users.service";
 import { GetCurrentUser } from "../../shared/decorators";
+import { UserResponseDto } from "./dto";
 
 @ApiBearerAuth()
 @ApiTags("users")
@@ -12,7 +14,6 @@ export class UsersController {
   @Get("me")
   async getMe(@GetCurrentUser("sub") userId: string) {
     const user = await this.usersService.findOneById(userId);
-
-    return this.usersService.removeSecrets(user);
+    return plainToInstance(UserResponseDto, user);
   }
 }

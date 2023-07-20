@@ -1,14 +1,14 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { Users } from "@prisma/client";
 import * as argon from "argon2";
 import { PrismaService } from "../../config/prisma/prisma.service";
 import { CreateUserDto } from "./dto";
-import { Users } from "@prisma/client";
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createUserDto: CreateUserDto): Promise<Partial<Users>> {
+  async create(createUserDto: CreateUserDto): Promise<Users> {
     const { ...userRest } = createUserDto;
     const { password, locationId, ...userData } = userRest;
 
@@ -20,16 +20,6 @@ export class UsersService {
           ...userData,
           locationId, // TODO: need to verify if location exists before adding it to user.
           hashedPassword,
-        },
-        select: {
-          id: true,
-          role: true,
-          firstName: true,
-          lastName: true,
-          email: true,
-          description: true,
-          createdAt: true,
-          updatedAt: true,
         },
       });
     } catch (err) {
@@ -78,12 +68,5 @@ export class UsersService {
         hashedRefreshToken: null,
       },
     });
-  }
-
-  removeSecrets(data: Users): Users {
-    data = { ...data };
-    delete data.hashedPassword;
-    delete data.hashedRefreshToken;
-    return data;
   }
 }
