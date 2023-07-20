@@ -1,1 +1,2 @@
-export * from "./species.service.ts";
+export * from "./species.service";
+export * from "./prisma-service.mock";

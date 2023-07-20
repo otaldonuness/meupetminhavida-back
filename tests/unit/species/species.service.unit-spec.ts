@@ -4,7 +4,8 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
-import { SpeciesServiceMock } from "src/modules/species/__mocks__/species.service";
+import { PrismaService } from "src/config/prisma/prisma.service";
+import { PrismaMock } from "src/modules/species/__mocks__/prisma-service.mock";
 import { CreateSpeciesDto, UpdateSpeciesDto } from "src/modules/species/dto";
 import { SpeciesService } from "src/modules/species/species.service";
 import { speciesStub } from "src/modules/species/stubs";
@@ -13,18 +14,21 @@ jest.mock("../../../src/modules/species/species.service.ts");
 
 describe("SpeciesService Unit", () => {
   let speciesService: SpeciesService;
+  let prismaService: PrismaService;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
+        SpeciesService,
         {
-          provide: SpeciesService,
-          useClass: SpeciesServiceMock,
+          provide: PrismaService,
+          useClass: PrismaMock,
         },
       ],
     }).compile();
 
     speciesService = moduleRef.get<SpeciesService>(SpeciesService);
+    prismaService = moduleRef.get<PrismaService>(PrismaService);
   });
 
   afterEach(() => {
@@ -32,13 +36,15 @@ describe("SpeciesService Unit", () => {
   });
 
   describe("create()", () => {
-    it("when create is called, it should call SpeciesService", async () => {
+    it("when create is called, it should call PrismaService", async () => {
       const createSpeciesDto: CreateSpeciesDto = {
         name: "corvus corax",
       };
       const createdSpecies = await speciesService.create(createSpeciesDto);
 
-      expect(speciesService.create).toHaveBeenCalledWith(createSpeciesDto);
+      expect(prismaService.species.create).toHaveBeenCalledWith({
+        data: { ...createSpeciesDto },
+      });
       expect(createdSpecies).toEqual(speciesStub());
     });
 
@@ -54,7 +60,9 @@ describe("SpeciesService Unit", () => {
           expect(err.status).toBe(406);
           expect(err).toBeInstanceOf(NotAcceptableException);
         });
-      expect(speciesService.create).toHaveBeenCalledWith(badCreateSpeciesDto);
+      expect(prismaService.species.create).toHaveBeenCalledWith({
+        data: { ...badCreateSpeciesDto },
+      });
     });
 
     it("when given a name of a species that is already registered, it should throw a ConflictException", async () => {
@@ -69,7 +77,9 @@ describe("SpeciesService Unit", () => {
           expect(err.status).toBe(409);
           expect(err).toBeInstanceOf(ConflictException);
         });
-      expect(speciesService.create).toHaveBeenCalledWith(existentSpeciesDto);
+      expect(prismaService.species.create).toHaveBeenCalledWith({
+        data: { ...existentSpeciesDto },
+      });
     });
   });
 
@@ -84,30 +94,30 @@ describe("SpeciesService Unit", () => {
         updateId,
       );
 
-      expect(speciesService.update).toHaveBeenCalledWith(
-        updateSpeciesDto,
-        updateId,
-      );
+      expect(prismaService.species.update).toHaveBeenCalledWith({
+        data: { ...updatedSpecies },
+        where: { id: updateId },
+      });
       expect(updatedSpecies).toEqual(speciesStub());
     });
 
     it("when given an invalid id, it should throw a NotFoundException", async () => {
-      const updateId = "invalidID";
+      const invalidId = "invalidID";
       const updateSpeciesDto: UpdateSpeciesDto = {
         name: "new name",
       };
 
       await speciesService
-        .update(updateSpeciesDto, updateId)
+        .update(updateSpeciesDto, invalidId)
         .then((species) => expect(species).toBeUndefined())
         .catch((err) => {
           expect(err.status).toBe(404);
           expect(err).toBeInstanceOf(NotFoundException);
         });
-      expect(speciesService.update).toHaveBeenCalledWith(
-        updateSpeciesDto,
-        updateId,
-      );
+      expect(prismaService.species.update).toHaveBeenCalledWith({
+        data: { ...updateSpeciesDto },
+        where: { id: invalidId },
+      });
     });
   });
 
@@ -124,13 +134,13 @@ describe("SpeciesService Unit", () => {
         expect(err.status).toBe(406);
         expect(err).toBeInstanceOf(NotAcceptableException);
       });
-    expect(speciesService.update).toHaveBeenCalledWith(
-      badUpdateSpeciesDto,
-      updateId,
-    );
+    expect(prismaService.species.update).toHaveBeenCalledWith({
+      data: { ...badUpdateSpeciesDto },
+      where: { id: updateId },
+    });
   });
 
-  // Pra impedir algum mal-entendido, isso serve (ou deveria servir) para impedir réplicas.
+  // Isso serve (ou deveria servir) para impedir réplicas.
   it("when updated to an already existing species, it should throw a ConflictException.", async () => {
     const updateId = "randomID";
     const existentSpeciesDto: CreateSpeciesDto = {
@@ -144,10 +154,10 @@ describe("SpeciesService Unit", () => {
         expect(err.status).toBe(409);
         expect(err).toBeInstanceOf(ConflictException);
       });
-    expect(speciesService.update).toHaveBeenCalledWith(
-      existentSpeciesDto,
-      updateId,
-    );
+    expect(prismaService.species.update).toHaveBeenCalledWith({
+      data: { ...UpdateSpeciesDto },
+      where: { id: updateId },
+    });
   });
 
   describe("delete()", () => {
@@ -155,7 +165,9 @@ describe("SpeciesService Unit", () => {
       const deleteId = "40022892-2a3a-5bd9-9371-0423c1e2abee";
       await speciesService.delete(deleteId);
 
-      expect(speciesService.delete).toHaveBeenCalledWith(deleteId);
+      expect(prismaService.species.delete).toHaveBeenCalledWith({
+        where: { id: deleteId },
+      });
       // Nesse aqui, não faço ideia de qual erro pode rolar, ent deixei assim
       // Talvez um P2025 do prisma?
     });
@@ -163,10 +175,12 @@ describe("SpeciesService Unit", () => {
 
   describe("getById()", () => {
     it("when getById is called, it should call SpeciesService", async () => {
-      const id = "validID";
-      const foundSpecies = await speciesService.getById(id);
+      const searchId = "validID";
+      const foundSpecies = await speciesService.getById(searchId);
 
-      expect(speciesService.getById).toHaveBeenCalledWith(id);
+      expect(prismaService.species.findUniqueOrThrow).toHaveBeenCalledWith({
+        where: { id: searchId },
+      });
       expect(foundSpecies).toEqual(speciesStub());
     });
 
@@ -180,7 +194,9 @@ describe("SpeciesService Unit", () => {
           expect(err.status).toBe(404);
           expect(err).toBeInstanceOf(NotFoundException);
         });
-      expect(speciesService.getById).toHaveReturnedWith(invalidId);
+      expect(prismaService.species.findUniqueOrThrow).toHaveBeenCalledWith({
+        where: { id: invalidId },
+      });
     });
   });
 
@@ -188,8 +204,8 @@ describe("SpeciesService Unit", () => {
     it("when getAll is called, it should call SpeciesService", async () => {
       const foundSpecies = await speciesService.getAll();
 
-      expect(speciesService.getAll).toHaveBeenCalledWith();
-      expect(foundSpecies).toContain(speciesStub());
+      expect(prismaService.species.findMany).toHaveBeenCalledWith();
+      expect(foundSpecies).toBe([speciesStub(), speciesStub()]);
     });
 
     it("if somehow no species are found, it should throw a NotFoundException", async () => {
@@ -200,6 +216,7 @@ describe("SpeciesService Unit", () => {
           expect(err.status).toBe(404);
           expect(err).toBeInstanceOf(NotFoundException);
         });
+      expect(prismaService.species.findMany).toHaveBeenCalledWith();
     });
   });
 });
