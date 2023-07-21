@@ -4,7 +4,7 @@ import {
   NotAcceptableException,
   NotFoundException,
 } from "@nestjs/common";
-import { PrismaService } from "src/config/prisma/prisma.service";
+import { PrismaService } from "../../../src/config/prisma/prisma.service";
 import { CreateSpeciesDto, UpdateSpeciesDto } from "./dto";
 
 @Injectable()
