@@ -1,6 +1,8 @@
+import { PetSize } from "@prisma/client";
 import {
   IsArray,
   IsBoolean,
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -51,4 +53,8 @@ export class CreatePetDto {
   @IsArray()
   @IsOptional()
   treatments?: Array<Object>;
+
+  @IsEnum(PetSize)
+  @IsNotEmpty()
+  petSize: PetSize = PetSize.SMALL;
 }
