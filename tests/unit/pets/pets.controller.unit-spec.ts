@@ -41,7 +41,7 @@ describe("PetsController Unit", () => {
         description: "test",
         petSize: "MEDIUM",
       };
-      const pet = petsController.create(createPetDto);
+      const pet = await petsController.create(createPetDto);
 
       expect(petsService.create).toHaveBeenCalledWith(createPetDto);
       expect(pet).toEqual(petStub());

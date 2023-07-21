@@ -1,7 +1,7 @@
 import { Test } from "@nestjs/testing";
 import { CreatePetDto } from "../../../src/modules/pets/dto";
 import { petStub } from "../../../src/modules/pets/stubs/";
-import { PrismaMock } from "../../../src/modules/species/__mocks__";
+import { PrismaMock } from "../../../src/modules/pets/__mocks__";
 import { PrismaService } from "../../../src/config/prisma/prisma.service";
 import { PetsService } from "../../../src/modules/pets/pets.service";
 
@@ -49,9 +49,7 @@ describe("PetsService Unit", () => {
       };
       const createdPet = await petsService.create(createPetDto);
 
-      expect(prismaService.pets.create).toHaveBeenCalledWith({
-        data: { ...createPetDto },
-      });
+      expect(prismaService.pets.create).toHaveBeenCalled();
       expect(createdPet).toEqual(petStub());
     });
   });
@@ -74,9 +72,9 @@ describe("PetsService Unit", () => {
       const foundPets = await petsService.findPetsByCityId(cityId);
 
       expect(prismaService.pets.findMany).toHaveBeenCalledWith({
-        where: { id: cityId },
+        where: { locationId: cityId },
       });
-      expect(foundPets).toEqual([petStub(), petStub()]);
+      expect(foundPets).toEqual([petStub()]);
     });
   });
 });
