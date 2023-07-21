@@ -38,6 +38,7 @@ model Pets {
   gender          String            @db.Char(1)
   breed           String            @db.VarChar(50)
   isCastrated     Boolean
+  size            PetSize           @default(MEDIUM)
   age             Int
   description     String            @db.VarChar(100)
   treatments      Treatments[]
@@ -65,7 +66,7 @@ model Locations {
 
 model Species {
   id   String @id @default(uuid())
-  name String @db.VarChar(40)
+  name String @unique @db.VarChar(40)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -128,4 +129,10 @@ enum UsersRole {
   ONG
   ADMIN
   REGULAR
+}
+
+enum PetSize {
+  SMALL
+  MEDIUM
+  LARGE
 }
