@@ -121,7 +121,7 @@ yarn test:e2e
 
 #### Testes de Integração
 
-⚠️ Para rodar os **testes de integração** é necessário ter o [**Docker**](https://www.docker.com/) instalado na sua máquina.
+> ⚠️ Para rodar os **testes de integração** é necessário ter o [**Docker**](https://www.docker.com/) instalado na sua máquina.
 
 Rode os testes com o seguinte comando:
 

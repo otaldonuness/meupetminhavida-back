@@ -12,7 +12,8 @@ import {
 import { SignInAuthDto } from "../../../src/modules/auth/dto";
 import { userStub } from "../../../src/modules/users/stubs";
 import { envVariablesStub, tokensStub } from "../../../src/modules/auth/stubs";
-import { TokenPayload } from "../../../src/modules/auth/types";
+import { JwtPayload } from "../../../src/modules/auth/types";
+import { UsersRole } from "@prisma/client";
 
 jest.mock("../../../src/modules/users/users.service");
 
@@ -80,9 +81,10 @@ describe("AuthService Unit", () => {
 
   describe("signTokens()", () => {
     it("when signTokens is called then it should call jwtService", async () => {
-      const tokenPayload: TokenPayload = {
+      const tokenPayload: JwtPayload = {
         sub: "random-uuid",
         email: "test@test.com",
+        role: UsersRole.REGULAR,
       };
       const accessTokenOptions = {
         secret: envVariablesStub()["ACCESS_TOKEN_SECRET"],
