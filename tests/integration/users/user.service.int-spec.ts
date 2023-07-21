@@ -1,10 +1,11 @@
+import { NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
+import { randomUUID } from "crypto";
+import { UsersRole } from "@prisma/client";
 import { AppModule } from "../../../src/app.module";
 import { PrismaService } from "../../../src/config/prisma/prisma.service";
 import { UsersService } from "../../../src/modules/users/users.service";
 import { CreateUserDto } from "../../../src/modules/users/dto";
-import { UsersRole } from "@prisma/client";
-import { UnauthorizedException } from "@nestjs/common";
 
 describe("UsersService Integraton", () => {
   let prisma: PrismaService;
@@ -35,13 +36,12 @@ describe("UsersService Integraton", () => {
         locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
       };
 
-      const user = await usersService.create(createUserDto);
-      expect(user.email).toBe(createUserDto.email);
-      expect(user.hashedPassword).toBeUndefined();
-      expect(user.hashedRefreshToken).toBeUndefined();
+      const createdUser = await usersService.create(createUserDto);
+      const user = await usersService.findOneById(createdUser.id);
+      expect(createdUser).toEqual(user);
     });
 
-    it("given already created user when create user then should not create user and  throw error", async () => {
+    it("given already created user when create user then should not create user and throw error", async () => {
       const createUserDto: CreateUserDto = {
         email: "test@test.com",
         password: "P@sswordTest123!",
@@ -55,10 +55,44 @@ describe("UsersService Integraton", () => {
 
       await usersService
         .create(createUserDto)
-        .then((tokens) => expect(tokens).toBeUndefined())
+        .then((user) => expect(user).toBeUndefined())
         .catch((err) => {
           expect(err.status).toBe(401);
           expect(err).toBeInstanceOf(UnauthorizedException);
+        });
+    });
+  });
+
+  describe("updateUserRole()", () => {
+    it("given REGULAR user when update user role then should update role to ADMIN", async () => {
+      const createUserDto: CreateUserDto = {
+        email: "test@test.com",
+        password: "P@sswordTest123!",
+        firstName: "Test",
+        lastName: "Test",
+        mobileNumber: "12345678901",
+        role: UsersRole.REGULAR,
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
+      };
+
+      const createdUser = await usersService.create(createUserDto);
+      const user = await usersService.updateUserRole(
+        createdUser.id,
+        UsersRole.ADMIN
+      );
+
+      expect(createdUser.role).toBe(createUserDto.role);
+      expect(user.role).toBe(UsersRole.ADMIN);
+      expect(user.role).not.toBe(createdUser.role);
+    });
+
+    it("given non existing user when update user role then should throw not found", async () => {
+      await usersService
+        .updateUserRole(randomUUID(), UsersRole.ADMIN)
+        .then((user) => expect(user).toBeUndefined())
+        .catch((err) => {
+          expect(err.status).toBe(404);
+          expect(err).toBeInstanceOf(NotFoundException);
         });
     });
   });

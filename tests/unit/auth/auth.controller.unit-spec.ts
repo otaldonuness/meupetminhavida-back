@@ -65,7 +65,7 @@ describe("AuthController Unit", () => {
   });
 
   describe("refreshTokens()", () => {
-    it("given valid userId and refreshTOk when signOut is called then it should call authService", async () => {
+    it("given valid userId and refreshToken when signOut is called then it should call authService", async () => {
       const userId = randomUUID();
       const refreshToken = "stub-refresh-token";
       const tokens = await authController.refreshTokens(userId, refreshToken);

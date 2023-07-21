@@ -1,14 +1,18 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from "@nestjs/common";
+import { Users, UsersRole } from "@prisma/client";
 import * as argon from "argon2";
 import { PrismaService } from "../../config/prisma/prisma.service";
 import { CreateUserDto } from "./dto";
-import { Users } from "@prisma/client";
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createUserDto: CreateUserDto): Promise<Partial<Users>> {
+  async create(createUserDto: CreateUserDto): Promise<Users> {
     const { ...userRest } = createUserDto;
     const { password, locationId, ...userData } = userRest;
 
@@ -20,16 +24,6 @@ export class UsersService {
           ...userData,
           locationId, // TODO: need to verify if location exists before adding it to user.
           hashedPassword,
-        },
-        select: {
-          id: true,
-          role: true,
-          firstName: true,
-          lastName: true,
-          email: true,
-          description: true,
-          createdAt: true,
-          updatedAt: true,
         },
       });
     } catch (err) {
@@ -80,10 +74,22 @@ export class UsersService {
     });
   }
 
-  removeSecrets(data: Users): Users {
-    data = { ...data };
-    delete data.hashedPassword;
-    delete data.hashedRefreshToken;
-    return data;
+  async updateUserRole(userId: string, newRole: UsersRole): Promise<Users> {
+    try {
+      return await this.prisma.users.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          role: newRole,
+        },
+      });
+    } catch (err) {
+      // Treats not found error from Prisma.
+      if (err?.code === "P2025") {
+        throw new NotFoundException(`User ${userId} to update role not found`);
+      }
+      throw err;
+    }
   }
 }

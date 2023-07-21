@@ -85,15 +85,16 @@ Back-end do projeto **Meu Pet Minha Vida**, que é open source e tem como propó
 
 ## 🚀 Comece por aqui
 
-TODO
+### 🔍 Pré-requisitos
 
-### 🔍 Pré requisitos
-
-TODO
+- Projeto desenvolvido usando [**NodeJS 18**](https://nodejs.org/en/download)
+- Necessário ter o [**Yarn**](https://yarnpkg.com/) instalado
+- Necessário ter **Docker** juntamente com o **Docker Compose** instalados
 
 ### 🔧 Instalação
 
-TODO
+1. Clone o repositório localmente com `git clone git@github.com:otaldonuness/meupetminhavida-back.git`
+2. Entre no diretório raíz do projeto (todos os comandos serão executados à partir dele): `cd meupetminhavida-back`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -103,7 +104,29 @@ TODO
 
 ## 💻 Desenvolvendo
 
-TODO
+- **Com Docker**
+
+  1. Rode o servidor e o banco de dados com:
+     ```bash
+     docker compose -f ./docker/docker-compose.dev.yaml up -d --build
+     ```
+  2. Rode as migrações no banco de dados com:
+     ```bash
+     docker compose -f ./docker/docker-compose.dev.yaml exec -d back-end yarn prisma:dev:deploy
+     ```
+  3. O servidor estará disponíve em [`localhost:3000`](http://localhost:3000), o **Swagger** da aplicação estará disponível em [`localhost:3000/docs`](http://localhost:3000/docs)
+
+- **Sem Docker**
+  1. Instale as dependências e inicie o servidor:
+     ```bash
+     yarn
+     yarn start:dev
+     ```
+  2. Rode as migrações no banco de dados com:
+     ```bash
+     yarn prisma:dev:deploy
+     ```
+  3. O servidor estará disponíve em [`localhost:3000`](http://localhost:3000), o **Swagger** da aplicação estará disponível em [`localhost:3000/docs`](http://localhost:3000/docs)
 
 ### 🧪 Testando
 
@@ -121,7 +144,7 @@ yarn test:e2e
 
 #### Testes de Integração
 
-⚠️ Para rodar os **testes de integração** é necessário ter o [**Docker**](https://www.docker.com/) instalado na sua máquina.
+> ⚠️ Para rodar os **testes de integração** é necessário ter o [**Docker**](https://www.docker.com/) instalado na sua máquina.
 
 Rode os testes com o seguinte comando:
 
@@ -155,7 +178,7 @@ Não se esqueça de dar uma estrela ao projeto! Obrigado novamente!
 3. Faça commit das suas alterações (`git commit`).
    > Você será perguntado sobre algumas coisas em relação ao que você desenvolveu, responda de acordo com o que você fez.
 4. Faça o push para a branch (`git push origin feat/awsome-feature`).
-5. Abra uma PR.
+5. Abra uma PR apontando para a branch `dev`.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
