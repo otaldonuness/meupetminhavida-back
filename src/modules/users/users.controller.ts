@@ -24,11 +24,11 @@ export class UsersController {
   @Put("update-role/:id")
   async updateUserRole(
     @Param("id") userId: string,
-    @Body() updateUserRoleDto: UpdateUserRoleDto
+    @Body() updateUserRoleDto: UpdateUserRoleDto,
   ): Promise<UserResponseDto> {
     const user = await this.usersService.updateUserRole(
       userId,
-      updateUserRoleDto.newRole
+      updateUserRoleDto.newRole,
     );
     return plainToInstance(UserResponseDto, user);
   }

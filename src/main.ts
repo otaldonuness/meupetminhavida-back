@@ -22,7 +22,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // Only DTO fields are allowed.
-    })
+    }),
   );
 
   const config = new DocumentBuilder()
@@ -30,7 +30,7 @@ async function bootstrap() {
     .setDescription(
       `**Meu Pet Minha Vida API**  
       You can check our repository [*here*](https://github.com/otaldonuness/meupetminhavida-back), it's an open-source project!
-      `
+      `,
     )
     .setVersion("1.0.0")
     .addBearerAuth()

@@ -24,7 +24,7 @@ describe("/auth", () => {
     app.useGlobalPipes(
       new ValidationPipe({
         whitelist: true, // Only DTO fields are allowed.
-      })
+      }),
     );
     await app.init();
     await app.listen(PORT);

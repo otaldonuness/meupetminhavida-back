@@ -47,11 +47,11 @@ describe("UsersController Unit", () => {
       };
       const user = await usersController.updateUserRole(
         userId,
-        updateUserRoleDto
+        updateUserRoleDto,
       );
       expect(usersService.updateUserRole).toHaveBeenCalledWith(
         userId,
-        updateUserRoleDto.newRole
+        updateUserRoleDto.newRole,
       );
       expect(user).toBeInstanceOf(UserResponseDto);
       expect(user.hashedPassword).toBeUndefined();

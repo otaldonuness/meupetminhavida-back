@@ -190,7 +190,7 @@ describe("AuthService Integration", () => {
 
       const tokens = await authService.refreshTokens(
         user.id,
-        signUpTokens.refreshToken
+        signUpTokens.refreshToken,
       );
       expect(tokens.accessType).toBe("Bearer");
       expect(tokens).toHaveProperty("accessToken");

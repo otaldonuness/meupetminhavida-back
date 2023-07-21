@@ -73,7 +73,7 @@ describe("UsersService Unit", () => {
       const { id, hashedRefreshToken } = userStub();
 
       expect(
-        await usersService.updateHashedRefreshToken(id, hashedRefreshToken)
+        await usersService.updateHashedRefreshToken(id, hashedRefreshToken),
       ).toBeUndefined();
       expect(prismaService.users.update).toHaveBeenCalled();
     });

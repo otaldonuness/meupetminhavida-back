@@ -71,7 +71,7 @@ describe("AuthController Unit", () => {
       const tokens = await authController.refreshTokens(userId, refreshToken);
       expect(authService.refreshTokens).toHaveBeenCalledWith(
         userId,
-        refreshToken
+        refreshToken,
       );
       expect(tokens).toEqual(tokensStub());
     });

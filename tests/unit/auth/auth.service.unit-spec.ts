@@ -57,7 +57,7 @@ describe("AuthService Unit", () => {
       expect(usersService.findOneByEmail).toHaveBeenCalledWith(signInDto.email);
       expect(usersService.updateHashedRefreshToken).toHaveBeenCalledWith(
         userStub().id,
-        tokensStub().refreshToken
+        tokensStub().refreshToken,
       );
       expect(tokens).toEqual(tokensStub());
     });
@@ -99,12 +99,12 @@ describe("AuthService Unit", () => {
       expect(jwtService.signAsync).toHaveBeenNthCalledWith(
         1,
         tokenPayload,
-        accessTokenOptions
+        accessTokenOptions,
       );
       expect(jwtService.signAsync).toHaveBeenNthCalledWith(
         2,
         tokenPayload,
-        refreshTokenOptions
+        refreshTokenOptions,
       );
       expect(tokens).toEqual(tokensStub());
     });

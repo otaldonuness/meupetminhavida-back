@@ -14,12 +14,12 @@ export class LoggerMiddleware implements NestMiddleware {
       const contentLength = res.get("content-length");
 
       this.logger.log(
-        `${method} ${originalUrl} ${statusCode} ${contentLength} — ${userAgent} ${ip}`
+        `${method} ${originalUrl} ${statusCode} ${contentLength} — ${userAgent} ${ip}`,
       );
 
       if (method !== "GET") {
         this.logger.debug(
-          `Request body — ${JSON.stringify(req.body, null, 2)}`
+          `Request body — ${JSON.stringify(req.body, null, 2)}`,
         );
       }
     });

@@ -14,9 +14,7 @@
     "enabled": true,
     "automerge": true
   },
-  "schedule": [
-    "before 10am on the first day of the month"
-  ],
+  "schedule": ["before 10am on the first day of the month"],
   "packageRules": [
     {
       "groupName": "vitest monorepo",
@@ -47,6 +45,6 @@
       "matchUpdateTypes": ["minor", "patch", "digest"],
       "matchCurrentVersion": "!/^0/",
       "automerge": true
-    }        
+    }
   ]
 }

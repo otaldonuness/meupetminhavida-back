@@ -48,7 +48,7 @@ const getEslintFixCmd = ({
   // For lint-staged it's safer to not apply the fix command if it changes the AST
   // @see https://eslint.org/docs/user-guide/command-line-interface#--fix-type
   const cliFixType = [...(fixType ?? ["layout"])].filter(
-    (type) => type.trim().length > 0
+    (type) => type.trim().length > 0,
   );
 
   const args = [

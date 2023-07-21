@@ -30,7 +30,7 @@ export class UsersService {
       // Treats unique constraint from Prisma.
       if (err.code === "P2002") {
         throw new UnauthorizedException(
-          "Credentials already taken, please use other credentials"
+          "Credentials already taken, please use other credentials",
         );
       }
       throw err;
@@ -47,7 +47,7 @@ export class UsersService {
 
   async updateHashedRefreshToken(
     userId: string,
-    refreshToken: string
+    refreshToken: string,
   ): Promise<void> {
     const hashedRefreshToken = await argon.hash(refreshToken);
     await this.prisma.users.update({

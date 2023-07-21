@@ -78,7 +78,7 @@ describe("UsersService Integraton", () => {
       const createdUser = await usersService.create(createUserDto);
       const user = await usersService.updateUserRole(
         createdUser.id,
-        UsersRole.ADMIN
+        UsersRole.ADMIN,
       );
 
       expect(createdUser.role).toBe(createUserDto.role);

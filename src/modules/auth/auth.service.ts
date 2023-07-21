@@ -12,7 +12,7 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
   ) {}
 
   async signIn({ email, password }: SignInAuthDto): Promise<TokenInfo> {
@@ -27,7 +27,7 @@ export class AuthService {
         parallelism: 2,
         type: argon.argon2id,
         hashLength: 32,
-      }
+      },
     );
 
     if (!passwordMatches || !user) {
@@ -42,7 +42,7 @@ export class AuthService {
 
     await this.usersService.updateHashedRefreshToken(
       user.id,
-      tokens.refreshToken
+      tokens.refreshToken,
     );
 
     return tokens;
@@ -59,7 +59,7 @@ export class AuthService {
 
     await this.usersService.updateHashedRefreshToken(
       user.id,
-      tokens.refreshToken
+      tokens.refreshToken,
     );
 
     return tokens;
@@ -71,7 +71,7 @@ export class AuthService {
 
   async refreshTokens(
     userId: string,
-    refreshToken: string
+    refreshToken: string,
   ): Promise<TokenInfo> {
     const user = await this.usersService.findOneById(userId);
     const isUserValid = user !== null && user.hashedRefreshToken !== null;
@@ -92,7 +92,7 @@ export class AuthService {
 
     await this.usersService.updateHashedRefreshToken(
       user.id,
-      tokens.refreshToken
+      tokens.refreshToken,
     );
 
     return tokens;
