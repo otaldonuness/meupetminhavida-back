@@ -1,7 +1,7 @@
-import { Body, Controller, Post } from "@nestjs/common";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { PetsService } from "./pets.service";
-import { CreatePetDto } from "./dto";
+import { Body, Controller, Post } from "@nestjs/common"
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger"
+import { PetsService } from "./pets.service"
+import { CreatePetDto } from "./dto"
 
 @ApiBearerAuth()
 @ApiTags("pets")
@@ -11,6 +11,6 @@ export class PetsController {
 
   @Post()
   create(@Body() createPetDto: CreatePetDto) {
-    return this.petsService.create(createPetDto);
+    return this.petsService.create(createPetDto)
   }
 }

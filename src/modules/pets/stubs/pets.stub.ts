@@ -1,15 +1,19 @@
-import { CreatePetDto } from "../dto";
+import { PetSize, Pets } from "@prisma/client"
+import { CreatePetDto } from "../dto"
 
-export const petStub = (): CreatePetDto => {
+export const petStub = (): Pets => {
   return {
-    name: "test",
+    id: "test-uuid",
+    locationId: "testCityID",
     speciesId: "testSpeciesID",
-    age: 12,
+    name: "test",
     gender: "m",
     breed: "testBreed",
     isCastrated: false,
-    locationId: "testCityID",
+    age: 12,
+    size: PetSize.MEDIUM,
     description: "test",
-    petSize: "MEDIUM",
-  };
-};
+    createdAt: new Date("2023-06-30 20:58:04"),
+    updatedAt: new Date("2023-06-30 20:58:04")
+  }
+}

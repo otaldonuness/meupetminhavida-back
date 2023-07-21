@@ -1,17 +1,17 @@
 import {
   Injectable,
   NotAcceptableException,
-  NotFoundException,
-} from "@nestjs/common";
-import { PrismaService } from "../../config/prisma/prisma.service";
-import { CreatePetDto } from "./dto";
+  NotFoundException
+} from "@nestjs/common"
+import { PrismaService } from "../../config/prisma/prisma.service"
+import { CreatePetDto } from "./dto"
 
 @Injectable()
 export class PetsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createPetDto: CreatePetDto) {
-    const { appliedVaccines, treatments, petPhotos, ...petData } = createPetDto;
+    const { appliedVaccines, treatments, petPhotos, ...petData } = createPetDto
 
     try {
       return await this.prisma.pets.create({
@@ -19,47 +19,49 @@ export class PetsService {
           ...petData,
           appliedVaccines: { connect: appliedVaccines },
           treatments: { connect: treatments },
-          petPhotos: { connect: petPhotos },
+          petPhotos: { connect: petPhotos }
         },
         include: {
           appliedVaccines: true,
           treatments: true,
-          petPhotos: true,
-        },
-      });
+          petPhotos: true
+        }
+      })
     } catch (err) {
       if (err?.code === "P2019") {
-        throw new NotAcceptableException("Invalid Input.");
+        throw new NotAcceptableException("Invalid Input.")
       }
-      throw err;
+      throw err
     }
   }
 
   async findPetById(id: string) {
     try {
-      return await this.prisma.pets.findUniqueOrThrow({ where: { id: id } });
+      return await this.prisma.pets.findUniqueOrThrow({
+        where: { id: id }
+      })
     } catch (err) {
       if (err?.code === "P2025") {
         throw new NotFoundException(
-          "Unable to find a pet with the provided ID.",
-        );
+          "Unable to find a pet with the provided ID."
+        )
       }
-      throw err;
+      throw err
     }
   }
 
   async findPetsByCityId(locationId: string) {
     try {
       return await this.prisma.pets.findMany({
-        where: { locationId: locationId },
-      });
+        where: { locationId: locationId }
+      })
     } catch (err) {
       if (err?.code === "P2025") {
         throw new NotFoundException(
-          "Unable to find pets with the provideda cityID",
-        );
+          "Unable to find pets with the provideda cityID"
+        )
       }
-      throw err;
+      throw err
     }
   }
 }

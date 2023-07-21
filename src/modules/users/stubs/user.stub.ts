@@ -1,4 +1,4 @@
-import { Users, UsersRole } from "@prisma/client";
+import { Users, UsersRole } from "@prisma/client"
 
 export const userStub = (): Users => {
   return {
@@ -15,6 +15,6 @@ export const userStub = (): Users => {
     locationId: "location-test-uuid",
     createdAt: new Date("2023-06-30 20:58:04"),
     updatedAt: new Date("2023-06-30 20:58:04"),
-    bannedAt: new Date("2023-06-30 20:58:04"),
-  };
-};
+    bannedAt: new Date("2023-06-30 20:58:04")
+  }
+}

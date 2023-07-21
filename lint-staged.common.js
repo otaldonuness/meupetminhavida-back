@@ -1,9 +1,9 @@
 // @ts-check
 
-const path = require("path");
-const escape = require("shell-quote").quote;
+const path = require("path")
+const escape = require("shell-quote").quote
 
-const isWin = process.platform === "win32";
+const isWin = process.platform === "win32"
 
 const eslintGlobalRulesForFix = [
   // react-hooks/eslint and react in general is very strict about exhaustively
@@ -25,8 +25,8 @@ const eslintGlobalRulesForFix = [
   //
   // @see https://reactjs.org/docs/hooks-rules.html
   // @see https://eslint.org/docs/2.13.1/user-guide/configuring#disabling-rules-with-inline-comments
-  "react-hooks/exhaustive-deps: off",
-];
+  "react-hooks/exhaustive-deps: off"
+]
 
 /**
  * Lint-staged command for running eslint in packages or apps.
@@ -39,17 +39,17 @@ const getEslintFixCmd = ({
   fix,
   fixType,
   cache,
-  maxWarnings,
+  maxWarnings
 }) => {
   const cliRules = [...(rules ?? []), ...eslintGlobalRulesForFix]
     .filter((rule) => rule.trim().length > 0)
-    .map((r) => `"${r.trim()}"`);
+    .map((r) => `"${r.trim()}"`)
 
   // For lint-staged it's safer to not apply the fix command if it changes the AST
   // @see https://eslint.org/docs/user-guide/command-line-interface#--fix-type
   const cliFixType = [...(fixType ?? ["layout"])].filter(
     (type) => type.trim().length > 0
-  );
+  )
 
   const args = [
     cache ? "--cache" : "",
@@ -60,10 +60,10 @@ const getEslintFixCmd = ({
     files
       // makes output cleaner by removing absolute paths from filenames
       .map((f) => `"./${path.relative(cwd, f)}"`)
-      .join(" "),
-  ].join(" ");
-  return `eslint ${args}`;
-};
+      .join(" ")
+  ].join(" ")
+  return `eslint ${args}`
+}
 
 /**
  * Concatenate and escape a list of filenames that can be passed as args to prettier cli
@@ -79,12 +79,12 @@ const getEslintFixCmd = ({
 const concatFilesForPrettier = (filenames) =>
   filenames
     .map((filename) => `"${isWin ? filename : escape([filename])}"`)
-    .join(" ");
+    .join(" ")
 
-const concatFilesForStylelint = concatFilesForPrettier;
+const concatFilesForStylelint = concatFilesForPrettier
 
 module.exports = {
   concatFilesForPrettier,
   concatFilesForStylelint,
-  getEslintFixCmd,
-};
+  getEslintFixCmd
+}

@@ -1,1 +1,1 @@
-export * from "./user.stub";
+export * from "./user.stub"

@@ -1,1 +1,1 @@
-export * from "./locations-query.dto";
+export * from "./locations-query.dto"

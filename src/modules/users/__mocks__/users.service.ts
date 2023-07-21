@@ -1,4 +1,4 @@
-import { userStub } from "../stubs";
+import { userStub } from "../stubs"
 
 export const UsersService = jest.fn().mockReturnValue({
   create: jest.fn().mockResolvedValue(userStub()),
@@ -6,5 +6,5 @@ export const UsersService = jest.fn().mockReturnValue({
   findOneByEmail: jest.fn().mockResolvedValue(userStub()),
   updateHashedRefreshToken: jest.fn().mockResolvedValue(Promise.resolve()),
   removeHashedRefreshToken: jest.fn().mockResolvedValue(Promise.resolve()),
-  updateUserRole: jest.fn().mockResolvedValue(userStub()),
-});
+  updateUserRole: jest.fn().mockResolvedValue(userStub())
+})

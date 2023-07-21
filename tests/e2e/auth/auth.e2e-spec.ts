@@ -1,50 +1,50 @@
-import { INestApplication, ValidationPipe } from "@nestjs/common";
-import { Test } from "@nestjs/testing";
-import { UsersRole } from "@prisma/client";
-import { HttpStatus } from "@nestjs/common";
-import * as pactum from "pactum";
-import { PrismaService } from "../../../src/config/prisma/prisma.service";
-import { AppModule } from "../../../src/app.module";
-import { SignInAuthDto } from "../../../src/modules/auth/dto";
-import { CreateUserDto } from "../../../src/modules/users/dto";
-import { UsersService } from "../../../src/modules/users/users.service";
+import { INestApplication, ValidationPipe } from "@nestjs/common"
+import { Test } from "@nestjs/testing"
+import { UsersRole } from "@prisma/client"
+import { HttpStatus } from "@nestjs/common"
+import * as pactum from "pactum"
+import { PrismaService } from "../../../src/config/prisma/prisma.service"
+import { AppModule } from "../../../src/app.module"
+import { SignInAuthDto } from "../../../src/modules/auth/dto"
+import { CreateUserDto } from "../../../src/modules/users/dto"
+import { UsersService } from "../../../src/modules/users/users.service"
 
 describe("/auth", () => {
-  let app: INestApplication;
-  let prisma: PrismaService;
-  let usersService: UsersService;
+  let app: INestApplication
+  let prisma: PrismaService
+  let usersService: UsersService
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
+      imports: [AppModule]
+    }).compile()
 
-    const PORT = 3001;
-    app = moduleRef.createNestApplication();
+    const PORT = 3001
+    app = moduleRef.createNestApplication()
     app.useGlobalPipes(
       new ValidationPipe({
-        whitelist: true, // Only DTO fields are allowed.
+        whitelist: true // Only DTO fields are allowed.
       })
-    );
-    await app.init();
-    await app.listen(PORT);
+    )
+    await app.init()
+    await app.listen(PORT)
 
-    usersService = app.get<UsersService>(UsersService);
-    prisma = app.get<PrismaService>(PrismaService);
+    usersService = app.get<UsersService>(UsersService)
+    prisma = app.get<PrismaService>(PrismaService)
 
-    pactum.request.setBaseUrl(`http://localhost:${PORT}`);
-  });
+    pactum.request.setBaseUrl(`http://localhost:${PORT}`)
+  })
 
   afterEach(async () => {
-    await prisma.cleanDatabase();
-  });
+    await prisma.cleanDatabase()
+  })
 
   afterAll(async () => {
-    await app.close();
-  });
+    await app.close()
+  })
 
   describe("POST /signup", () => {
-    const endpoint = "/auth/signup";
+    const endpoint = "/auth/signup"
 
     it("given valid input when signup then status 201", () => {
       const signUpDto: CreateUserDto = {
@@ -54,8 +54,8 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
-      };
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e"
+      }
 
       return pactum
         .spec()
@@ -65,9 +65,9 @@ describe("/auth", () => {
         .expectJsonLike({
           accessToken: "typeof $V === 'string'",
           refreshToken: "typeof $V === 'string'",
-          accessType: "Bearer",
-        });
-    });
+          accessType: "Bearer"
+        })
+    })
 
     it("given valid input with already created user when signup then status 401", async () => {
       const signUpDto: CreateUserDto = {
@@ -77,16 +77,16 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
-      };
-      await usersService.create(signUpDto);
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e"
+      }
+      await usersService.create(signUpDto)
 
       return pactum
         .spec()
         .post(endpoint)
         .withJson(signUpDto)
-        .expectStatus(HttpStatus.UNAUTHORIZED);
-    });
+        .expectStatus(HttpStatus.UNAUTHORIZED)
+    })
 
     it("given invalid input when signup then status 400", () => {
       const invalidSignUpDto = {
@@ -94,19 +94,19 @@ describe("/auth", () => {
         firstName: "Test",
         lastName: "Test",
         role: UsersRole.REGULAR,
-        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
-      };
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e"
+      }
 
       return pactum
         .spec()
         .post(endpoint)
         .withJson(invalidSignUpDto)
-        .expectStatus(HttpStatus.BAD_REQUEST);
-    });
-  });
+        .expectStatus(HttpStatus.BAD_REQUEST)
+    })
+  })
 
   describe("POST /signin", () => {
-    const endpoint = "/auth/signin";
+    const endpoint = "/auth/signin"
 
     it("given valid input with already created user when signin then status 200", async () => {
       const signUpDto: CreateUserDto = {
@@ -116,13 +116,13 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
-      };
-      await usersService.create(signUpDto);
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e"
+      }
+      await usersService.create(signUpDto)
       const signInDto: SignInAuthDto = {
         email: signUpDto.email,
-        password: signUpDto.password,
-      };
+        password: signUpDto.password
+      }
 
       return pactum
         .spec()
@@ -132,21 +132,21 @@ describe("/auth", () => {
         .expectJsonLike({
           accessToken: "typeof $V === 'string'",
           refreshToken: "typeof $V === 'string'",
-          accessType: "Bearer",
-        });
-    });
+          accessType: "Bearer"
+        })
+    })
 
     it("given invalid input when signin then status 400", () => {
       const invalidSignInDto = {
-        email: "test@test.com",
-      };
+        email: "test@test.com"
+      }
 
       return pactum
         .spec()
         .post(endpoint)
         .withJson(invalidSignInDto)
-        .expectStatus(HttpStatus.BAD_REQUEST);
-    });
+        .expectStatus(HttpStatus.BAD_REQUEST)
+    })
 
     it("given invalid password when signin then status 401", async () => {
       const signUpDto: CreateUserDto = {
@@ -156,20 +156,20 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
-      };
-      await usersService.create(signUpDto);
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e"
+      }
+      await usersService.create(signUpDto)
       const signInDto: SignInAuthDto = {
         email: signUpDto.email,
-        password: "wrong",
-      };
+        password: "wrong"
+      }
 
       return pactum
         .spec()
         .post(endpoint)
         .withJson(signInDto)
-        .expectStatus(HttpStatus.UNAUTHORIZED);
-    });
+        .expectStatus(HttpStatus.UNAUTHORIZED)
+    })
 
     it("given invalid email when signin then status 401", async () => {
       const signUpDto: CreateUserDto = {
@@ -179,25 +179,25 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
-      };
-      await usersService.create(signUpDto);
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e"
+      }
+      await usersService.create(signUpDto)
       const signInDto: SignInAuthDto = {
         email: "wrong@wrong.com",
-        password: signUpDto.password,
-      };
+        password: signUpDto.password
+      }
 
       return pactum
         .spec()
         .post(endpoint)
         .withJson(signInDto)
-        .expectStatus(HttpStatus.UNAUTHORIZED);
-    });
-  });
+        .expectStatus(HttpStatus.UNAUTHORIZED)
+    })
+  })
 
   describe("GET /signout", () => {
-    const endpoint = "/auth/signout";
-    const signInEndpoint = "/auth/signin";
+    const endpoint = "/auth/signout"
+    const signInEndpoint = "/auth/signin"
 
     it("given authenticated user when signout then status 204", async () => {
       const signUpDto: CreateUserDto = {
@@ -207,13 +207,13 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
-      };
-      await usersService.create(signUpDto);
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e"
+      }
+      await usersService.create(signUpDto)
       const signInDto: SignInAuthDto = {
         email: signUpDto.email,
-        password: signUpDto.password,
-      };
+        password: signUpDto.password
+      }
 
       const signInResponse = await pactum
         .spec()
@@ -223,26 +223,26 @@ describe("/auth", () => {
         .expectJsonLike({
           accessToken: "typeof $V === 'string'",
           refreshToken: "typeof $V === 'string'",
-          accessType: "Bearer",
-        });
-      const { accessToken } = signInResponse.json;
+          accessType: "Bearer"
+        })
+      const { accessToken } = signInResponse.json
 
       return pactum
         .spec()
         .get(endpoint)
         .withBearerToken(accessToken)
-        .expectStatus(HttpStatus.NO_CONTENT);
-    });
+        .expectStatus(HttpStatus.NO_CONTENT)
+    })
 
     it("given not authenticated user when signout then status 401", () => {
-      return pactum.spec().get(endpoint).expectStatus(HttpStatus.UNAUTHORIZED);
-    });
-  });
+      return pactum.spec().get(endpoint).expectStatus(HttpStatus.UNAUTHORIZED)
+    })
+  })
 
   describe("GET /refresh", () => {
-    const endpoint = "/auth/refresh";
-    const signInEndpoint = "/auth/signin";
-    const signOutEndpoint = "/auth/signout";
+    const endpoint = "/auth/refresh"
+    const signInEndpoint = "/auth/signin"
+    const signOutEndpoint = "/auth/signout"
 
     it("given authenticated user when refresh token then status 200", async () => {
       const signUpDto: CreateUserDto = {
@@ -252,13 +252,13 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
-      };
-      await usersService.create(signUpDto);
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e"
+      }
+      await usersService.create(signUpDto)
       const signInDto: SignInAuthDto = {
         email: signUpDto.email,
-        password: signUpDto.password,
-      };
+        password: signUpDto.password
+      }
 
       const signInResponse = await pactum
         .spec()
@@ -268,9 +268,9 @@ describe("/auth", () => {
         .expectJsonLike({
           accessToken: "typeof $V === 'string'",
           refreshToken: "typeof $V === 'string'",
-          accessType: "Bearer",
-        });
-      const { refreshToken } = signInResponse.json;
+          accessType: "Bearer"
+        })
+      const { refreshToken } = signInResponse.json
 
       return pactum
         .spec()
@@ -280,9 +280,9 @@ describe("/auth", () => {
         .expectJsonLike({
           accessToken: "typeof $V === 'string'",
           refreshToken: "typeof $V === 'string'",
-          accessType: "Bearer",
-        });
-    });
+          accessType: "Bearer"
+        })
+    })
 
     it("given signout user when refresh token after signout then status 401", async () => {
       const signUpDto: CreateUserDto = {
@@ -292,13 +292,13 @@ describe("/auth", () => {
         lastName: "Test",
         mobileNumber: "12345678901",
         role: UsersRole.REGULAR,
-        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e",
-      };
-      await usersService.create(signUpDto);
+        locationId: "49182968-da7c-40d7-8321-0229e9c2cb5e"
+      }
+      await usersService.create(signUpDto)
       const signInDto: SignInAuthDto = {
         email: signUpDto.email,
-        password: signUpDto.password,
-      };
+        password: signUpDto.password
+      }
 
       const signInResponse = await pactum
         .spec()
@@ -308,28 +308,28 @@ describe("/auth", () => {
         .expectJsonLike({
           accessToken: "typeof $V === 'string'",
           refreshToken: "typeof $V === 'string'",
-          accessType: "Bearer",
-        });
+          accessType: "Bearer"
+        })
       const {
         accessToken: signInAccessToken,
-        refreshToken: signInRefreshToken,
-      } = signInResponse.json;
+        refreshToken: signInRefreshToken
+      } = signInResponse.json
 
       await pactum
         .spec()
         .get(signOutEndpoint)
         .withBearerToken(signInAccessToken)
-        .expectStatus(HttpStatus.NO_CONTENT);
+        .expectStatus(HttpStatus.NO_CONTENT)
 
       return pactum
         .spec()
         .get(endpoint)
         .withBearerToken(signInRefreshToken)
-        .expectStatus(HttpStatus.UNAUTHORIZED);
-    });
+        .expectStatus(HttpStatus.UNAUTHORIZED)
+    })
 
     it("given not authenticated user when refresh token then status 401", () => {
-      return pactum.spec().get(endpoint).expectStatus(HttpStatus.UNAUTHORIZED);
-    });
-  });
-});
+      return pactum.spec().get(endpoint).expectStatus(HttpStatus.UNAUTHORIZED)
+    })
+  })
+})

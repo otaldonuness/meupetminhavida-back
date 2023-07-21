@@ -516,5 +516,5 @@ export const species = [
   { name: "Yorkiepoo" },
   { name: "Yorkshire Terrier" },
   { name: "Zebra Finch" },
-  { name: "Zuchon" },
-];
+  { name: "Zuchon" }
+]

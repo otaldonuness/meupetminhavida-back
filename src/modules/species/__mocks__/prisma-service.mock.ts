@@ -1,4 +1,4 @@
-import { speciesStub } from "../stubs";
+import { speciesStub } from "../stubs"
 
 export const PrismaMock = jest.fn().mockReturnValue({
   species: {
@@ -6,6 +6,6 @@ export const PrismaMock = jest.fn().mockReturnValue({
     update: jest.fn().mockResolvedValue(speciesStub()),
     delete: jest.fn().mockResolvedValue(Promise.resolve()),
     findMany: jest.fn().mockResolvedValue([speciesStub(), speciesStub()]),
-    findUniqueOrThrow: jest.fn().mockResolvedValue(speciesStub()),
-  },
-});
+    findUniqueOrThrow: jest.fn().mockResolvedValue(speciesStub())
+  }
+})

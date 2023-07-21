@@ -1,14 +1,14 @@
-import { Exclude, Expose } from "class-transformer";
+import { Exclude, Expose } from "class-transformer"
 
 @Expose()
 export class UserResponseDto {
   @Exclude()
-  hashedPassword: string;
+  hashedPassword: string
 
   @Exclude()
-  hashedRefreshToken?: string;
+  hashedRefreshToken?: string
 
   constructor(partial: Partial<UserResponseDto>) {
-    Object.assign(this, partial);
+    Object.assign(this, partial)
   }
 }

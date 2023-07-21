@@ -5570,5 +5570,5 @@ export const locations = [
   { city: "Vicentinópolis", state: "GO" },
   { city: "Vila Boa", state: "GO" },
   { city: "Vila Propício", state: "GO" },
-  { city: "Brasília", state: "DF" },
-];
+  { city: "Brasília", state: "DF" }
+]
