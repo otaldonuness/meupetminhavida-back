@@ -20,7 +20,7 @@ Add screenshots or GIFs to showcase the changes visually.
 
 ## Checklist
 
--   [ ] All tests pass successfully.
--   [ ] Code follows project conventions and style guidelines.
--   [ ] Documentation has been updated (if applicable).
--   [ ] Commit messages are clear and descriptive.
+- [ ] All tests pass successfully.
+- [ ] Code follows project conventions and style guidelines.
+- [ ] Documentation has been updated (if applicable).
+- [ ] Commit messages are clear and descriptive.

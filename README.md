@@ -87,9 +87,9 @@ Back-end do projeto **Meu Pet Minha Vida**, que é open source e tem como propó
 
 ### 🔍 Pré-requisitos
 
--   Projeto desenvolvido usando [**NodeJS 18**](https://nodejs.org/en/download)
--   Necessário ter o [**Yarn**](https://yarnpkg.com/) instalado
--   Necessário ter **Docker** juntamente com o **Docker Compose** instalados
+- Projeto desenvolvido usando [**NodeJS 18**](https://nodejs.org/en/download)
+- Necessário ter o [**Yarn**](https://yarnpkg.com/) instalado
+- Necessário ter **Docker** juntamente com o **Docker Compose** instalados
 
 ### 🔧 Instalação
 
@@ -104,29 +104,29 @@ Back-end do projeto **Meu Pet Minha Vida**, que é open source e tem como propó
 
 ## 💻 Desenvolvendo
 
--   **Com Docker**
+- **Com Docker**
 
-    1. Rode o servidor e o banco de dados com:
-        ```bash
-        docker compose -f ./docker/docker-compose.dev.yaml up -d --build
-        ```
-    2. Rode as migrações no banco de dados com:
-        ```bash
-        docker compose -f ./docker/docker-compose.dev.yaml exec -d back-end yarn prisma:dev:deploy
-        ```
-    3. O servidor estará disponíve em [`localhost:3000`](http://localhost:3000), o **Swagger** da aplicação estará disponível em [`localhost:3000/docs`](http://localhost:3000/docs)
+  1. Rode o servidor e o banco de dados com:
+     ```bash
+     docker compose -f ./docker/docker-compose.dev.yaml up -d --build
+     ```
+  2. Rode as migrações no banco de dados com:
+     ```bash
+     docker compose -f ./docker/docker-compose.dev.yaml exec -d back-end yarn prisma:dev:deploy
+     ```
+  3. O servidor estará disponíve em [`localhost:3000`](http://localhost:3000), o **Swagger** da aplicação estará disponível em [`localhost:3000/docs`](http://localhost:3000/docs)
 
--   **Sem Docker**
-    1. Instale as dependências e inicie o servidor:
-        ```bash
-        yarn
-        yarn start:dev
-        ```
-    2. Rode as migrações no banco de dados com:
-        ```bash
-        yarn prisma:dev:deploy
-        ```
-    3. O servidor estará disponíve em [`localhost:3000`](http://localhost:3000), o **Swagger** da aplicação estará disponível em [`localhost:3000/docs`](http://localhost:3000/docs)
+- **Sem Docker**
+  1. Instale as dependências e inicie o servidor:
+     ```bash
+     yarn
+     yarn start:dev
+     ```
+  2. Rode as migrações no banco de dados com:
+     ```bash
+     yarn prisma:dev:deploy
+     ```
+  3. O servidor estará disponíve em [`localhost:3000`](http://localhost:3000), o **Swagger** da aplicação estará disponível em [`localhost:3000/docs`](http://localhost:3000/docs)
 
 ### 🧪 Testando
 
@@ -176,7 +176,7 @@ Não se esqueça de dar uma estrela ao projeto! Obrigado novamente!
 1. Faça um fork do projeto.
 2. Crie sua branch (`git checkout -b feat/awsome-feature`).
 3. Faça commit das suas alterações (`git commit`).
-    > Você será perguntado sobre algumas coisas em relação ao que você desenvolveu, responda de acordo com o que você fez.
+   > Você será perguntado sobre algumas coisas em relação ao que você desenvolveu, responda de acordo com o que você fez.
 4. Faça o push para a branch (`git push origin feat/awsome-feature`).
 5. Abra uma PR apontando para a branch `dev`.
 

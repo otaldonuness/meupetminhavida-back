@@ -1,52 +1,52 @@
 name: Semantic Release
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 permissions:
-    contents: write
-    issues: write
-    pull-requests: write
+  contents: write
+  issues: write
+  pull-requests: write
 
 jobs:
-    release:
-        runs-on: ubuntu-latest
+  release:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
-              with:
-                  fetch-depth: 0
-                  persist-credentials: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
-            - name: Setup Node.js environment
-              uses: actions/setup-node@v3
-              with:
-                  node-version: latest
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
 
-            - uses: actions/cache@v3
-              id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
-              with:
-                  path: |
-                      **/node_modules
-                      ${{ needs.install.outputs.npm-cache-dir }}
-                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-node-
+      - uses: actions/cache@v3
+        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            **/node_modules
+            ${{ needs.install.outputs.npm-cache-dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-            - name: Install dependencies
-              run: yarn --frozen-lockfile
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
 
-            - name: Run Semantic Release
-              env:
-                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
-              run: npx semantic-release --ci
+      - name: Run Semantic Release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npx semantic-release --ci
 
-            # - name: Trigger Vercel Deploy
-            #   run: |
-            #     curl -X POST -H "Content-Type: application/json" \
-            #     -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
-            #     -d '{}' \
-            #     https://api.vercel.com/v1/integrations/deploy/prj_OMPpBqDsmLTiUTOAKtbaUaJGsHQ0/zUHB9DyIy8
+      # - name: Trigger Vercel Deploy
+      #   run: |
+      #     curl -X POST -H "Content-Type: application/json" \
+      #     -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
+      #     -d '{}' \
+      #     https://api.vercel.com/v1/integrations/deploy/prj_OMPpBqDsmLTiUTOAKtbaUaJGsHQ0/zUHB9DyIy8

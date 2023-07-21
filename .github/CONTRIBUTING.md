@@ -20,11 +20,11 @@ Below, we will present ways to contribute to the project technically. However, l
 
 ## Backend stack
 
--   [NestJs](https://nestjs.com)
--   [PlanetScale](https://planetscale.com/)
--   [Prisma ORM](https://www.prisma.io/)
--   [Vitest](https://vitest.dev/)
--   [Pactum](https://pactumjs.github.io/)
+- [NestJs](https://nestjs.com)
+- [PlanetScale](https://planetscale.com/)
+- [Prisma ORM](https://www.prisma.io/)
+- [Vitest](https://vitest.dev/)
+- [Pactum](https://pactumjs.github.io/)
 
 ## Starting up
 
@@ -52,10 +52,10 @@ This is an OpenSource project, but at this moment we are in a creative phase whe
 
 Whether you find any bugs in the solution, feel free to use the [Issues](https://github.com/features/issues) tool on GitHub itself. We kindly ask that you follow a similar template when reporting the issue:
 
--   Describe the error with as much detail as possible.
--   Include the error message generated or
--   Describe the expected behavior X the unexpected behavior.
--   If possible, provide screenshots.
+- Describe the error with as much detail as possible.
+- Include the error message generated or
+- Describe the expected behavior X the unexpected behavior.
+- If possible, provide screenshots.
 
 We will do our best to identify, reproduce, and forward the issues to the teams responsible for the solution.
 

@@ -1,25 +1,25 @@
 name: Sync Dev with Main
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 permissions:
-    actions: write
-    contents: write
-    deployments: write
-    packages: write
+  actions: write
+  contents: write
+  deployments: write
+  packages: write
 
 jobs:
-    sync-dev-with-main:
-        runs-on: ubuntu-latest
+  sync-dev-with-main:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Check out repository
-              uses: actions/checkout@v3
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
 
-            - name: Recreate Dev branch
-              run: |
-                  git checkout -b dev
-                  git push origin dev -f
+      - name: Recreate Dev branch
+        run: |
+          git checkout -b dev
+          git push origin dev -f

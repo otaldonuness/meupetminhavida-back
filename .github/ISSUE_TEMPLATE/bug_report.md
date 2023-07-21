@@ -1,9 +1,9 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: '[BUG] '
+title: "[BUG] "
 labels: Bug
-assignees: ''
+assignees: ""
 ---
 
 ## Bug Description
@@ -33,9 +33,9 @@ Add screenshots here to help explain the problem visually.
 
 ## Environment (if applicable)
 
--   OS: [e.g., Windows 10, macOS Big Sur]
--   Browser: [e.g., Chrome, Firefox]
--   Version: [e.g., 1.0.0]
+- OS: [e.g., Windows 10, macOS Big Sur]
+- Browser: [e.g., Chrome, Firefox]
+- Version: [e.g., 1.0.0]
 
 ## Additional Information
 
