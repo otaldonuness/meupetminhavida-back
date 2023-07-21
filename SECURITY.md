@@ -19,9 +19,9 @@ We kindly request that you follow responsible disclosure practices. This means y
 
 The following activities are expressly prohibited:
 
-- Testing against production systems or infrastructure that does not belong to you.
-- Any form of denial-of-service (DoS) attack, including resource exhaustion or system crashes.
-- Any physical attempts against our infrastructure, data centers, or offices.
-- Social engineering or phishing of our staff or users.
+-   Testing against production systems or infrastructure that does not belong to you.
+-   Any form of denial-of-service (DoS) attack, including resource exhaustion or system crashes.
+-   Any physical attempts against our infrastructure, data centers, or offices.
+-   Social engineering or phishing of our staff or users.
 
 If you believe you've found a vulnerability that is outside the scope of this policy, please reach out to us, and we will handle it on a case-by-case basis.

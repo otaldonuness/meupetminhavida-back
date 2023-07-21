@@ -1,7 +1,7 @@
 ---
 name: Documentation Update
 about: Suggest an idea for documentation update
-title: "[DOC]"
+title: '[DOC]'
 labels: Documentation
 assignees: otaldonuness
 ---

@@ -1,57 +1,57 @@
-version: "3.9"
+version: '3.9'
 name: meupetminhavida
 
 services:
-  back-end:
-    build:
-      context: ../
-      dockerfile: ./docker/dockerfile.nest.dev
-    ports:
-      - 3000:3000
-    volumes:
-      - ../.:/home/node/app
-    networks:
-      - inner-network
-    environment:
-      # App
-      - APP_PORT=3000
-      - NODE_ENV=development
+    back-end:
+        build:
+            context: ../
+            dockerfile: ./docker/dockerfile.nest.dev
+        ports:
+            - 3000:3000
+        volumes:
+            - ../.:/home/node/app
+        networks:
+            - inner-network
+        environment:
+            # App
+            - APP_PORT=3000
+            - NODE_ENV=development
 
-      # Database
-      - DATABASE_URL=mysql://root:root@dev-db-mysql:3306/meupetminhavidadb
+            # Database
+            - DATABASE_URL=mysql://root:root@dev-db-mysql:3306/meupetminhavidadb
 
-      # CORS
-      - ALLOWED_ORIGINS=http://example1.com;http://example2.com
+            # CORS
+            - ALLOWED_ORIGINS=http://example1.com;http://example2.com
 
-      # JWT
-      - ACCESS_TOKEN_SECRET=access-token-secret
-      - REFRESH_TOKEN_SECRET=refresh-token-secret
-      - ACCESS_TOKEN_EXPIRES=15m
-      - REFRESH_TOKEN_EXPIRES=7d
-    depends_on:
-      dev-db-mysql:
-        condition: service_healthy
+            # JWT
+            - ACCESS_TOKEN_SECRET=access-token-secret
+            - REFRESH_TOKEN_SECRET=refresh-token-secret
+            - ACCESS_TOKEN_EXPIRES=15m
+            - REFRESH_TOKEN_EXPIRES=7d
+        depends_on:
+            dev-db-mysql:
+                condition: service_healthy
 
-  dev-db-mysql:
-    image: mysql:8.0.33
-    restart: always
-    ports:
-      - 3306:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: meupetminhavidadb
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 3s
-      timeout: 5s
-      retries: 10
-    volumes:
-      - db-data:/var/lib/mysql
-    networks:
-      - inner-network
+    dev-db-mysql:
+        image: mysql:8.0.33
+        restart: always
+        ports:
+            - 3306:3306
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: meupetminhavidadb
+        healthcheck:
+            test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+            interval: 3s
+            timeout: 5s
+            retries: 10
+        volumes:
+            - db-data:/var/lib/mysql
+        networks:
+            - inner-network
 
 networks:
-  inner-network:
+    inner-network:
 
 volumes:
-  db-data:
+    db-data:

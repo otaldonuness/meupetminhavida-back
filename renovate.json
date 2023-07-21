@@ -1,50 +1,50 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", ":semanticCommits"],
-  "enabled": true,
-  "enabledManagers": ["npm", "github-actions"],
-  "postUpdateOptions": ["yarnDedupeHighest"],
-  "rangeStrategy": "update-lockfile",
-  "labels": ["Dependacy"],
-  "assigneesFromCodeOwners": true,
-  "dependencyDashboardHeader": "",
-  "osvVulnerabilityAlerts": true,
-  "timezone": "America/Sao_Paulo",
-  "lockFileMaintenance": {
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["config:base", ":semanticCommits"],
     "enabled": true,
-    "automerge": true
-  },
-  "schedule": ["before 10am on the first day of the month"],
-  "packageRules": [
-    {
-      "groupName": "vitest monorepo",
-      "groupSlug": "vitest",
-      "matchPackageNames": ["vitest"],
-      "matchPackagePrefixes": ["@vitest/"]
+    "enabledManagers": ["npm", "github-actions"],
+    "postUpdateOptions": ["yarnDedupeHighest"],
+    "rangeStrategy": "update-lockfile",
+    "labels": ["Dependacy"],
+    "assigneesFromCodeOwners": true,
+    "dependencyDashboardHeader": "",
+    "osvVulnerabilityAlerts": true,
+    "timezone": "America/Sao_Paulo",
+    "lockFileMaintenance": {
+        "enabled": true,
+        "automerge": true
     },
-    {
-      "matchPaths": ["package.json"],
-      "matchDepTypes": ["dependencies"],
-      "rangeStrategy": "pin"
-    },
-    {
-      "matchPaths": ["packages/**"],
-      "matchDepTypes": ["dependencies"],
-      "rangeStrategy": "replace"
-    },
-    {
-      "matchDepTypes": ["devDependencies"],
-      "rangeStrategy": "auto"
-    },
-    {
-      "matchDepTypes": ["devDependencies"],
-      "matchPackagePatterns": ["lint", "prettier"],
-      "automerge": true
-    },
-    {
-      "matchUpdateTypes": ["minor", "patch", "digest"],
-      "matchCurrentVersion": "!/^0/",
-      "automerge": true
-    }
-  ]
+    "schedule": ["before 10am on the first day of the month"],
+    "packageRules": [
+        {
+            "groupName": "vitest monorepo",
+            "groupSlug": "vitest",
+            "matchPackageNames": ["vitest"],
+            "matchPackagePrefixes": ["@vitest/"]
+        },
+        {
+            "matchPaths": ["package.json"],
+            "matchDepTypes": ["dependencies"],
+            "rangeStrategy": "pin"
+        },
+        {
+            "matchPaths": ["packages/**"],
+            "matchDepTypes": ["dependencies"],
+            "rangeStrategy": "replace"
+        },
+        {
+            "matchDepTypes": ["devDependencies"],
+            "rangeStrategy": "auto"
+        },
+        {
+            "matchDepTypes": ["devDependencies"],
+            "matchPackagePatterns": ["lint", "prettier"],
+            "automerge": true
+        },
+        {
+            "matchUpdateTypes": ["minor", "patch", "digest"],
+            "matchCurrentVersion": "!/^0/",
+            "automerge": true
+        }
+    ]
 }

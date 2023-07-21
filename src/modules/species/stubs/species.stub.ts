@@ -1,7 +1,7 @@
-import { CreateSpeciesDto } from "../dto";
+import { CreateSpeciesDto } from '../dto'
 
 export const speciesStub = (): CreateSpeciesDto => {
-  return {
-    name: "corvus corax",
-  };
-};
+    return {
+        name: 'corvus corax'
+    }
+}
