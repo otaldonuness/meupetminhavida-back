@@ -1,19 +1,30 @@
 import { Test } from "@nestjs/testing";
-import { CreateSpeciesDto, UpdateSpeciesDto } from "src/modules/species/dto";
-import { SpeciesController } from "src/modules/species/species.controller";
-import { SpeciesService } from "src/modules/species/species.service";
-import { speciesStub } from "src/modules/species/stubs";
-
-jest.mock("../../../src/modules/species/species.controller.ts");
+import {
+  CreateSpeciesDto,
+  UpdateSpeciesDto,
+} from "../../../src/modules/species/dto";
+import { SpeciesService } from "../../../src/modules/species/species.service";
+import { SpeciesController } from "../../../src/modules/species/species.controller";
+import { speciesStub } from "../../../src/modules/species/stubs";
+import { SpeciesServiceMock } from "../../../src/modules/species/__mocks__";
 
 describe("SpeciesController Unit", () => {
   let speciesController: SpeciesController;
   let speciesService: SpeciesService;
 
+  // no teste da service teve que tirar a mock, mas não sei se precisa tirar essa.
+  // caso dê algum problema posteriormente, tente tirar para ver se ajuda.
+  jest.mock("../../../src/modules/species/species.service");
+
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      providers: [SpeciesService],
       controllers: [SpeciesController],
+      providers: [
+        {
+          provide: SpeciesService,
+          useClass: SpeciesServiceMock,
+        },
+      ],
     }).compile();
 
     speciesService = moduleRef.get<SpeciesService>(SpeciesService);
@@ -79,7 +90,7 @@ describe("SpeciesController Unit", () => {
       const foundSpecies = await speciesController.getAll();
 
       expect(speciesService.getAll).toHaveBeenCalledWith();
-      expect(foundSpecies).toContain(speciesStub());
+      expect(foundSpecies).toEqual([speciesStub(), speciesStub()]);
     });
   });
 });

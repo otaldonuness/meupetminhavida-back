@@ -1,4 +1,4 @@
-import { speciesStub } from "../stubs/species.stub";
+import { speciesStub } from "../stubs";
 
 export const SpeciesServiceMock = jest.fn().mockReturnValue({
   create: jest.fn().mockReturnValue(speciesStub()),
