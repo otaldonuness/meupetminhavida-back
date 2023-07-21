@@ -1,10 +1,14 @@
 import { PrismaClient } from "@prisma/client";
-import locations = require("./seeds/location");
+import { locations } from "./seeds/location";
+import { species } from "./seeds/species";
 
 const prisma = new PrismaClient();
 async function main() {
   await prisma.locations.createMany({
-    data: locations.data,
+    data: locations,
+  });
+  await prisma.species.createMany({
+    data: species,
   });
 }
 main()

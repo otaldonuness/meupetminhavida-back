@@ -1,16 +1,19 @@
-import { Injectable } from "@nestjs/common";
+import {
+  Injectable,
+  NotAcceptableException,
+  NotFoundException,
+} from "@nestjs/common";
 import { PrismaService } from "../../config/prisma/prisma.service";
 import { CreatePetDto } from "./dto";
 
 @Injectable()
 export class PetsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(createPetDto: CreatePetDto) {
-    try {
-      const { appliedVaccines, treatments, petPhotos, ...petData } =
-        createPetDto;
+    const { appliedVaccines, treatments, petPhotos, ...petData } = createPetDto;
 
+    try {
       return await this.prisma.pets.create({
         data: {
           ...petData,
@@ -24,16 +27,39 @@ export class PetsService {
           petPhotos: true,
         },
       });
-    } catch (error) {
-      throw error;
+    } catch (err) {
+      if (err?.code === "P2019") {
+        throw new NotAcceptableException("Invalid Input.");
+      }
+      throw err;
     }
   }
 
   async findPetById(id: string) {
-    return await this.prisma.pets.findUnique({ where: { id } });
+    try {
+      return await this.prisma.pets.findUniqueOrThrow({ where: { id: id } });
+    } catch (err) {
+      if (err?.code === "P2025") {
+        throw new NotFoundException(
+          "Unable to find a pet with the provided ID.",
+        );
+      }
+      throw err;
+    }
   }
 
   async findPetsByCityId(locationId: string) {
-    return await this.prisma.pets.findMany({ where: { locationId } });
+    try {
+      return await this.prisma.pets.findMany({
+        where: { locationId: locationId },
+      });
+    } catch (err) {
+      if (err?.code === "P2025") {
+        throw new NotFoundException(
+          "Unable to find pets with the provideda cityID",
+        );
+      }
+      throw err;
+    }
   }
 }
