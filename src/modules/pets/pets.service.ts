@@ -3,12 +3,12 @@ import {
   NotAcceptableException,
   NotFoundException,
 } from "@nestjs/common";
-import { PrismaService } from "../../config/prisma/prisma.service";
+import { PrismaService } from "../../../src/config/prisma/prisma.service";
 import { CreatePetDto } from "./dto";
 
 @Injectable()
 export class PetsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async create(createPetDto: CreatePetDto) {
     try {
@@ -38,7 +38,7 @@ export class PetsService {
 
   async findPetById(id: string) {
     try {
-      return await this.prisma.pets.findUnique({ where: { id } });
+      return await this.prisma.pets.findUniqueOrThrow({ where: { id: id } });
     } catch (err) {
       if (err?.code === "P2025") {
         throw new NotFoundException(
@@ -51,7 +51,9 @@ export class PetsService {
 
   async findPetsByCityId(locationId: string) {
     try {
-      return await this.prisma.pets.findMany({ where: { locationId } });
+      return await this.prisma.pets.findMany({
+        where: { locationId: locationId },
+      });
     } catch (err) {
       if (err?.code === "P2025") {
         throw new NotFoundException(
