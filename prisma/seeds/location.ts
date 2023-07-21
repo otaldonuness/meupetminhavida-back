@@ -1,4 +1,4 @@
-export const data = [
+export const locations = [
   { city: "Alta Floresta D'Oeste", state: "RO" },
   { city: "Ariquemes", state: "RO" },
   { city: "Cabixi", state: "RO" },
