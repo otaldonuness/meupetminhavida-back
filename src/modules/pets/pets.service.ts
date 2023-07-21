@@ -3,7 +3,7 @@ import {
   NotAcceptableException,
   NotFoundException,
 } from "@nestjs/common";
-import { PrismaService } from "../../../src/config/prisma/prisma.service";
+import { PrismaService } from "../../config/prisma/prisma.service";
 import { CreatePetDto } from "./dto";
 
 @Injectable()
@@ -11,10 +11,9 @@ export class PetsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createPetDto: CreatePetDto) {
-    try {
-      const { appliedVaccines, treatments, petPhotos, ...petData } =
-        createPetDto;
+    const { appliedVaccines, treatments, petPhotos, ...petData } = createPetDto;
 
+    try {
       return await this.prisma.pets.create({
         data: {
           ...petData,

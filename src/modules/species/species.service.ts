@@ -13,7 +13,9 @@ export class SpeciesService {
 
   async create(createSpeciesDto: CreateSpeciesDto) {
     try {
-      return this.prisma.species.create({ data: { ...createSpeciesDto } });
+      return await this.prisma.species.create({
+        data: { ...createSpeciesDto },
+      });
     } catch (err) {
       if (err?.code === "P2002") {
         throw new ConflictException("That species is already registered.");
