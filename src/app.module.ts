@@ -1,15 +1,15 @@
-import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common"
-import { ConfigModule } from "@nestjs/config"
-import { APP_GUARD } from "@nestjs/core"
-import { UsersModule } from "./modules/users/users.module"
-import { PrismaModule } from "./config/prisma/prisma.module"
-import { AuthModule } from "./modules/auth/auth.module"
-import { PetsModule } from "./modules/pets/pets.module"
-import { SpeciesModule } from "./modules/species/species.module"
-import { validate } from "./config/environment/env.validation"
-import { JwtGuard } from "./shared/guards"
-import { LocationsModule } from "./modules/locations/locations.module"
-import { LoggerMiddleware } from "./shared/middlewares"
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { APP_GUARD } from "@nestjs/core";
+import { UsersModule } from "./modules/users/users.module";
+import { PrismaModule } from "./config/prisma/prisma.module";
+import { AuthModule } from "./modules/auth/auth.module";
+import { PetsModule } from "./modules/pets/pets.module";
+import { SpeciesModule } from "./modules/species/species.module";
+import { validate } from "./config/environment/env.validation";
+import { JwtGuard } from "./shared/guards";
+import { LocationsModule } from "./modules/locations/locations.module";
+import { LoggerMiddleware } from "./shared/middlewares";
 
 @Module({
   imports: [
@@ -34,6 +34,6 @@ import { LoggerMiddleware } from "./shared/middlewares"
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes("*")
+    consumer.apply(LoggerMiddleware).forRoutes("*");
   }
 }

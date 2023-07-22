@@ -1,1 +1,1 @@
-export * from "./pets.stub"
+export * from "./pets.stub";

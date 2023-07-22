@@ -1,4 +1,4 @@
-import { petStub } from "../stubs"
+import { petStub } from "../stubs";
 
 export const PrismaMock = jest.fn().mockReturnValue({
   pets: {
@@ -6,4 +6,4 @@ export const PrismaMock = jest.fn().mockReturnValue({
     findMany: jest.fn().mockResolvedValue([petStub()]),
     findUniqueOrThrow: jest.fn().mockResolvedValue(petStub())
   }
-})
+});

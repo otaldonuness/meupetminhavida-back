@@ -9,13 +9,13 @@ import {
   NotEquals,
   Matches,
   IsUUID
-} from "class-validator"
-import { UsersRole } from "@prisma/client"
+} from "class-validator";
+import { UsersRole } from "@prisma/client";
 
 export class CreateUserDto {
   @IsEmail()
   @IsNotEmpty()
-  email: string
+  email: string;
 
   @IsString()
   @IsNotEmpty()
@@ -24,34 +24,34 @@ export class CreateUserDto {
     message:
       "Password must contain at least 1 lowercase letter, 1 uppercase letter, 1 numeric digit, 1 special character, and be at least 8 characters long."
   })
-  password: string
+  password: string;
 
   @IsString()
   @IsNotEmpty()
-  firstName: string
+  firstName: string;
 
   @IsString()
   @IsNotEmpty()
-  lastName: string
+  lastName: string;
 
   @IsEnum(UsersRole)
   @NotEquals(UsersRole.ADMIN)
   @IsNotEmpty()
-  role: UsersRole = UsersRole.REGULAR
+  role: UsersRole = UsersRole.REGULAR;
 
   @IsNumberString()
   @Length(11, 11, {
     message: "Mobile number must have length $constraint2, but actual is $value"
   })
   @IsOptional()
-  mobileNumber?: string
+  mobileNumber?: string;
 
   @IsOptional()
   @IsString()
   @Length(200)
-  description?: string
+  description?: string;
 
   @IsUUID()
   @IsNotEmpty()
-  locationId: string
+  locationId: string;
 }
