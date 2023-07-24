@@ -6,10 +6,10 @@ import {
   Param,
   Patch,
   Post
-} from "@nestjs/common"
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger"
-import { SpeciesService } from "./species.service"
-import { CreateSpeciesDto, UpdateSpeciesDto } from "./dto"
+} from "@nestjs/common";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { SpeciesService } from "./species.service";
+import { CreateSpeciesDto, UpdateSpeciesDto } from "./dto";
 
 @ApiBearerAuth()
 @ApiTags("species")
@@ -19,26 +19,26 @@ export class SpeciesController {
 
   @Post()
   create(@Body() species: CreateSpeciesDto) {
-    return this.speciesService.create(species)
+    return this.speciesService.create(species);
   }
 
   @Delete(":id")
   delete(@Param("id") id: string) {
-    return this.speciesService.delete(id)
+    return this.speciesService.delete(id);
   }
 
   @Patch(":id")
   update(@Body() species: UpdateSpeciesDto, @Param("id") id: string) {
-    return this.speciesService.update(species, id)
+    return this.speciesService.update(species, id);
   }
 
   @Get(":id")
   getById(@Param("id") id: string) {
-    return this.speciesService.getById(id)
+    return this.speciesService.getById(id);
   }
 
   @Get()
   getAll() {
-    return this.speciesService.getAll()
+    return this.speciesService.getAll();
   }
 }

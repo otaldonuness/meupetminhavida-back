@@ -1,4 +1,4 @@
-import { PetSize } from "@prisma/client"
+import { PetSize } from "@prisma/client";
 import {
   IsArray,
   IsBoolean,
@@ -7,54 +7,54 @@ import {
   IsNumber,
   IsOptional,
   IsString
-} from "class-validator"
+} from "class-validator";
 
 export class CreatePetDto {
   @IsString()
   @IsNotEmpty()
-  name: string
+  name: string;
 
   @IsString()
   @IsNotEmpty()
-  speciesId: string
+  speciesId: string;
 
   @IsString()
   @IsNotEmpty()
-  locationId: string
+  locationId: string;
 
   @IsString()
   @IsNotEmpty()
-  gender: string
+  gender: string;
 
   @IsString()
   @IsNotEmpty()
-  breed: string
+  breed: string;
 
   @IsNumber()
   @IsNotEmpty()
-  age: number
+  age: number;
 
   @IsBoolean()
   @IsNotEmpty()
-  isCastrated: boolean
+  isCastrated: boolean;
 
   @IsString()
   @IsNotEmpty()
-  description: string
+  description: string;
 
   @IsArray()
   @IsOptional()
-  petPhotos?: Array<Object>
+  petPhotos?: Array<Object>;
 
   @IsArray()
   @IsOptional()
-  appliedVaccines?: Array<Object>
+  appliedVaccines?: Array<Object>;
 
   @IsArray()
   @IsOptional()
-  treatments?: Array<Object>
+  treatments?: Array<Object>;
 
   @IsEnum(PetSize)
   @IsNotEmpty()
-  petSize: PetSize = PetSize.SMALL
+  petSize: PetSize = PetSize.SMALL;
 }

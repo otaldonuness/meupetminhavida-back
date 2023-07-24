@@ -1,4 +1,4 @@
-import { userStub } from "../stubs"
+import { userStub } from "../stubs";
 
 export const PrismaMock = jest.fn().mockReturnValue({
   users: {
@@ -7,4 +7,4 @@ export const PrismaMock = jest.fn().mockReturnValue({
     update: jest.fn().mockResolvedValue(userStub()),
     updateMany: jest.fn().mockResolvedValue(userStub())
   }
-})
+});

@@ -1,5 +1,5 @@
-import { PetSize, Pets } from "@prisma/client"
-import { CreatePetDto } from "../dto"
+import { PetSize, Pets } from "@prisma/client";
+import { CreatePetDto } from "../dto";
 
 export const petStub = (): Pets => {
   return {
@@ -15,5 +15,5 @@ export const petStub = (): Pets => {
     description: "test",
     createdAt: new Date("2023-06-30 20:58:04"),
     updatedAt: new Date("2023-06-30 20:58:04")
-  }
-}
+  };
+};

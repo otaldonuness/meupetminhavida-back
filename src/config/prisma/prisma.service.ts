@@ -1,11 +1,11 @@
-import { INestApplication, Injectable, OnModuleInit } from "@nestjs/common"
-import { ConfigService } from "@nestjs/config"
-import { PrismaClient } from "@prisma/client"
-import { Environment } from "../environment/enums"
+import { INestApplication, Injectable, OnModuleInit } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { PrismaClient } from "@prisma/client";
+import { Environment } from "../environment/enums";
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
-  private configService: ConfigService
+  private configService: ConfigService;
 
   constructor(configService: ConfigService) {
     super({
@@ -14,27 +14,27 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
           url: configService.get("DATABASE_URL")
         }
       }
-    })
-    this.configService = configService
+    });
+    this.configService = configService;
   }
 
   async onModuleInit() {
-    await this.$connect()
+    await this.$connect();
   }
 
   enableShutdownHooks(app: INestApplication) {
     this.$on("beforeExit", async () => {
-      await app.close()
-    })
+      await app.close();
+    });
   }
 
   async cleanDatabase() {
     if (this.configService.get("NODE_ENV") === Environment.Production) {
-      return
+      return;
     }
     const models = Reflect.ownKeys(this).filter(
       (key) => typeof key === "string" && /^[a-z]+$/.test(key)
-    )
-    return Promise.all(models.map((modelKey) => this[modelKey].deleteMany()))
+    );
+    return Promise.all(models.map((modelKey) => this[modelKey].deleteMany()));
   }
 }

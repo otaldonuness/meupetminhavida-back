@@ -1,11 +1,11 @@
-import { Body, Controller, Get, Param, Put, UseGuards } from "@nestjs/common"
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger"
-import { plainToInstance } from "class-transformer"
-import { UsersRole } from "@prisma/client"
-import { UsersService } from "./users.service"
-import { GetCurrentUser, Roles } from "../../shared/decorators"
-import { RolesGuard } from "../../shared/guards"
-import { UpdateUserRoleDto, UserResponseDto } from "./dto"
+import { Body, Controller, Get, Param, Put, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { plainToInstance } from "class-transformer";
+import { UsersRole } from "@prisma/client";
+import { UsersService } from "./users.service";
+import { GetCurrentUser, Roles } from "../../shared/decorators";
+import { RolesGuard } from "../../shared/guards";
+import { UpdateUserRoleDto, UserResponseDto } from "./dto";
 
 @ApiBearerAuth()
 @ApiTags("users")
@@ -15,8 +15,8 @@ export class UsersController {
 
   @Get("me")
   async getMe(@GetCurrentUser("sub") userId: string) {
-    const user = await this.usersService.findOneById(userId)
-    return plainToInstance(UserResponseDto, user)
+    const user = await this.usersService.findOneById(userId);
+    return plainToInstance(UserResponseDto, user);
   }
 
   @Roles(UsersRole.ADMIN)
@@ -29,7 +29,7 @@ export class UsersController {
     const user = await this.usersService.updateUserRole(
       userId,
       updateUserRoleDto.newRole
-    )
-    return plainToInstance(UserResponseDto, user)
+    );
+    return plainToInstance(UserResponseDto, user);
   }
 }

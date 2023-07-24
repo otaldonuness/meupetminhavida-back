@@ -1,13 +1,13 @@
-import { Test } from "@nestjs/testing"
-import { CreatePetDto } from "../../../src/modules/pets/dto"
-import { petStub } from "../../../src/modules/pets/stubs/"
-import { PrismaMock } from "../../../src/modules/pets/__mocks__"
-import { PrismaService } from "../../../src/config/prisma/prisma.service"
-import { PetsService } from "../../../src/modules/pets/pets.service"
+import { Test } from "@nestjs/testing";
+import { CreatePetDto } from "../../../src/modules/pets/dto";
+import { petStub } from "../../../src/modules/pets/stubs/";
+import { PrismaMock } from "../../../src/modules/pets/__mocks__";
+import { PrismaService } from "../../../src/config/prisma/prisma.service";
+import { PetsService } from "../../../src/modules/pets/pets.service";
 
 describe("PetsService Unit", () => {
-  let petsService: PetsService
-  let prismaService: PrismaService
+  let petsService: PetsService;
+  let prismaService: PrismaService;
 
   // Somehow, the pet tests are not working, even though they should
   // It says it's because prisma is undefined
@@ -24,15 +24,15 @@ describe("PetsService Unit", () => {
           useClass: PrismaMock
         }
       ]
-    }).compile()
+    }).compile();
 
-    petsService = moduleRef.get<PetsService>(PetsService)
-    prismaService = moduleRef.get<PrismaService>(PrismaService)
-  })
+    petsService = moduleRef.get<PetsService>(PetsService);
+    prismaService = moduleRef.get<PrismaService>(PrismaService);
+  });
 
   afterEach(() => {
-    jest.clearAllMocks()
-  })
+    jest.clearAllMocks();
+  });
 
   describe("create()", () => {
     it("when create is called, it should call PrismaService", async () => {
@@ -46,35 +46,35 @@ describe("PetsService Unit", () => {
         locationId: "testCityID",
         description: "test",
         petSize: "MEDIUM"
-      }
-      const createdPet = await petsService.create(createPetDto)
+      };
+      const createdPet = await petsService.create(createPetDto);
 
-      expect(prismaService.pets.create).toHaveBeenCalled()
-      expect(createdPet).toEqual(petStub())
-    })
-  })
+      expect(prismaService.pets.create).toHaveBeenCalled();
+      expect(createdPet).toEqual(petStub());
+    });
+  });
 
   describe("findPetById()", () => {
     it("when findPetById is called, it should call PrismaService", async () => {
-      const petId = "testID"
-      const foundPet = await petsService.findPetById(petId)
+      const petId = "testID";
+      const foundPet = await petsService.findPetById(petId);
 
       expect(prismaService.pets.findUniqueOrThrow).toHaveBeenCalledWith({
         where: { id: petId }
-      })
-      expect(foundPet).toEqual(petStub())
-    })
-  })
+      });
+      expect(foundPet).toEqual(petStub());
+    });
+  });
 
   describe("findPetByCityId()", () => {
     it("when findPetsByCityId is called, it should call PrismaService", async () => {
-      const cityId = "testCityID"
-      const foundPets = await petsService.findPetsByCityId(cityId)
+      const cityId = "testCityID";
+      const foundPets = await petsService.findPetsByCityId(cityId);
 
       expect(prismaService.pets.findMany).toHaveBeenCalledWith({
         where: { locationId: cityId }
-      })
-      expect(foundPets).toEqual([petStub()])
-    })
-  })
-})
+      });
+      expect(foundPets).toEqual([petStub()]);
+    });
+  });
+});

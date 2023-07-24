@@ -1,12 +1,12 @@
-import { IsOptional, IsString, Length } from "class-validator"
+import { IsString, Length } from "class-validator";
 
-export class LocationsQueryDto {
-  @IsOptional()
+export class FindByCityInputDto {
   @IsString()
-  city?: string
+  city: string;
+}
 
-  @IsOptional()
+export class FindByStateInputDto {
   @IsString()
   @Length(2)
-  state?: string
+  state: string;
 }
