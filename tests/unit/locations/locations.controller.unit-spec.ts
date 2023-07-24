@@ -1,5 +1,5 @@
 import { Test } from "@nestjs/testing";
-import { LocationsServiceMock } from "../../../src/modules/locations/_mocks__/locations.service";
+import { LocationsServiceMock } from "../../../src/modules/locations/__mocks__/locations.service";
 import { LocationsController } from "../../../src/modules/locations/locations.controller";
 import { LocationsService } from "../../../src/modules/locations/locations.service";
 import {
@@ -11,7 +11,6 @@ describe("LocationsController Unit tests", () => {
   let locationsController: LocationsController;
   let locationsService: LocationsService;
 
-  //jest.mock("../../../src/modules/locations/locations.service")
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       controllers: [LocationsController],

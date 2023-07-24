@@ -1,10 +1,11 @@
 import { Test } from "@nestjs/testing";
 import { PrismaService } from "../../../src/config/prisma/prisma.service";
-import {
-  PrismaMock,
-  PrismaMockFindManyOverload
-} from "../../../src/modules/locations/_mocks__";
+import { PrismaMock } from "../../../src/modules/locations/__mocks__";
 import { LocationsService } from "../../../src/modules/locations/locations.service";
+import {
+  locationTestStub1,
+  locationTestStub2
+} from "../../../src/modules/locations/stubs/locations-service.stub";
 
 describe("Location service unit tests", () => {
   let locationsService: LocationsService;
@@ -66,35 +67,15 @@ describe("Location service unit tests", () => {
       expect(output.state).toBe(expectedState);
     });
   });
-});
-
-describe("Location findByState unit tests", () => {
-  let locationsService: LocationsService;
-  let prismaService: PrismaService;
-
-  beforeAll(async () => {
-    const moduleRef = await Test.createTestingModule({
-      providers: [
-        LocationsService,
-        {
-          provide: PrismaService,
-          useClass: PrismaMockFindManyOverload
-        }
-      ]
-    }).compile();
-
-    locationsService = moduleRef.get<LocationsService>(LocationsService);
-    prismaService = moduleRef.get<PrismaService>(PrismaService);
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
 
   describe("findByState()", () => {
     it("given a valid state, when tries to find it using its state name should return cities that belongs to it", async () => {
       const expectedQuantity = 2;
       const expectedState = "CT";
+
+      jest
+        .spyOn(prismaService.locations, "findMany")
+        .mockResolvedValue([locationTestStub1(), locationTestStub2()]);
       const output = await locationsService.findByState(expectedState);
 
       expect(prismaService.locations.findMany).toHaveBeenCalled();

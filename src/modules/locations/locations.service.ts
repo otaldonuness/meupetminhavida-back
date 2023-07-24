@@ -10,9 +10,6 @@ export class LocationsService {
     try {
       return await this.prisma.locations.findMany();
     } catch (err) {
-      if (err.code === "P2025") {
-        throw new NotFoundException("No location has been found");
-      }
       throw err;
     }
   }
@@ -40,9 +37,6 @@ export class LocationsService {
         }
       });
     } catch (err) {
-      if (err.code === "P2025") {
-        throw new NotFoundException("No location has been found");
-      }
       throw err;
     }
   }
@@ -53,7 +47,6 @@ export class LocationsService {
         where: { id }
       });
     } catch (err) {
-      // Treats not found entity by Prisma.
       if (err.code === "P2025") {
         throw new NotFoundException(`Location ${id} was not found`);
       }
