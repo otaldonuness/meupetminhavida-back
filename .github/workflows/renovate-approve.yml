@@ -1,8 +1,8 @@
 name: Renovate
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: "0 4 * * 1"    
+
 jobs:
   renovate:
     runs-on: ubuntu-latest
@@ -10,4 +10,4 @@ jobs:
       - name: Renovate Bot
         uses: renovatebot/github-action@v36.1.1
         with:
-          config-path: ./renovate.json
+          token: ${{ secrets.RENOVATE_TOKEN }}

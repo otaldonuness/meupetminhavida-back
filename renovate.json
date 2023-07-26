@@ -18,20 +18,17 @@
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch",
       "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["minor", "patch", "digest"],
-      "rangeStrategy": "auto"
+      "matchUpdateTypes": ["minor", "patch", "digest"]
     },
     {
       "groupName": "lint dependencies",
       "matchDepTypes": ["devDependencies"],
       "matchPackagePatterns": ["lint", "prettier"],
-      "automerge": true,
-      "rangeStrategy": "auto"
+      "automerge": true
     },
     {
       "groupName": "dev dependencies",
-      "matchDepTypes": ["devDependencies"],
-      "rangeStrategy": "auto"
+      "matchDepTypes": ["devDependencies"]
     }
   ]
 }
