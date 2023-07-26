@@ -1,2 +1,13 @@
-- name: Renovate Bot GitHub Action
-  uses: renovatebot/github-action@v36.1.1
+name: Renovate
+on:
+  push:
+    branches:
+      - main
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Renovate Bot
+        uses: renovatebot/github-action@v36.1.1
+        with:
+          config-path: ./renovate.json
