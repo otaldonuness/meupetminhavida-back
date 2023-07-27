@@ -1,3 +1,4 @@
+---
 ignore:
   - "MD013" # Ignore the Markdownlint rule you don't want to validate
 
