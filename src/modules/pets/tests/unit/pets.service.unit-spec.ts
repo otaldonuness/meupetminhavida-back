@@ -1,9 +1,9 @@
 import { Test } from "@nestjs/testing";
-import { CreatePetDto } from "../dto";
-import { PrismaMock } from "../__mocks__/prisma-service.mock";
-import { PrismaService } from "../../../config/prisma/prisma.service";
-import { PetsService } from "../pets.service";
-import { petStub } from "../stubs";
+import { CreatePetDto } from "../../dto";
+import { PrismaMock } from "../../__mocks__/prisma-service.mock";
+import { PrismaService } from "../../../../config/prisma/prisma.service";
+import { PetsService } from "../../pets.service";
+import { petStub } from "../../stubs";
 
 describe("PetsService Unit", () => {
   let petsService: PetsService;

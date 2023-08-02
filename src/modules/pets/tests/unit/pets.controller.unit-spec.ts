@@ -1,9 +1,9 @@
 import { Test } from "@nestjs/testing";
-import { CreatePetDto } from "../dto";
-import { PetsController } from "../pets.controller";
-import { PetsService } from "../pets.service";
-import { petStub } from "../stubs/";
-import { PetsServiceMock } from "../__mocks__/pets.service";
+import { CreatePetDto } from "../../dto";
+import { PetsController } from "../../pets.controller";
+import { PetsService } from "../../pets.service";
+import { petStub } from "../../stubs";
+import { PetsServiceMock } from "../../__mocks__/pets.service";
 
 describe("PetsController Unit", () => {
   let petsController: PetsController;

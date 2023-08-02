@@ -1,11 +1,11 @@
 import { Test } from "@nestjs/testing";
 import { UsersRole } from "@prisma/client";
 import { randomUUID } from "crypto";
-import { UsersController } from "../users.controller";
-import { UsersService } from "../users.service";
-import { UpdateUserRoleDto, UserResponseDto } from "../dto";
+import { UsersController } from "../../users.controller";
+import { UsersService } from "../../users.service";
+import { UpdateUserRoleDto, UserResponseDto } from "../../dto";
 
-jest.mock("../users.service");
+jest.mock("../../users.service");
 
 describe("UsersController Unit", () => {
   let usersController: UsersController;

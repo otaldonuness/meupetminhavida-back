@@ -1,10 +1,10 @@
 import { Test } from "@nestjs/testing";
-import { AppModule } from "../../../src/app.module";
-import { PrismaService } from "../../../src/config/prisma/prisma.service";
-import { UsersService } from "../../../src/modules/users/users.service";
-import { CreateUserDto } from "../../../src/modules/users/dto";
+import { AppModule } from "../../../../app.module";
+import { PrismaService } from "../../../../config/prisma/prisma.service";
+import { UsersService } from "../../../users/users.service";
+import { CreateUserDto } from "../../../users/dto";
 import { UsersRole } from "@prisma/client";
-import { AuthService } from "../../../src/modules/auth/auth.service";
+import { AuthService } from "../../../auth/auth.service";
 import { SignInAuthDto } from "src/modules/auth/dto";
 import { UnauthorizedException } from "@nestjs/common";
 import { randomUUID } from "crypto";
