@@ -1,11 +1,11 @@
 import { Test } from "@nestjs/testing";
-import { PrismaService } from "../../../src/config/prisma/prisma.service";
-import { PrismaMock } from "../../../src/modules/locations/__mocks__";
-import { LocationsService } from "../../../src/modules/locations/locations.service";
+import { PrismaService } from "../../../config/prisma/prisma.service";
+import { PrismaMock } from "../__mocks__/prisma-service.mock";
+import { LocationsService } from "../locations.service";
 import {
   locationTestStub1,
   locationTestStub2
-} from "../../../src/modules/locations/stubs/locations-service.stub";
+} from "../stubs/locations-service.stub";
 
 describe("Location service unit tests", () => {
   let locationsService: LocationsService;

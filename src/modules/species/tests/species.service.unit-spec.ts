@@ -1,12 +1,9 @@
-import {
-  CreateSpeciesDto,
-  UpdateSpeciesDto
-} from "../../../src/modules/species/dto";
+import { CreateSpeciesDto, UpdateSpeciesDto } from "../dto";
 import { Test } from "@nestjs/testing";
-import { PrismaMock } from "../../../src/modules/species/__mocks__/prisma-service.mock";
-import { PrismaService } from "../../../src/config/prisma/prisma.service";
-import { SpeciesService } from "../../../src/modules/species/species.service";
-import { speciesStub } from "../../../src/modules/species/stubs";
+import { PrismaMock } from "../__mocks__/prisma-service.mock";
+import { PrismaService } from "../../../config/prisma/prisma.service";
+import { SpeciesService } from "../species.service";
+import { speciesStub } from "../stubs";
 
 describe("SpeciesService Unit", () => {
   let speciesService: SpeciesService;

@@ -1,10 +1,10 @@
 import { Test } from "@nestjs/testing";
-import { UsersService } from "../../../src/modules/users/users.service";
-import { userStub } from "../../../src/modules/users/stubs";
-import { PrismaService } from "../../../src/config/prisma/prisma.service";
-import { PrismaMock } from "../../../src/modules/users/__mocks__";
+import { UsersService } from "../users.service";
+import { userStub } from "../../users/stubs";
+import { PrismaService } from "../../../config/prisma/prisma.service";
+import { PrismaMock } from "../../users/__mocks__/prisma-service.mock";
 import { UsersRole } from "@prisma/client";
-import { CreateUserDto } from "../../../src/modules/users/dto";
+import { CreateUserDto } from "../../users/dto";
 
 describe("UsersService Unit", () => {
   let usersService: UsersService;

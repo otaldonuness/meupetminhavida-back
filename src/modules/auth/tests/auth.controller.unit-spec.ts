@@ -1,13 +1,13 @@
 import { randomUUID } from "crypto";
 import { Test } from "@nestjs/testing";
 import { UsersRole } from "@prisma/client";
-import { AuthController } from "../../../src/modules/auth/auth.controller";
-import { AuthService } from "../../../src/modules/auth/auth.service";
-import { SignInAuthDto } from "../../../src/modules/auth/dto";
-import { tokensStub } from "../../../src/modules/auth/stubs";
-import { CreateUserDto } from "../../../src/modules/users/dto";
+import { AuthController } from "../auth.controller";
+import { AuthService } from "../auth.service";
+import { SignInAuthDto } from "../dto";
+import { tokensStub } from "../stubs";
+import { CreateUserDto } from "src/modules/users/dto";
 
-jest.mock("../../../src/modules/auth/auth.service");
+jest.mock("../auth.service");
 
 describe("AuthController Unit", () => {
   let authController: AuthController;

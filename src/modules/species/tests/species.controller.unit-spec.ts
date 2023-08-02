@@ -1,20 +1,15 @@
 import { Test } from "@nestjs/testing";
-import {
-  CreateSpeciesDto,
-  UpdateSpeciesDto
-} from "../../../src/modules/species/dto";
-import { SpeciesService } from "../../../src/modules/species/species.service";
-import { SpeciesController } from "../../../src/modules/species/species.controller";
-import { speciesStub } from "../../../src/modules/species/stubs";
-import { SpeciesServiceMock } from "../../../src/modules/species/__mocks__";
+import { CreateSpeciesDto, UpdateSpeciesDto } from "../dto";
+import { SpeciesService } from "../species.service";
+import { SpeciesController } from "../species.controller";
+import { speciesStub } from "../stubs";
+import { SpeciesServiceMock } from "../__mocks__/species.service";
 
 describe("SpeciesController Unit", () => {
   let speciesController: SpeciesController;
   let speciesService: SpeciesService;
 
-  // no teste da service teve que tirar a mock, mas não sei se precisa tirar essa.
-  // caso dê algum problema posteriormente, tente tirar para ver se ajuda.
-  jest.mock("../../../src/modules/species/species.service");
+  jest.mock("../species.service");
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({

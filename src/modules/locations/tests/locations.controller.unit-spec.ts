@@ -1,11 +1,8 @@
 import { Test } from "@nestjs/testing";
-import { LocationsServiceMock } from "../../../src/modules/locations/__mocks__/locations.service";
-import { LocationsController } from "../../../src/modules/locations/locations.controller";
-import { LocationsService } from "../../../src/modules/locations/locations.service";
-import {
-  FindByCityInputDto,
-  FindByStateInputDto
-} from "../../../src/modules/locations/dto";
+import { LocationsServiceMock } from "../__mocks__/locations.service";
+import { LocationsController } from "../locations.controller";
+import { LocationsService } from "../locations.service";
+import { FindByCityInputDto, FindByStateInputDto } from "../dto";
 
 describe("LocationsController Unit tests", () => {
   let locationsController: LocationsController;

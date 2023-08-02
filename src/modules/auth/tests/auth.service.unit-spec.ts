@@ -2,20 +2,17 @@ import { Test } from "@nestjs/testing";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import { UnauthorizedException } from "@nestjs/common";
-
-import { UsersService } from "../../../src/modules/users/users.service";
-import { AuthService } from "../../../src/modules/auth/auth.service";
-import {
-  ConfigServiceMock,
-  JwtServiceMock
-} from "../../../src/modules/auth/__mocks__";
-import { SignInAuthDto } from "../../../src/modules/auth/dto";
-import { userStub } from "../../../src/modules/users/stubs";
-import { envVariablesStub, tokensStub } from "../../../src/modules/auth/stubs";
-import { JwtPayload } from "../../../src/modules/auth/types";
+import { JwtServiceMock } from "../__mocks__/jwt-service.mock";
+import { UsersService } from "../../users/users.service";
+import { AuthService } from "../auth.service";
+import { ConfigServiceMock } from "../__mocks__/config-service.mock";
+import { SignInAuthDto } from "../dto";
+import { envVariablesStub, tokensStub } from "../stubs";
+import { JwtPayload } from "../types";
 import { UsersRole } from "@prisma/client";
+import { userStub } from "../../users/stubs";
 
-jest.mock("../../../src/modules/users/users.service");
+jest.mock("../../users/users.service");
 
 describe("AuthService Unit", () => {
   let authService: AuthService;

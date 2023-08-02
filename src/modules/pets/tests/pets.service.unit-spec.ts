@@ -1,19 +1,13 @@
 import { Test } from "@nestjs/testing";
-import { CreatePetDto } from "../../../src/modules/pets/dto";
-import { petStub } from "../../../src/modules/pets/stubs/";
-import { PrismaMock } from "../../../src/modules/pets/__mocks__";
-import { PrismaService } from "../../../src/config/prisma/prisma.service";
-import { PetsService } from "../../../src/modules/pets/pets.service";
+import { CreatePetDto } from "../dto";
+import { PrismaMock } from "../__mocks__/prisma-service.mock";
+import { PrismaService } from "../../../config/prisma/prisma.service";
+import { PetsService } from "../pets.service";
+import { petStub } from "../stubs";
 
 describe("PetsService Unit", () => {
   let petsService: PetsService;
   let prismaService: PrismaService;
-
-  // Somehow, the pet tests are not working, even though they should
-  // It says it's because prisma is undefined
-  // But considering that prisma is being called and handled in the
-  // Same way as in the files where it worked, I have absolutely
-  // No idea regarding how this should work
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
