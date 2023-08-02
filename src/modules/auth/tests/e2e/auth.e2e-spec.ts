@@ -3,11 +3,11 @@ import { Test } from "@nestjs/testing";
 import { UsersRole } from "@prisma/client";
 import { HttpStatus } from "@nestjs/common";
 import * as pactum from "pactum";
-import { PrismaService } from "../../../src/config/prisma/prisma.service";
-import { AppModule } from "../../../src/app.module";
-import { SignInAuthDto } from "../../../src/modules/auth/dto";
-import { CreateUserDto } from "../../../src/modules/users/dto";
-import { UsersService } from "../../../src/modules/users/users.service";
+import { PrismaService } from "../../../../config/prisma/prisma.service";
+import { AppModule } from "../../../../app.module";
+import { SignInAuthDto } from "../../../auth/dto";
+import { CreateUserDto } from "../../../users/dto";
+import { UsersService } from "../../../users/users.service";
 
 describe("/auth", () => {
   let app: INestApplication;
