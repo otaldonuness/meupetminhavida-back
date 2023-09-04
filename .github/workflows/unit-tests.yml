@@ -9,12 +9,15 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
     steps:
       - name: Setup node environment
         uses: actions/setup-node@v3
         with:
           node-version: latest
       - name: Setup project dependencies
-        run: yarn install --no-lockfile
+        run: yarn install
       - name: Run unit tests
         run: yarn test:unit-ci
