@@ -14,6 +14,6 @@ jobs:
         with:
           node-version: latest
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --fronzen-lockfile
       - name: Run unit tests
         run: yarn test:unit-ci
