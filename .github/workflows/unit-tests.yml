@@ -1,18 +1,19 @@
 name: Unit tests
-
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-
 jobs:
-  release:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Unit tests
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: latest
-      - run: yarn install
-      - run: yarn test:unit-ci
+          node-version: "12"
+      - name: Install dependencies
+        run: yarn install
+      - name: Run unit tests
+        run: yarn test:unit-ci
