@@ -17,4 +17,4 @@ jobs:
       - name: Setup project dependencies
         run: yarn install --frozen-lockfile
       - name: Run unit tests
-        run: jest --no-cache --config ./tests/jest-unit.json
+        run: yarn test:unit-ci
