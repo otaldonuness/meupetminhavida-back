@@ -1,0 +1,17 @@
+name: Integration tests
+on:
+  push:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+      - name: Install dependencies
+        run: yarn install --fronzen-lockfile
+      - name: Starting database and run integration tests
+        run: yarn test:int-ci
