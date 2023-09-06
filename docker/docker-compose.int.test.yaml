@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  it-db-mysql:
+    image: mysql:8.0.34
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: meupetminhavidadb
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
