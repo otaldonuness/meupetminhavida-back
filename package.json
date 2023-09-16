@@ -34,7 +34,7 @@
     "db:test:rm": "docker compose -f ./docker/docker-compose.test.yaml rm -s -f -v test-db-mysql",
     "db:test:restart": "yarn db:test:rm && yarn db:test:up",
     "lint": "eslint \"{src,apps,libs,tests}/**/*.ts\" --fix",
-    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"**/tests/**/*.ts\"",
     "lint-staged": "lint-staged",
     "prepare": "yarn husky install",
     "commit": "git-cz",
