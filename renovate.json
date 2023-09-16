@@ -9,6 +9,7 @@
   "postUpdateOptions": ["yarnDedupeHighest"],  
   "labels": ["dependencies"],
   "osvVulnerabilityAlerts": true,
+  "includeForks": true,
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true    
