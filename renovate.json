@@ -1,6 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", ":semanticCommits"],
+  "extends": [
+    "config:base", 
+    ":semanticCommits",
+    "github>renovatebot/.github",
+    "dependencyDashboard"
+  ],
   "enabled": true,
   "postUpdateOptions": ["yarnDedupeHighest"],
   "rangeStrategy": "update-lockfile",
