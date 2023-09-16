@@ -1,17 +1,20 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", ":semanticCommits"],
+  "extends": [
+    "config:base", 
+    ":semanticCommits",    
+    ":dependencyDashboard"
+  ],
   "enabled": true,
-  "postUpdateOptions": ["yarnDedupeHighest"],
-  "rangeStrategy": "update-lockfile",
+  "postUpdateOptions": ["yarnDedupeHighest"],  
   "labels": ["dependencies"],
   "osvVulnerabilityAlerts": true,
-  "timezone": "America/Sao_Paulo",
+  "includeForks": true,
   "lockFileMaintenance": {
     "enabled": true,
-    "automerge": true,
-    "schedule": ["before 8am on monday"]
+    "automerge": true    
   },
+  "timezone": "America/Sao_Paulo",
   "schedule": ["before 10am on the first day of the month"],
   "packageRules": [
     {
