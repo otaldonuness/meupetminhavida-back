@@ -3,7 +3,7 @@
   "extends": [
     "config:base", 
     ":semanticCommits",    
-    "dependencyDashboard"
+    ":dependencyDashboard"
   ],
   "enabled": true,
   "postUpdateOptions": ["yarnDedupeHighest"],
