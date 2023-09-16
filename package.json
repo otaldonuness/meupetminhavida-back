@@ -45,7 +45,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:otaldonuness/meupetminhavida-back.git"
+    "url": "git@github.com:allanCordeiro/meupetminhavida-back.git"
   },
   "git": {
     "pre-commit": "lint-staged"
