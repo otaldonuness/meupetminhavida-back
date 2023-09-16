@@ -6,10 +6,13 @@
     ":dependencyDashboard"
   ],
   "enabled": true,
-  "postUpdateOptions": ["yarnDedupeHighest"],
-  "rangeStrategy": "update-lockfile",
+  "postUpdateOptions": ["yarnDedupeHighest"],  
   "labels": ["dependencies"],
   "osvVulnerabilityAlerts": true,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true    
+  },
   "timezone": "America/Sao_Paulo",
   "schedule": ["before 10am on the first day of the month"],
   "packageRules": [
