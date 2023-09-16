@@ -11,11 +11,6 @@
   "labels": ["dependencies"],
   "osvVulnerabilityAlerts": true,
   "timezone": "America/Sao_Paulo",
-  "lockFileMaintenance": {
-    "enabled": true,
-    "automerge": true,
-    "schedule": ["before 8am on monday"]
-  },
   "schedule": ["before 10am on the first day of the month"],
   "packageRules": [
     {
